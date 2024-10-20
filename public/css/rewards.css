@@ -1,0 +1,113 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #fff;
+    padding: 12px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar h1 {
+    color: #000;
+    font-size: 2rem;
+}
+
+.navbar nav {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar nav ul li {
+    color: #000;
+}
+
+.navbar nav ul li a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+    padding: 10px;
+}
+
+.navbar nav ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    margin-top: 80px; /* Adjust based on navbar height */
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    background-color: #4CAF50; /* Hero section background color */
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+/* Rewards Section */
+.rewards-section {
+    background-color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.rewards-details {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.reward-card {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 250px; /* Responsive sizing */
+    text-align: center;
+}

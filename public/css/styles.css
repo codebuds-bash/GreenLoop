@@ -1,0 +1,358 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #fff; /* Set background to transparent */
+    padding: 10px 20px;
+    position: fixed;   /* Makes the navbar fixed at the top */
+    top: 0; /* Ensures it sticks to the top of the page */
+    width: 100%; /* Stretches the navbar to the full width of the viewport */
+    z-index: 1000; /* Ensures the navbar stays above other content */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
+    transition: background-color 0.3s;
+}
+.logo {
+    margin-top: 20px;
+
+}
+.navbar.scrolled {
+    background-color: #000000; /* Change to grey when scrolled */
+}
+
+.navbar h1 {
+    color: #000;
+    font-size: 2rem;
+}
+
+.navbar nav {
+    display: flex; /* Use flexbox for nav layout */
+    justify-content: center; /* Center items horizontally */
+}
+
+.navbar nav ul {
+    list-style: none; /* Removes default list styling */
+    display: flex; /* Use flexbox for list items */
+    gap: 20px; /* Space between list items */
+    align-items: center; /* Center list items vertically */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.navbar nav ul li {
+    color: #000; /* Set color for list items */
+}
+
+.navbar nav ul li a {
+    text-decoration: none;
+    color: #000; /* Set link color to black */
+    font-weight: 700;
+    padding: 10px; /* Add some padding for better clickability */
+}
+
+.navbar nav ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Light hover effect */
+    border-radius: 5px; /* Rounded corners for hover effect */
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    margin-top: 0px; /* Adjust as necessary based on navbar height */
+    color: white;
+    padding: 190px 0;
+    text-align: center;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Ensures the background stays behind the text */
+    opacity: 0.8; /* Optional: adjust to control the visibility */
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    position: center;
+    color: #000;
+    z-index: 1; /* Ensures the text appears above the background */
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    position: relative;
+    color: #000;
+    z-index: 1;
+}
+
+.cta-button {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+/* About Section */
+.about {
+    background-color: #fff;
+    padding: 50px 20px;
+    text-align: center; /* Centers all text within this section */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0px; /* Adds space below the heading */
+    color: #4CAF50; /* Green color for headings */
+    text-transform: uppercase; /* Makes the text all caps for emphasis */
+}
+
+.about p {
+    font-size: 1.2rem;
+    margin: 20px auto; /* Centers paragraphs */
+    line-height: 1.6; /* Increases line height for better readability */
+    color: #555; /* Darker text color for better contrast */
+    max-width: 800px; /* Restricts the width of text for better readability */
+    text-align: center; /* Ensures paragraph text is centered */
+}
+
+/* Alternate paragraph styles */
+.about p:nth-of-type(odd) {
+    background-color: #f0f8e0; /* Light background for odd paragraphs */
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.about p:nth-of-type(even) {
+    background-color: #e6f7ff; /* Light blue background for even paragraphs */
+    padding: 15px;
+    border-radius: 5px;
+}
+
+
+/* Services Section */
+.services h2 {
+    text-align: center; /* Centers the heading */
+    margin-top: 50px;
+    font-size: 2.5rem;
+    margin-bottom: 30px; /* Space below the heading */
+    color: #4CAF50; /* Green color for headings */
+}
+.service-link {
+    display: block; /* Makes the entire card clickable */
+    color: inherit; /* Inherit text color from parent */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.services-container {
+    display: flex; /* Enables flexbox layout */
+    justify-content: space-around; /* Space between cards */
+    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+}
+
+.service-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px; /* Space around each card */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1 1 300px; /* Allows cards to grow and shrink with a minimum width */
+    transition: transform 0.3s; /* Smooth hover effect */
+}
+
+.service-image {
+    width: 50%; /* Makes the image responsive */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 8px; /* Rounds the corners */
+    margin-bottom: 15px; /* Adds space between image and icon */
+}
+
+.service-card:hover {
+    transform: translateY(-10px); /* Elevates card on hover */
+}
+
+.service-card i {
+    color: #4CAF50; /* Icon color */
+    margin-bottom: 15px; /* Space between icon and title */
+}
+
+.service-card h3 {
+    font-size: 1.8rem;
+    color: #4CAF50; /* Green color for service titles */
+    margin-bottom: 1px;
+}
+
+.service-card p {
+    font-size: 1rem;
+    color: #555; /* Darker text for descriptions */
+}
+
+/* About Creators Section */
+.about-creators {
+    background-color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px; /* Adds space between services and this section */
+}
+
+.about-creators h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #4CAF50; /* Green color for headings */
+}
+
+.creators-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Ensures the layout wraps on smaller screens */
+}
+
+.creators-text {
+    flex: 1;
+    padding: 20px;
+    max-width: 600px; /* Restricts the text width for better readability */
+}
+
+.creators-text h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.creators-text p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    padding: 0px 0px;
+}
+
+.creators-image {
+    flex: 1;
+    text-align: center;
+}
+
+.creators-image img {
+    max-width: 110%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* From Developers */
+.developers {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.developers h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #4CAF50; /* Green color for headings */
+}
+
+.developers-container {
+    display: flex; /* Enables flexbox layout */
+    justify-content: center; /* Centers the content */
+    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+}
+
+.developer-card {
+    background-color: #fff; /* Background color for each card */
+    border-radius: 8px; /* Rounds the corners */
+    padding: 20px; /* Padding for each card */
+    margin: 10px; /* Space around each card */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for each card */
+    flex: 0 1 calc(50% - 40px); /* Two cards per row with space */
+    transition: transform 0.3s; /* Smooth hover effect */
+    display: flex; /* Use flexbox for the card layout */
+    align-items: center; /* Align items vertically */
+    min-height: 0px;
+}
+
+.developer-image {
+    width:auto ; /* Set the width of the image */
+    height:300px; /* Set the height of the image */
+    margin-bottom: -20px;
+     /* Make the image circular */
+    margin-right: 10px; /* Space between the image and the text */
+}
+
+.developer-content {
+    flex: 1; /* Allow content to take up the remaining space */
+}
+
+.quote {
+    font-style: italic; /* Italic style for quotes */
+    margin: 5px 0; /* Margin for the quote */
+    color: #555; /* Color for the quote */
+}
+
+.developer-card:hover {
+    transform: translateY(-15px); /* Elevates card on hover */
+}
+
+
+
+/* Footer */
+.footer {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer h2 {
+    margin-bottom: 10px;
+}
+
+/* Logout Button Styles */
+.logout-button {
+    background-color: #ff5722; /* Bright red color */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Padding around the text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+}
+
+.logout-button:hover {
+    background-color: #e64a19; /* Darker red when hovering */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}

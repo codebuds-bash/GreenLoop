@@ -1,0 +1,156 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Wrapper for centering both the image and the card */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 20px; /* Adds space between the image and the card */
+    background-color: #f0f0f0;
+}
+
+/* Left Side Image */
+.login-image img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adds shadow to the image */
+}
+
+/* Card for the Login/Registration Section */
+.login-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 500px;
+    width: 100%;
+    padding: 60px;
+}
+
+/* Right Side Login Form */
+#register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#register-form h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #4CAF50;
+}
+
+#register-form p {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+/* Input fields for forms */
+#register-form input[type="text"],
+#register-form input[type="email"],
+#register-form input[type="password"] {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+/* Submit Button */
+#register-form button[type="submit"] {
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#register-form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Buttons for Roles */
+.login-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.role-button {
+    flex: 1;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.role-button:hover {
+    background-color: #45a049;
+}
+
+/* Register Now Section */
+.register-now {
+    text-align: center;
+}
+
+.register-now p {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.register-button {
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #e68900;
+}
+
+/*fR */
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .login-wrapper {
+        flex-direction: column;
+        gap: 30px; /* More space between the image and card on small screens */
+    }
+
+    .login-image img {
+        width: 100%; /* Ensure the image resizes properly */
+        height: auto;
+    }
+
+    .login-card {
+        padding: 40px;
+    }
+}
+

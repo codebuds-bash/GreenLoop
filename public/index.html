@@ -1,0 +1,170 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GreenLoop - Blockchain-Based Plastic Reduction System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <h1 class="logo">GreenLoop</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li id="auth-link"><a href="/login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        // Function to check if the user is logged in
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const authLink = document.getElementById('auth-link');
+    
+            if (token) {
+                // User is logged in, update the navigation
+                authLink.innerHTML = '<button class="logout-button" onclick="logout()">Logout</button>'; // Show Logout button
+                
+                // If user is on the login page, redirect to index.html
+                if (window.location.pathname === '/login.html') {
+                    window.location.href = '/index.html'; // Redirect to index.html
+                }
+            } else {
+                // User is not logged in, show Login
+                authLink.innerHTML = '<a href="/login.html">Login</a>'; // Show Login
+            }
+        }
+    
+        // Function to log out
+        function logout() {
+            localStorage.removeItem('token'); // Remove token from local storage
+            checkLoginStatus(); // Update the navigation after logging out
+        }
+    
+        // Check login status on page load
+        window.onload = checkLoginStatus;
+    </script>
+    
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Your Path to a Plastic-Free Future</h2>
+            <p>GreenLoop is a blockchain-backed platform promoting transparency, accountability, and sustainable packaging through smart incentives.</p>
+            <a href="#services" class="cta-button">Learn More</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-container">
+                <div class="service-card">
+                    <a href="/trace.html" class="service-link">
+                        <i class="fas fa-recycle fa-3x"></i>
+                        <h3>Eco-Packaging with Blockchain Traceability</h3>
+                        <p>Track reusable packaging from production to recycling with blockchain for complete transparency.</p>
+                        <img src="/images/coffee-bag.png" alt="Packaging Traceability" class="service-image">
+                    </a>
+                </div>
+                <div class="service-card">
+                    <a href="/rewards.html" class="service-link">
+                        <i class="fas fa-gift fa-3x"></i>
+                        <h3>Smart Rewards System</h3>
+                        <p>Earn tokens and discounts for returning or reusing packaging, powered by blockchain-based smart contracts.</p>
+                        <img src="/images/gift-card.png" alt="Rewards System" class="service-image">
+                    </a>
+                </div>
+                <div class="service-card">
+                    <a href="/network.html" class="service-link">
+                        <i class="fas fa-network-wired fa-3x"></i>
+                        <h3>Collaborative Network</h3>
+                        <p>Connect with retailers, recyclers, and manufacturers to build a circular, sustainable ecosystem.</p>
+                        <img src="/images/network.png" alt="Collaborative Network" class="service-image">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About GreenLoop</h2>
+            <p>GreenLoop leverages blockchain technology to reduce single-use plastic by promoting reusable packaging and tracking its entire lifecycle. Our platform ensures transparency and accountability, encouraging consumers and businesses to make sustainable choices.</p>
+
+            <p>Founded by a team of passionate developers from Chandigarh University, GreenLoop aims to revolutionize retail packaging through blockchain-backed traceability and smart incentives. Our solution empowers consumers to participate in the circular economy while holding retailers accountable for their environmental impact.</p>
+
+            <p>Through our platform, consumers can scan packaging QR codes to access detailed information on its origin, usage history, and eco-impact. We automate rewards through smart contracts and encourage sustainable behavior with eco-credits redeemable for discounts or donations.</p>
+
+            <p>Join us on our mission to create a plastic-free retail ecosystem. Whether you are a business looking to switch to sustainable packaging or a consumer striving to reduce your carbon footprint, GreenLoop offers the tools and incentives needed for a greener future.</p>
+        </div>
+    </section>
+
+    <section class="about-creators" id="about-creators">
+        <div class="container">
+            <h2>About the Creators</h2>
+            <div class="creators-content">
+                <div class="creators-text">
+                    <h3>Founded by a Team from Chandigarh University</h3>
+                    <p>We are a group of innovators committed to solving environmental challenges through technology. GreenLoop reflects our shared vision of reducing plastic waste through blockchain-backed solutions. Our platform offers smart rewards, traceability, and accountability to empower both businesses and consumers in the fight against plastic pollution.</p>
+                </div>
+                <div class="creators-image">
+                    <img src="/images/WhatsApp Image 2024-10-16 at 13.21.01_6fc3a804.jpg" alt="Team Photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="developers">
+        <h2>From the Developers</h2>
+        <div class="developers-container">
+            <div class="developer-card">
+                <img src="/images/IMG_20241016_122353671_1_-removebg-preview.png" alt="Dhruv" class="developer-image">
+                <div class="developer-content">
+                    <p class="quote">"Innovation distinguishes between a leader and a follower."</p>
+                    <h3>Dhruv (Leader)</h3>
+                </div>
+            </div>
+            <div class="developer-card">
+                <img src="/images/Picsart_24-10-17_11-59-06-880-removebg-preview.png" alt="Vishakha" class="developer-image">
+                <div class="developer-content">
+                    <p class="quote">"The future belongs to those who believe in the beauty of their dreams."</p>
+                    <h3>Vishakha (Team Member)</h3>
+                </div>
+            </div>
+            <div class="developer-card">
+                <img src="/images/Picsart_24-10-17_11-06-18-561-removebg-preview.png" alt="Ashish" class="developer-image">
+                <div class="developer-content">
+                    <p class="quote">"Success is not the key to happiness. Happiness is the key to success."</p>
+                    <h3>Ashish (Team Member)</h3>
+                </div>
+            </div>
+            <div class="developer-card">
+                <img src="/images/66618612004.png" alt="Kashish" class="developer-image">
+                <div class="developer-content">
+                    <p class="quote">"What lies behind us and what lies before us are tiny matters compared to what lies within us."</p>
+                    <h3>Kashish (Team Member)</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>Email: dhruvsutar9@gmail.com | Phone: 9752748594</p>
+            <p>&copy; 2024 GreenLoop. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
