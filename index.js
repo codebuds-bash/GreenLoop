@@ -1,15 +1,22 @@
-// index.js
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors'); // Import CORS
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Configure CORS to allow requests from your Vercel frontend
+const allowedOrigins = ['https://green-loop-tau.vercel.app/'];
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
 
 // Middleware to parse JSON and handle form data
 app.use(bodyParser.json());
@@ -38,18 +45,13 @@ const User = mongoose.model('User', userSchema);
 
 // Registration Route
 app.post('/api/register', async (req, res) => {
-  const { username, password, role } = req.body;
-  console.log('Registering user:', req.body); // Debug log
-
   try {
+    const { username, password, role } = req.body;
     const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
+    if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, password: hashedPassword, role });
-
     await newUser.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
@@ -60,19 +62,13 @@ app.post('/api/register', async (req, res) => {
 
 // Login Route
 app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
-  console.log('Login attempt:', req.body); // Debug log
-
   try {
+    const { username, password } = req.body;
     const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
+    if (!user) return res.status(401).json({ message: 'Invalid credentials' });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
+    if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.status(200).json({ token });
@@ -82,7 +78,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Catch-all Route for SPA (Single Page Applications)
+// Catch-all Route for SPA
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
