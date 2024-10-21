@@ -22,32 +22,32 @@
     </div>
 
     <script>
-        document.getElementById('register-form').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent the form from submitting the default way
+    const backendURL = 'https://your-backend-on-render.com'; // Replace with your Render URL
 
-            const username = document.getElementById('reg-username').value;
-            const password = document.getElementById('reg-password').value;
-            const role = document.getElementById('reg-role').value;
+    document.getElementById('registerForm').addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevent page reload
 
-            try {
-                const response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password, role }),
-                });
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
 
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Registration successful! You can now log in.');
-                    window.location.href = '/login.html'; // Redirect to login page
-                } else {
-                    alert(data.message); // Display error message from server
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-            }
+      try {
+        const response = await fetch(`${backendURL}/api/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
         });
-    </script>
+
+        const result = await response.json();
+        if (response.ok) {
+          alert('Registration successful!');
+        } else {
+          alert(`Error: ${result.message}`);
+        }
+      } catch (error) {
+        console.error('Registration Error:', error);
+        alert('Something went wrong!');
+      }
+    });
+  </script>
 </body>
 </html>
