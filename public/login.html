@@ -1,4 +1,4 @@
-v<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,11 +19,26 @@ v<!DOCTYPE html>
             <div class="login-form">
                 <h2>Login to AnantVikram</h2>
                 <p>Select your role to log in or register</p>
-                
+
+                <!-- Role Selection Login Forms -->
+                <form id="consumerLoginForm" class="hidden">
+                    <h3>Consumer Login</h3>
+                    <input type="text" name="username" placeholder="Username" required><br>
+                    <input type="password" name="password" placeholder="Password" required><br>
+                    <button type="submit">Login as Consumer</button>
+                </form>
+
+                <form id="retailerLoginForm" class="hidden">
+                    <h3>Retailer Login</h3>
+                    <input type="text" name="username" placeholder="Username" required><br>
+                    <input type="password" name="password" placeholder="Password" required><br>
+                    <button type="submit">Login as Retailer</button>
+                </form>
+
                 <!-- Role Selection Buttons -->
                 <div class="login-buttons">
-                    <a href="/consumerlogin.html" class="role-button farmer-button">Login as Consumer</a>
-                    <a href="/retailerlogin.html" class="role-button retailer-button">Login as Retailer</a>
+                    <button id="showConsumerForm" class="role-button farmer-button">Login as Consumer</button>
+                    <button id="showRetailerForm" class="role-button retailer-button">Login as Retailer</button>
                 </div>
 
                 <!-- Register Now -->
@@ -35,5 +50,79 @@ v<!DOCTYPE html>
         </div>
     </div>
 
+    <script>
+        const backendURL = 'https://greenloop-67w1.onrender.com'; // Replace with your Render backend URL
+
+        // Toggle between forms
+        document.getElementById('showConsumerForm').addEventListener('click', () => {
+            document.getElementById('consumerLoginForm').classList.remove('hidden');
+            document.getElementById('retailerLoginForm').classList.add('hidden');
+        });
+
+        document.getElementById('showRetailerForm').addEventListener('click', () => {
+            document.getElementById('retailerLoginForm').classList.remove('hidden');
+            document.getElementById('consumerLoginForm').classList.add('hidden');
+        });
+
+        // Handle Consumer Login
+        document.getElementById('consumerLoginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch(`${backendURL}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Consumer Login Successful');
+                    localStorage.setItem('token', result.token); // Store JWT token
+                    window.location.href = '/index.html'; // Redirect after login
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Login Error:', error);
+                alert('Something went wrong!');
+            }
+        });
+
+        // Handle Retailer Login
+        document.getElementById('retailerLoginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch(`${backendURL}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Retailer Login Successful');
+                    localStorage.setItem('token', result.token); // Store JWT token
+                    window.location.href = '/index.html'; // Redirect after login
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Login Error:', error);
+                alert('Something went wrong!');
+            }
+        });
+    </script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </body>
 </html>
