@@ -28,34 +28,40 @@
     </header>
 
     <script>
-        // Function to check if the user is logged in
-        function checkLoginStatus() {
-            const token = localStorage.getItem('token');
-            const authLink = document.getElementById('auth-link');
+    // Function to check if the user is logged in
+    function checkLoginStatus() {
+        const token = localStorage.getItem('token');
+        const authLinkLogin = document.getElementById('auth-link-login');
+        const authLinkRegister = document.getElementById('auth-link-register');
     
-            if (token) {
-                // User is logged in, update the navigation
-                authLink.innerHTML = '<button class="logout-button" onclick="logout()">Logout</button>'; // Show Logout button
-                
-                // If user is on the login page, redirect to index.html
-                if (window.location.pathname === '/login.html') {
-                    window.location.href = '/index.html'; // Redirect to index.html
-                }
-            } else {
-                // User is not logged in, show Login
-                authLink.innerHTML = '<a href="/login.html">Login</a>'; // Show Login
+        if (token) {
+            // User is logged in, update the navigation
+            authLinkLogin.innerHTML = '<button class="logout-button" onclick="logout()">Logout</button>'; // Show Logout button
+            
+            // Hide the "Register" link
+            authLinkRegister.style.display = 'none';
+            
+            // If user is on the login page, redirect to index.html
+            if (window.location.pathname === '/login.html') {
+                window.location.href = '/index.html'; // Redirect to index.html
             }
+        } else {
+            // User is not logged in, show Login and Register
+            authLinkLogin.innerHTML = '<a href="/login.html">Login</a>'; // Show Login
+            authLinkRegister.style.display = 'block'; // Show Register
         }
-    
-        // Function to log out
-        function logout() {
-            localStorage.removeItem('token'); // Remove token from local storage
-            checkLoginStatus(); // Update the navigation after logging out
-        }
-    
-        // Check login status on page load
-        window.onload = checkLoginStatus;
-    </script>
+    }
+
+    // Function to log out
+    function logout() {
+        localStorage.removeItem('token'); // Remove token from local storage
+        checkLoginStatus(); // Update the navigation after logging out
+    }
+
+    // Check login status on page load
+    window.onload = checkLoginStatus;
+</script>
+
     
 
     <section class="hero" id="home">
