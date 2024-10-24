@@ -20,19 +20,20 @@ body {
     gap: 20px; /* Adds space between the image and the card */
     background-color: #f0f0f0;
 }
+
+/* Logo Image Styling */
 .logo-image {
-    width: 10px;  /* Adjust the width as needed */
-    height: 10px; /* Maintains aspect ratio */
+    width: 80px; /* Adjust size for the logo */
+    height: auto; /* Maintain aspect ratio */
 }
 
-
-/* Left Side Image */
+/* Left Side Image Styling */
 .login-image img {
-    width: 400px;
-    height: 400px;
+    max-width: 300px; /* Limit width */
+    max-height: 300px; /* Limit height */
     object-fit: cover;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adds shadow to the image */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adds shadow */
 }
 
 /* Card for the Login/Registration Section */
@@ -140,22 +141,19 @@ body {
     background-color: #e68900;
 }
 
-/*fR */
-
 /* Responsive Styling */
 @media (max-width: 768px) {
     .login-wrapper {
         flex-direction: column;
-        gap: 30px; /* More space between the image and card on small screens */
+        gap: 20px;
     }
 
     .login-image img {
-        width: 100%; /* Ensure the image resizes properly */
-        height: auto;
+        max-width: 80%; /* Adjust to screen width */
+        height: auto; /* Maintain aspect ratio */
     }
 
     .login-card {
-        padding: 40px;
+        padding: 20px;
     }
 }
-
