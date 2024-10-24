@@ -19,7 +19,7 @@ body {
 
 /* Navbar Styles */
 .navbar {
-    background-color: #fff; /* Set background to white */
+    background-color: #fff; /* Set background to transparent */
     padding: 10px 20px;
     position: fixed;   /* Makes the navbar fixed at the top */
     top: 0; /* Ensures it sticks to the top of the page */
@@ -28,18 +28,12 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
     transition: background-color 0.3s;
 }
-ul {
-    text-align: right; /* Aligns the text inside the unordered list to the right */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-}
-
-
 .logo {
-    margin-top: 30px; /* Adjust margin for logo */
-    
-}
+    width: 80px; /* Adjust this value to decrease/increase the size */
+    height: auto;
+    margin-top: 20px;
 
+}
 .navbar.scrolled {
     background-color: #000000; /* Change to grey when scrolled */
 }
@@ -61,7 +55,6 @@ ul {
     align-items: center; /* Center list items vertically */
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
-    justify-content: flex-end; /* Aligns the list items to the right */
 }
 
 .navbar nav ul li {
@@ -79,7 +72,6 @@ ul {
     background-color: rgba(0, 0, 0, 0.2); /* Light hover effect */
     border-radius: 5px; /* Rounded corners for hover effect */
 }
-
 
 /* Hero Section */
 .hero {
@@ -169,6 +161,7 @@ ul {
     border-radius: 5px;
 }
 
+
 /* Services Section */
 .services h2 {
     text-align: center; /* Centers the heading */
@@ -177,7 +170,6 @@ ul {
     margin-bottom: 30px; /* Space below the heading */
     color: #4CAF50; /* Green color for headings */
 }
-
 .service-link {
     display: block; /* Makes the entire card clickable */
     color: inherit; /* Inherit text color from parent */
@@ -267,16 +259,16 @@ ul {
     font-size: 1.2rem;
     color: #555;
     line-height: 1.6;
+    padding: 0px 0px;
 }
 
-/* Creators Image Adjustments */
 .creators-image {
     flex: 1;
     text-align: center;
 }
 
 .creators-image img {
-    max-width: 90%; /* Set a max width for responsiveness */
+    max-width: 110%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -297,61 +289,72 @@ ul {
 .developers-container {
     display: flex; /* Enables flexbox layout */
     justify-content: center; /* Centers the content */
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
 }
 
 .developer-card {
-    flex: 1 1 200px; /* Adjust for the desired card size */
-    max-width: 300px; /* Limits maximum width */
-    margin: 10px; /* Adds space between cards */
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff; /* White background for cards */
+    background-color: #fff; /* Background color for each card */
+    border-radius: 8px; /* Rounds the corners */
+    padding: 20px; /* Padding for each card */
+    margin: 10px; /* Space around each card */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for each card */
+    flex: 0 1 calc(50% - 40px); /* Two cards per row with space */
+    transition: transform 0.3s; /* Smooth hover effect */
+    display: flex; /* Use flexbox for the card layout */
+    align-items: center; /* Align items vertically */
+    min-height: 0px;
 }
 
 .developer-image {
-    width: 100%; /* Ensures the image scales properly */
-    max-width: 100px; /* Decreased maximum size */
-    height: auto; /* Maintains aspect ratio */
-    border-radius: 50%; /* Makes the image circular */
-    margin-bottom: 10px; /* Adds space below the image */
+    width:auto ; /* Set the width of the image */
+    height:300px; /* Set the height of the image */
+    margin-bottom: -20px;
+     /* Make the image circular */
+    margin-right: 10px; /* Space between the image and the text */
 }
 
-.developer-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333; /* Darker text for names */
+.developer-content {
+    flex: 1; /* Allow content to take up the remaining space */
 }
 
-/* Footer Styles */
+.quote {
+    font-style: italic; /* Italic style for quotes */
+    margin: 5px 0; /* Margin for the quote */
+    color: #555; /* Color for the quote */
+}
+
+.developer-card:hover {
+    transform: translateY(-15px); /* Elevates card on hover */
+}
+
+
+
+/* Footer */
 .footer {
-    background-color: #333; /* Dark background */
+    background-color: #4CAF50;
     color: white;
+    padding: 20px 0;
     text-align: center;
-    padding: 20px;
 }
 
-.footer p {
-    margin: 5px 0;
+.footer h2 {
+    margin-bottom: 10px;
 }
 
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-    .navbar nav ul {
-        flex-direction: column; /* Stacks nav items vertically on small screens */
-    }
+/* Logout Button Styles */
+.logout-button {
+    background-color: #ff5722; /* Bright red color */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Padding around the text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+}
 
-    .service-card {
-        flex: 1 1 100%; /* Full width on small screens */
-    }
-
-    .developers-container {
-        flex-direction: column; /* Stacks developer cards vertically */
-    }
-
-    .developer-card {
-        margin: 10px auto; /* Center cards */
-    }
+.logout-button:hover {
+    background-color: #e64a19; /* Darker red when hovering */
+    transform: translateY(-2px); /* Slight lift effect on hover */
 }
