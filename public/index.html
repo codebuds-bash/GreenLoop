@@ -13,7 +13,10 @@
 <body>
     <header class="navbar">
         <div class="container">
-            <h1 class="logo">GreenLoop</h1>
+            <!-- Added Logo Image -->
+            <a href="#home" class="logo">
+                <img src="/images/logo.png" alt="GreenLoop Logo" class="logo-image">
+            </a>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -28,36 +31,30 @@
     </header>
 
     <script>
-        // Function to check if the user is logged in
         function checkLoginStatus() {
-            const token = localStorage.getItem('token'); // Check if the token exists
+            const token = localStorage.getItem('token');
             const authLinkLogin = document.getElementById('auth-link-login');
             const authLinkRegister = document.getElementById('auth-link-register');
     
             if (token) {
-                // User is logged in, update the navigation
-                authLinkLogin.innerHTML = '<button class="logout-button" onclick="logout()">Logout</button>'; // Show Logout button
-                authLinkRegister.style.display = 'none'; // Hide Register link
-    
-                // If user is on the login or register page, redirect to index.html
+                authLinkLogin.innerHTML = '<button class="logout-button" onclick="logout()">Logout</button>';
+                authLinkRegister.style.display = 'none';
+
                 if (window.location.pathname === '/login.html' || window.location.pathname === '/register.html') {
-                    window.location.href = '/index.html'; // Redirect to index.html
+                    window.location.href = '/index.html';
                 }
             } else {
-                // User is not logged in, show Login and Register
-                authLinkLogin.innerHTML = '<a href="/login.html">Login</a>'; // Show Login
-                authLinkRegister.style.display = 'block'; // Show Register
+                authLinkLogin.innerHTML = '<a href="/login.html">Login</a>';
+                authLinkRegister.style.display = 'block';
             }
         }
 
-        // Function to log out
         function logout() {
-            localStorage.removeItem('token'); // Remove token from local storage
-            checkLoginStatus(); // Update the navigation after logging out
-            window.location.href = '/index.html'; // Redirect to index.html after logging out
+            localStorage.removeItem('token');
+            checkLoginStatus();
+            window.location.href = '/index.html';
         }
 
-        // Check login status on page load
         window.onload = checkLoginStatus;
     </script>
     
@@ -104,13 +101,7 @@
     <section class="about" id="about">
         <div class="container">
             <h2>About GreenLoop</h2>
-            <p>GreenLoop leverages blockchain technology to reduce single-use plastic by promoting reusable packaging and tracking its entire lifecycle. Our platform ensures transparency and accountability, encouraging consumers and businesses to make sustainable choices.</p>
-
-            <p>Founded by a team of passionate developers from Chandigarh University, GreenLoop aims to revolutionize retail packaging through blockchain-backed traceability and smart incentives. Our solution empowers consumers to participate in the circular economy while holding retailers accountable for their environmental impact.</p>
-
-            <p>Through our platform, consumers can scan packaging QR codes to access detailed information on its origin, usage history, and eco-impact. We automate rewards through smart contracts and encourage sustainable behavior with eco-credits redeemable for discounts or donations.</p>
-
-            <p>Join us on our mission to create a plastic-free retail ecosystem. Whether you are a business looking to switch to sustainable packaging or a consumer striving to reduce your carbon footprint, GreenLoop offers the tools and incentives needed for a greener future.</p>
+            <p>GreenLoop leverages blockchain technology to reduce single-use plastic by promoting reusable packaging and tracking its entire lifecycle...</p>
         </div>
     </section>
 
@@ -120,7 +111,7 @@
             <div class="creators-content">
                 <div class="creators-text">
                     <h3>Founded by a Team from Chandigarh University</h3>
-                    <p>We are a group of innovators committed to solving environmental challenges through technology. GreenLoop reflects our shared vision of reducing plastic waste through blockchain-backed solutions. Our platform offers smart rewards, traceability, and accountability to empower both businesses and consumers in the fight against plastic pollution.</p>
+                    <p>We are a group of innovators committed to solving environmental challenges through technology...</p>
                 </div>
                 <div class="creators-image">
                     <img src="/images/WhatsApp Image 2024-10-16 at 13.21.01_6fc3a804.jpg" alt="Team Photo">
