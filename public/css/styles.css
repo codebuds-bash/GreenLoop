@@ -28,6 +28,12 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
     transition: background-color 0.3s;
 }
+ul {
+    text-align: right; /* Aligns the text inside the unordered list to the right */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
 
 .logo {
     margin-top: 30px; /* Adjust margin for logo */
@@ -73,6 +79,7 @@ body {
     background-color: rgba(0, 0, 0, 0.2); /* Light hover effect */
     border-radius: 5px; /* Rounded corners for hover effect */
 }
+
 
 /* Hero Section */
 .hero {
