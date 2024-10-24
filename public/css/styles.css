@@ -30,9 +30,8 @@ body {
 }
 
 .logo {
-    margin-top: 10px; /* Adjust margin for logo */
-    width: 10px; /* Decreased logo size */
-    height: auto; /* Maintain aspect ratio */
+    margin-top: 30px; /* Adjust margin for logo */
+    
 }
 
 .navbar.scrolled {
