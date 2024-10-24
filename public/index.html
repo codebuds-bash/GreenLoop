@@ -13,7 +13,6 @@
 <body>
     <header class="navbar">
         <div class="container">
-            <!-- Added Logo Image -->
             <a href="#home" class="logo">
                 <img src="/images/logo.png" alt="GreenLoop Logo" class="logo-image" width="300" height="auto">
             </a>
@@ -23,41 +22,56 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li id="auth-link-login"><a href="/login.html">Login</a></li>
-                    <li id="auth-link-register"><a href="/register.html">Register</a></li>
+                    <li id="auth-link"><a href="/login.html">Login</a></li>
+                    <li id="auth-link"><a href="/register.html">Register</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <script>
+        // Function to check if the user is logged in
         function checkLoginStatus() {
             const token = localStorage.getItem('token');
-            const authLinkLogin = document.getElementById('auth-link-login');
-            const authLinkRegister = document.getElementById('auth-link-register');
-    
-            if (token) {
-                authLinkLogin.innerHTML = '<button class="logout-button" onclick="logout()">Logout</button>';
-                authLinkRegister.style.display = 'none';
+            const authLink = document.getElementById('auth-link');
 
-                if (window.location.pathname === '/login.html' || window.location.pathname === '/register.html') {
-                    window.location.href = '/index.html';
+            if (token) {
+                // User is logged in, update the navigation
+                authLink.innerHTML = '<button class="logout-button" onclick="logout()">Logout</button>'; // Show Logout button
+                
+                // If user is on the login page, redirect to index.html
+                if (window.location.pathname === '/login.html') {
+                    window.location.href = '/index.html'; // Redirect to index.html
+                }
+
+                // Check user role (for demonstration purposes, assume role is stored in token)
+                const userRole = JSON.parse(atob(token.split('.')[1])).role;
+                if (userRole === 'retailer') {
+                    document.getElementById('eco-packaging-card').innerHTML = 
+                        <a href="/manufacturer.html" class="service-link">
+                            <i class="fas fa-recycle fa-3x"></i>
+                            <h3>File New Product Details</h3>
+                            <p>Submit details of new products for eco-packaging.</p>
+                            <img src="/images/input.png" alt="File New Product" class="service-image">
+                        </a>
+                    ;
                 }
             } else {
-                authLinkLogin.innerHTML = '<a href="/login.html">Login</a>';
-                authLinkRegister.style.display = 'block';
+                // User is not logged in, show Login
+                authLink.innerHTML = '<a href="/login.html">Login</a>'; // Show Login
             }
         }
 
+        // Function to log out
         function logout() {
-            localStorage.removeItem('token');
-            checkLoginStatus();
-            window.location.href = '/index.html';
+            localStorage.removeItem('token'); // Remove token from local storage
+            checkLoginStatus(); // Update the navigation after logging out
         }
 
+        // Check login status on page load
         window.onload = checkLoginStatus;
     </script>
-    
+
     <section class="hero" id="home">
         <div class="container">
             <h2>Your Path to a Plastic-Free Future</h2>
@@ -70,7 +84,7 @@
         <div class="container">
             <h2>Our Services</h2>
             <div class="services-container">
-                <div class="service-card">
+                <div class="service-card" id="eco-packaging-card">
                     <a href="/trace.html" class="service-link">
                         <i class="fas fa-recycle fa-3x"></i>
                         <h3>Eco-Packaging with Blockchain Traceability</h3>
@@ -101,7 +115,13 @@
     <section class="about" id="about">
         <div class="container">
             <h2>About GreenLoop</h2>
-            <p>GreenLoop leverages blockchain technology to reduce single-use plastic by promoting reusable packaging and tracking its entire lifecycle...</p>
+            <p>GreenLoop leverages blockchain technology to reduce single-use plastic by promoting reusable packaging and tracking its entire lifecycle. Our platform ensures transparency and accountability, encouraging consumers and businesses to make sustainable choices.</p>
+
+            <p>Founded by a team of passionate developers from Chandigarh University, GreenLoop aims to revolutionize retail packaging through blockchain-backed traceability and smart incentives. Our solution empowers consumers to participate in the circular economy while holding retailers accountable for their environmental impact.</p>
+
+            <p>Through our platform, consumers can scan packaging QR codes to access detailed information on its origin, usage history, and eco-impact. We automate rewards through smart contracts and encourage sustainable behavior with eco-credits redeemable for discounts or donations.</p>
+
+            <p>Join us on our mission to create a plastic-free retail ecosystem. Whether you are a business looking to switch to sustainable packaging or a consumer striving to reduce your carbon footprint, GreenLoop offers the tools and incentives needed for a greener future.</p>
         </div>
     </section>
 
@@ -111,7 +131,7 @@
             <div class="creators-content">
                 <div class="creators-text">
                     <h3>Founded by a Team from Chandigarh University</h3>
-                    <p>We are a group of innovators committed to solving environmental challenges through technology...</p>
+                    <p>We are a group of innovators committed to solving environmental challenges through technology. GreenLoop reflects our shared vision of reducing plastic waste through blockchain-backed solutions. Our platform offers smart rewards, traceability, and accountability to empower both businesses and consumers in the fight against plastic pollution.</p>
                 </div>
                 <div class="creators-image">
                     <img src="/images/WhatsApp Image 2024-10-16 at 13.21.01_6fc3a804.jpg" alt="Team Photo">
@@ -153,5 +173,12 @@
             </div>
         </div>
     </section>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <p>&copy; 2024 GreenLoop. All Rights Reserved.</p>
+            <p>Contact: <a href="mailto:info@greenloop.com">info@greenloop.com</a></p>
+        </div>
+    </footer>
 </body>
-</html>
+</html>  
