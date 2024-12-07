@@ -20,7 +20,8 @@ body {
 /* Navbar Styles */
 .navbar {
     background-color: #fff; /* Set background to transparent */
-    padding: 10px 20px;
+    padding: 10px 15px;
+    max-height: 100px;
     position: fixed;   /* Makes the navbar fixed at the top */
     top: 0; /* Ensures it sticks to the top of the page */
     width: 100%; /* Stretches the navbar to the full width of the viewport */
@@ -57,14 +58,17 @@ body {
 
 .navbar nav ul {
     list-style: none; /* Removes default list styling */
+    margin-top: 10px;
     display: flex; /* Use flexbox for list items */
     gap: 20px; /* Space between list items */
     align-items: center; /* Center list items vertically */
-    margin: 0; /* Remove default margin */
+    margin-top: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
 }
 
 .navbar nav ul li {
+    font: 1.2em sans-serif;
+    margin-top: -50px;
     color: #000; /* Set color for list items */
 }
 
