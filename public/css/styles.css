@@ -140,6 +140,7 @@ body {
     padding: 50px 20px;
     text-align: center; /* Centers all text within this section */
     border-radius: 8px;
+    
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -147,6 +148,7 @@ body {
     font-size: 2.5rem;
     margin-bottom: 0px; /* Adds space below the heading */
     color: #4CAF50; /* Green color for headings */
+    
     text-transform: uppercase; /* Makes the text all caps for emphasis */
 }
 
@@ -235,7 +237,7 @@ body {
 .about-creators {
     background-color: #fff;
     padding: 50px 20px;
-    text-align: center;
+    text-align:left;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     margin-top: 50px; /* Adds space between services and this section */
@@ -243,6 +245,7 @@ body {
 
 .about-creators h2 {
     font-size: 2.5rem;
+    margin-left: 21px;
     margin-bottom: 30px;
     color: #4CAF50; /* Green color for headings */
 }
