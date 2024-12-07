@@ -29,11 +29,18 @@ body {
     transition: background-color 0.3s;
 }
 .logo {
-    width: 80px; /* Adjust this value to decrease/increase the size */
+    width: 100; /* Adjust this value to decrease/increase the size */
     height: auto;
+    margin-left: -30px;
     margin-top: 20px;
-
 }
+.logo img{
+    height: auto;
+    width: 250px;
+    margin-left: -50px;
+}
+
+
 .navbar.scrolled {
     background-color: #000000; /* Change to grey when scrolled */
 }
