@@ -7,7 +7,7 @@
 
 body {
     font-family: "Urbanist", sans-serif;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     color: #333;
 }
 
@@ -87,92 +87,134 @@ body {
 /* Hero Section */
 .hero {
     position: relative;
-    margin-top: 0px; /* Adjust as necessary based on navbar height */
-    color: white;
-    padding: 190px 0;
-    text-align: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
-.hero::before {
-    content: '';
+.hero-video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #fff;
-    background-size: cover;
-    background-position: center;
-    z-index: -1; /* Ensures the background stays behind the text */
-    opacity: 0.8; /* Optional: adjust to control the visibility */
-}
-
-.hero h2 {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    position: center;
-    color: #000;
-    z-index: 1; /* Ensures the text appears above the background */
-}
-
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    position: relative;
-    color: #000;
+    margin-top: -10px;
+    object-fit: cover;
     z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 800px;
+    margin: auto;
+    margin-top: 390px;
+
+}
+
+.hero-content h2 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
 .cta-button {
-    background-color: #ff9800;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
     color: white;
-    padding: 10px 20px;
+    background-color: #28a745;
+    border: none;
     border-radius: 5px;
     text-decoration: none;
-    font-weight: 700;
-    position: relative;
-    z-index: 1;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #218838;
 }
 
 /* About Section */
 .about {
-    background-color: #fff;
+    background: linear-gradient(to bottom right, #ffffff, #f0f9ff);
     padding: 50px 20px;
-    text-align: center; /* Centers all text within this section */
-    border-radius: 8px;
+    border-radius: 15px;
     
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    max-width: 1500px;
+}
+
+.about .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
 }
 
 .about h2 {
+    font-family: 'Fira Sans', sans-serif;
     font-size: 2.5rem;
-    margin-bottom: 0px; /* Adds space below the heading */
-    color: #4CAF50; /* Green color for headings */
-    
-    text-transform: uppercase; /* Makes the text all caps for emphasis */
+    color: #2a7c68;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.about h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background-color: #2a7c68;
+    margin: 10px auto 0;
+    border-radius: 4px;
 }
 
 .about p {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 1.1rem;
+    color: #555555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    max-width: 800px;
+}
+
+.about p:last-of-type {
+    margin-bottom: 0;
+}
+
+.about p span {
+    color: #2a7c68;
+    font-weight: bold;
+}
+
+.about .container a {
+    text-decoration: none;
+    color: #ffffff;
     font-size: 1.2rem;
-    margin: 20px auto; /* Centers paragraphs */
-    line-height: 1.6; /* Increases line height for better readability */
-    color: #555; /* Darker text color for better contrast */
-    max-width: 800px; /* Restricts the width of text for better readability */
-    text-align: center; /* Ensures paragraph text is centered */
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #2a7c68;
+    border-radius: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
 }
 
-/* Alternate paragraph styles */
-.about p:nth-of-type(odd) {
-    background-color: #f0f8e0; /* Light background for odd paragraphs */
-    padding: 15px;
-    border-radius: 5px;
+.about .container a:hover {
+    background-color: #1e5c4e;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.about p:nth-of-type(even) {
-    background-color: #e6f7ff; /* Light blue background for even paragraphs */
-    padding: 15px;
-    border-radius: 5px;
-}
 
 
 /* Services Section */
