@@ -418,3 +418,88 @@ body {
     background-color: #e64a19; /* Darker red when hovering */
     transform: translateY(-2px); /* Slight lift effect on hover */
 }
+
+
+
+/* General Responsive Rules */
+@media (max-width: 1200px) {
+    .container {
+        width: 95%; /* Reduce width for smaller screens */
+    }
+    .hero-content h2 {
+        font-size: 3rem; /* Reduce font size for smaller screens */
+    }
+    .hero-content p {
+        font-size: 1.5rem; /* Adjust paragraph font size */
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar nav ul {
+        flex-wrap: wrap; /* Allow menu items to wrap */
+        gap: 10px; /* Reduce gap between items */
+    }
+    .about .container {
+        flex-direction: column; /* Stack content vertically */
+        gap: 15px; /* Adjust spacing */
+    }
+    .creators-content {
+        flex-direction: column; /* Stack creators section */
+        text-align: center; /* Center align content */
+    }
+    .creators-image img {
+        max-width: 80%; /* Adjust image size */
+    }
+    .hero-content {
+        margin-top: 300px; /* Adjust positioning */
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content h2 {
+        font-size: 2.5rem; /* Reduce heading size */
+    }
+    .hero-content p {
+        font-size: 1.2rem; /* Reduce paragraph size */
+    }
+    .services-container {
+        flex-direction: column; /* Stack service cards */
+        align-items: center; /* Center align cards */
+    }
+    .developer-card {
+        flex-direction: column; /* Stack image and content */
+        text-align: center; /* Center align content */
+    }
+    .developer-image {
+        margin-right: 0; /* Remove margin for stacked layout */
+        margin-bottom: 20px; /* Add space below image */
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content {
+        margin-top: 200px; /* Adjust spacing */
+    }
+    .navbar nav ul li {
+        font-size: 1rem; /* Adjust menu font size */
+    }
+    .about h2 {
+        font-size: 2rem; /* Reduce heading size */
+    }
+    .service-card {
+        flex: 1 1 90%; /* Full width for service cards */
+        margin: 10px; /* Reduce margin */
+    }
+    .developers-container {
+        flex-direction: column; /* Stack developer cards */
+    }
+    .developer-card {
+        flex: 1 1 100%; /* Full width cards */
+        margin-bottom: 20px; /* Add space between cards */
+    }
+    .cta-button {
+        font-size: 1rem; /* Reduce button size */
+        padding: 0.6rem 1rem; /* Adjust padding */
+    }
+}
+
