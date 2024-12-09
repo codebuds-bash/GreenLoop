@@ -163,7 +163,11 @@ body {
 .about h2 {
     font-family: 'Fira Sans', sans-serif;
     font-size: 2.5rem;
+<<<<<<< HEAD
     color: #5E3B18;
+=======
+    color: #2a7c68;
+>>>>>>> a32c4e153a435e643b299a61c92728a6c74cfbd3
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
@@ -422,7 +426,10 @@ body {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a32c4e153a435e643b299a61c92728a6c74cfbd3
 /* General Responsive Rules */
 @media (max-width: 1200px) {
     .container {
@@ -504,3 +511,7 @@ body {
         padding: 0.6rem 1rem; /* Adjust padding */
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a32c4e153a435e643b299a61c92728a6c74cfbd3
