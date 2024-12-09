@@ -280,6 +280,59 @@ body {
     font-size: 1rem;
     color: #555; /* Darker text for descriptions */
 }
+/* General styling for the OUR PRODUCTS section */
+#our-products {
+    padding: 40px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+#our-products h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Styling for the product gallery */
+.product-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.product-item {
+    width: calc(33.33% - 20px); /* Ensures three items fit per row with spacing */
+    box-sizing: border-box;
+}
+
+.product-item img {
+    width: 50%;
+    height: 50;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for the product images */
+.product-item img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-item {
+        width: calc(50% - 20px); /* Two items per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .product-item {
+        width: 100%; /* One item per row on extra small screens */
+    }
+}
+
 
 /* About Creators Section */
 .about-creators {
