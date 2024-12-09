@@ -33,7 +33,11 @@ body {
 .logo img{
     height: auto;
     width: 250px;
+<<<<<<< HEAD
     margin-left: 50px;
+=======
+    margin-left: -50px;
+>>>>>>> e2d28f770fd72d2fb748d601c9442ddeb10da86e
 }
 
 
@@ -61,7 +65,11 @@ body {
     padding: 0; /* Remove default padding */
 }
 
+<<<<<<< HEAD
 .navbar nav ul li {     
+=======
+.navbar nav ul li {
+>>>>>>> e2d28f770fd72d2fb748d601c9442ddeb10da86e
     font: 1.2em "Urbanist";
     margin-top: -80px;
     color: #000; /* Set color for list items */
@@ -141,8 +149,11 @@ body {
     background-color: #2da447;
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e2d28f770fd72d2fb748d601c9442ddeb10da86e
 /* Account Actions */
 .account-actions {
     margin-top: 30px;
@@ -164,6 +175,7 @@ body {
     background-color: #2da447;
 }
 
+<<<<<<< HEAD
 
 /* Profile Section */
 .profile-section {
@@ -193,6 +205,8 @@ body {
     color: #666;
     margin: 5px 0;
 }
+=======
+>>>>>>> e2d28f770fd72d2fb748d601c9442ddeb10da86e
 /* Footer */
 .footer {
     background-color: #3fbf5c;
