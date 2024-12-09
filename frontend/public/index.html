@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>GreenLoop - Blockchain-Based Plastic Reduction System</title>
+    <link rel="icon" type="image/png" href="/frontend/public/images/favicon.png">
     <link rel="stylesheet" href="/frontend/public/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="navbar">
@@ -72,13 +73,22 @@
         window.onload = checkLoginStatus;
     </script>
 
-    <section class="hero" id="home">
-        <div class="container">
+<section class="hero" id="home">
+    <div class="container">
+        <!-- Video element as a background -->
+        <video autoplay muted loop class="hero-video">
+            <source src="/frontend/public/images/growing-seeds-rising-from-soil-time-lapse-720-foota-2023-02-13-19-02-38-utc.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <!-- Overlay content -->
+        <div class="hero-content">
             <h2>Your Path to a Plastic-Free Future</h2>
             <p>GreenLoop is a blockchain-backed platform promoting transparency, accountability, and sustainable packaging through smart incentives.</p>
             <a href="#services" class="cta-button">Learn More</a>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <section class="services" id="services">
         <div class="container">
@@ -165,7 +175,7 @@
                 </div>
             </div>
             <div class="developer-card">
-                <img src="/frontend/public/images/66618612004.png" alt="Kashish" class="developer-image">
+                <img src="/frontend/public/images/sujal.png" alt="sujal" class="developer-image">
                 <div class="developer-content">
                     <p class="quote">"What lies behind us and what lies before us are tiny matters compared to what lies within us."</p>
                     <h3>Sujal Rathore (Team Member)</h3>

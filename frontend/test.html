@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bouncing Animation</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    .coffee-bag {
+      width: 100%;
+      height: auto;
+      animation: bounce 1.5s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-30px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="/frontend/public/images/coffee-bag.png" alt="Coffee Bag" class="coffee-bag">
+  </div>
+</body>
+</html>
