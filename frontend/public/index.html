@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="/frontend/public/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <body>
     <header class="navbar">
         <div class="container">
@@ -25,12 +26,31 @@
                     <li><a href="#contact">Contact</a></li>
                     <li id="auth-link"><a href="/login.html">Login</a></li>
                     <li id="auth-link"><a href="/register.html">Register</a></li>
+                    <li class="search-icon">
+                        <a href="#search">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </li>
                 </ul>
             </nav>
+            <div class="search-bar" id="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
         </div>
     </header>
 
     <script>
+        // JavaScript for Toggling the Search Bar
+document.getElementById("search-toggle").addEventListener("click", function () {
+    const searchBar = document.getElementById("search-bar");
+    // Toggle visibility of the search bar
+    if (searchBar.style.display === "block") {
+        searchBar.style.display = "none";
+    } else {
+        searchBar.style.display = "block";
+    }
+});
+
         // Function to check if the user is logged in
         function checkLoginStatus() {
             const token = localStorage.getItem('token');
@@ -197,11 +217,51 @@
         </div>
     </section>
 
-    <footer class="footer" id="contact">
-        <div class="container">
-            <p>&copy; 2024 GreenLoop. All Rights Reserved.</p>
-            <p>Contact: <a href="mailto:info@greenloop.com">info@greenloop.com</a></p>
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Logo and Copyright Section -->
+            <div class="footer-logo">
+                <img src="/frontend/public/images/logo1.png" alt="GreenLoop Logo" class="footer-logo-image">
+                <p>© 2024 GreenLoop Compostables. <br> All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <!-- Get in Touch Section -->
+            <div class="footer-section">
+                <h3>Get in Touch</h3>
+                <p>Chandigarh University, Mohali<br>
+                Chandigarh, Punjab, 140143</p>
+                <p>Email: <a href="mailto:infogreenloop.com">infogreenloop.com</a></p>
+                <p>Phone: <a href="tel:+91 1234567890">+91 1234567890</a></p>
+            </div>
+            <!-- Quick Links Section -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Order Sample Kit</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- Newsletter Section -->
+            <div class="footer-section">
+                <h3>Our Newsletter</h3>
+                <p>Subscribe to our newsletter to get our news & deals delivered to you.</p>
+                <form class="newsletter-form">
+                    <div class="input-wrapper">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Join</button>
+                    </div>
+                </form>
+            </div>            
         </div>
     </footer>
+    
 </body>
 </html>  
