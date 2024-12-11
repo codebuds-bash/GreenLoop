@@ -58,7 +58,7 @@ body {
 
 .navbar nav ul {
     list-style: none; /* Removes default list styling */
-    margin-top: 10px;
+    
     display: flex; /* Use flexbox for list items */
     gap: 20px; /* Space between list items */
     align-items: center; /* Center list items vertically */
@@ -68,6 +68,7 @@ body {
 
 .navbar nav ul li {
     font: 1.2em "Urbanist";
+   
     margin-top: -80px;
     color: #000; /* Set color for list items */
 }
@@ -92,7 +93,7 @@ body {
     list-style: none;
     margin: 0;
     padding: 0;
-    align-items: center;
+    margin-left: auto;
 }
 
 .navbar ul li {
@@ -363,7 +364,7 @@ body {
 }
 
 .product-item img {
-    width: 100%;
+    width: 80%;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -530,7 +531,7 @@ body {
 }
 
 .footer-logo {
-    text-align: center;
+    text-align: left;
     max-width: 200px;
 }
 
@@ -547,7 +548,7 @@ body {
 .footer-social a {
     color: #333;
     margin: 0 5px;
-    font-size: 16px;
+    font-size: 24px;
     text-decoration: none;
 }
 
@@ -588,7 +589,6 @@ body {
 /* Footer Section Styling */
 .footer-section {
     text-align: left;
-    padding: 20px;
     font-family: 'Urbanist', sans-serif;
 }
 
@@ -657,6 +657,88 @@ body {
 .newsletter-form button:active {
     transform: scale(1);
 }
+.contact-us-section {
+    padding: 50px 20px;
+    background-color: #ffffff;
+    font-family: 'Urbanist', sans-serif;
+}
+
+.contact-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contact-image img {
+    width: auto;
+    height: 450px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.contact-details {
+    max-width: 600px;
+    text-align: left;
+}
+
+.contact-details h3 {
+    font-size: 2.5rem;
+    margin-top: 40px;
+    color: #946b25;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact-details h2 {
+    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 20px;
+    color: #555;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-info i {
+    color: #4CAF50;
+    font-size: 30px;
+}
+
+.contact-info a {
+    font-size: 20px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-image img {
+        max-width: 100%;
+    }
+
+    .contact-details {
+        text-align: center;
+    }
+}
 /* Map Section Styling */
 .map-section {
     text-align: center;
@@ -680,7 +762,8 @@ body {
 
 /* Map Container Styling */
 .map-container {
-    width: 100%;
+    width: 90%;
+    height: 300px;
     
     margin: 0 auto;
     border: 2px solid #ddd;
