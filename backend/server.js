@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Configure CORS to allow requests from specific origins
-const allowedOrigins = ['http://127.0.0.1:5500', 'https://green-loop-tau.vercel.app'];
+const allowedOrigins = ['http://127.0.0.1:5500'];
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -87,9 +87,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // Catch-all Route for SPA
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'public', 'index.html'));
-});
+
 // Fallback route for unmatched requests
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
