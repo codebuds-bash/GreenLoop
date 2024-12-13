@@ -21,19 +21,17 @@
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#home">Products</a></li>
-                    <li><a href="#home">Tracking</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#tracking">Tracking</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li id="auth-link"><a href="/login.html">Login</a></li>
-                    <li id="auth-link"><a href="/register.html">Register</a></li>
-                    <li class="search-icon">
-                        <a href="#">
-                            <i class="fa fa-search"></i>
-                        </a>
-                    </li>
+                    <li id="login-link"><a href="/login.html">Login</a></li>
+                    <li id="register-link"><a href="/register.html">Register</a></li>
+                    <li id="profile-link" style="display: none;"><a href="/profile.html">Profile</a></li>
+                    <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
                 </ul>
+                
             </nav>
             <div class="search-bar" id="search-bar">
                 <input type="text" placeholder="Search...">
@@ -54,36 +52,37 @@ document.getElementById("search-toggle").addEventListener("click", function () {
 });
 
         // Function to check if the user is logged in
-        function checkLoginStatus() {
-            const token = localStorage.getItem('token');
-            const authLink = document.getElementById('auth-link');
+function checkLoginStatus() {
+    const token = localStorage.getItem('token');
+    const loginLink = document.getElementById('login-link');
+    const registerLink = document.getElementById('register-link');
+    const profileLink = document.getElementById('profile-link');
+    const logoutLink = document.getElementById('logout-link');
 
-            if (token) {
-                // User is logged in, update the navigation
-                authLink.innerHTML = '<button class="logout-button" onclick="logout()">Logout</button>'; // Show Logout button
-                
-                // If user is on the login page, redirect to index.html
-                if (window.location.pathname === '/login.html') {
-                    window.location.href = '/index.html'; // Redirect to index.html
-                }
+    if (token) {
+        // User is authenticated
+        loginLink.style.display = 'none';
+        registerLink.style.display = 'none';
+        profileLink.style.display = 'block';
+        logoutLink.style.display = 'block';
+    } else {
+        // User is not authenticated
+        loginLink.style.display = 'block';
+        registerLink.style.display = 'block';
+        profileLink.style.display = 'none';
+        logoutLink.style.display = 'none';
+    }
+}
 
-                // Check user role (for demonstration purposes, assume role is stored in token)
-                const userRole = JSON.parse(atob(token.split('.')[1])).role;
-                if (userRole === 'retailer') {
-                    document.getElementById('eco-packaging-card').innerHTML = 
-                        <a href="/manufacturer.html" class="service-link">
-                            <i class="fas fa-recycle fa-3x"></i>
-                            <h3>File New Product Details</h3>
-                            <p>Submit details of new products for eco-packaging.</p>
-                            <img src="/images/input.png" alt="File New Product" class="service-image"/>
-                        </a>
-                    ;
-                }
-            } else {
-                // User is not logged in, show Login
-                authLink.innerHTML = '<a href="/login.html">Login</a>'; // Show Login
-            }
-        }
+function logout() {
+    localStorage.removeItem('token'); // Remove the token
+    checkLoginStatus(); // Update UI
+    window.location.href = '/index.html'; // Redirect to homepage
+}
+
+// Run the check on page load
+window.onload = checkLoginStatus;
+
 
         // Function to log out
         function logout() {
