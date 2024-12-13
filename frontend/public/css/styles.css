@@ -893,3 +893,27 @@ body {
         padding: 0.6rem 1rem; /* Adjust padding */
     }
 }
+
+
+/* Logout Button Style */
+#logout-link button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    font-family: 'Fira Sans', sans-serif; /* Font style */
+    font-size: 16px; /* Font size */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+#logout-link button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+}
+
+#logout-link button:active {
+    background-color: #3e8e41; /* Even darker green on click */
+    transform: translateY(2px); /* Simulate a button press */
+}

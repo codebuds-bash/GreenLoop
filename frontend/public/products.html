@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>GreenLoop - Blockchain-Based Plastic Reduction System</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/styles.css">
+    
     <link rel="stylesheet" href="/css/user.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,26 +93,176 @@
             checkLoginStatus();
         };
     </script>
-    <section class="profile-card">
-        <div class="banner-image">
-          <img src="/images/banner.jpeg" alt="Banner Image" class="banner-img">
-        </div> <!-- Banner Image -->
+    <style>
         
-        <div class="profile-info">
-          <img src="/images/Picsart_24-10-17_11-59-06-880-removebg-preview.png" alt="Profile Image" class="profile-image">
-          <div class="profile-details">
-            <h3>Your Profile</h3>
-            <p><strong>Name:</strong> Vishakha Saini </p>
-            <p><strong>Email:</strong> sainivishakha9@gmail.com</p>
-            <p><strong>Bio:</strong> YouTube Educator | Mentor | Android Developer | Full Stack Web developer | Leader @AnantVikram | Founder: GreenLoop, CodeBuds | 4⭐ HackerRank | Learning at CHANDIGARH UNIVERSITY</p>
-            <a href="edit-profile.html" class="edit-profile-btn">Edit Profile</a>
+       
 
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            margin-top: 30px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px; /* Adjust based on your content */
+}
+
+.product-info h3, .product-info p, .product-info .price {
+    margin-bottom: 10px;
+}
+
+.product-info button {
+    margin-top: auto; /* Push the button to the bottom of the card */
+    background-color: #2b8a3e;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+        .product-info button:hover {
+            background-color: #237a34;
+        }
+
+        .filter-bar {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .filter-bar select {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #2b8a3e;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Our Products
+    </header>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search for products...">
+        <button>Search</button>
+    </div>
+
+    <div class="container">
+        <div class="filter-bar">
+            <select>
+                <option value="all">All Categories</option>
+                <option value="eco-friendly">Eco-Friendly</option>
+                <option value="trackable">Trackable</option>
+            </select>
+            <select>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+            </select>
         </div>
 
-          
-
-      </section>
-    
+        <section class="products">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="images/product1.png" alt="Product 1">
+                <div class="product-info">
+                    <h3>Eco-friendly Packaging A</h3>
+                    <p>Durable, lightweight, and trackable packaging made from 100% recycled materials.</p>
+                    <p class="price">$15.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="images/product2.png" alt="Product 2">
+                <div class="product-info">
+                    <h3>Trackable Box B</h3>
+                    <p>Stylish and functional packaging with blockchain-enabled tracking for sustainability.</p>
+                    <p class="price">$25.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="images/product3.png" alt="Product 3">
+                <div class="product-info">
+                    <h3>Sustainable Pouch C</h3>
+                    <p>Perfect for smaller items, with smart QR codes for enhanced traceability.</p>
+                    <p class="price">$10.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="images/product4.png" alt="Product 4">
+                <div class="product-info">
+                    <h3>Reusable Tote D</h3>
+                    <p>A modern reusable tote designed for eco-conscious consumers.</p>
+                    <p class="price">$19.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="images/product5.png" alt="Product 5">
+                <div class="product-info">
+                    <h3>Compostable Wrap E</h3>
+                    <p>An innovative wrap that degrades naturally without harming the environment.</p>
+                    <p class="price">$12.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        
+            <!-- Product 6 -->
+            <div class="product-card">
+                <img src="images/product6.png" alt="Product 6">
+                <div class="product-info">
+                    <h3>Biodegradable Bag F</h3>
+                    <p>A perfect solution for packaging needs, crafted with biodegradable materials.</p>
+                    <p class="price">$14.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        </section>
+        
+    </div>
     <footer class="footer">
         <div class="footer-container">
             <!-- Logo and Copyright Section -->
