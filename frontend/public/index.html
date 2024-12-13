@@ -40,59 +40,60 @@
     </header>
 
     <script>
-        // JavaScript for Toggling the Search Bar
-document.getElementById("search-toggle").addEventListener("click", function () {
-    const searchBar = document.getElementById("search-bar");
-    // Toggle visibility of the search bar
-    if (searchBar.style.display === "block") {
-        searchBar.style.display = "none";
-    } else {
-        searchBar.style.display = "block";
-    }
-});
-
+        
+    
         // Function to check if the user is logged in
-function checkLoginStatus() {
-    const token = localStorage.getItem('token');
-    const loginLink = document.getElementById('login-link');
-    const registerLink = document.getElementById('register-link');
-    const profileLink = document.getElementById('profile-link');
-    const logoutLink = document.getElementById('logout-link');
-
-    if (token) {
-        // User is authenticated
-        loginLink.style.display = 'none';
-        registerLink.style.display = 'none';
-        profileLink.style.display = 'block';
-        logoutLink.style.display = 'block';
-    } else {
-        // User is not authenticated
-        loginLink.style.display = 'block';
-        registerLink.style.display = 'block';
-        profileLink.style.display = 'none';
-        logoutLink.style.display = 'none';
-    }
-}
-
-function logout() {
-    localStorage.removeItem('token'); // Remove the token
-    checkLoginStatus(); // Update UI
-    window.location.href = '/index.html'; // Redirect to homepage
-}
-
-// Run the check on page load
-window.onload = checkLoginStatus;
-
-
-        // Function to log out
-        function logout() {
-            localStorage.removeItem('token'); // Remove token from local storage
-            checkLoginStatus(); // Update the navigation after logging out
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const loginLink = document.getElementById('login-link');
+            const registerLink = document.getElementById('register-link');
+            const profileLink = document.getElementById('profile-link');
+            const logoutLink = document.getElementById('logout-link');
+    
+            if (token) {
+                // User is authenticated
+                loginLink.style.display = 'none';
+                registerLink.style.display = 'none';
+                profileLink.style.display = 'block';
+                logoutLink.style.display = 'block';
+            } else {
+                // User is not authenticated
+                loginLink.style.display = 'block';
+                registerLink.style.display = 'block';
+                profileLink.style.display = 'none';
+                logoutLink.style.display = 'none';
+            }
         }
-
-        // Check login status on page load
-        window.onload = checkLoginStatus;
+    
+        function logout() {
+            localStorage.removeItem('token'); // Remove the token
+            checkLoginStatus(); // Update UI
+            window.location.href = '/index.html'; // Redirect to homepage
+        }
+    
+        // Function to hide profile and logout links when clicking outside
+        function hideDropdownOnClickOutside() {
+            document.addEventListener("click", function (event) {
+                const profileLink = document.getElementById("profile-link");
+                const logoutLink = document.getElementById("logout-link");
+    
+                if (profileLink.style.display === "block" || logoutLink.style.display === "block") {
+                    const isClickInside = profileLink.contains(event.target) || logoutLink.contains(event.target);
+                    if (!isClickInside) {
+                        profileLink.style.display = "none";
+                        logoutLink.style.display = "none";
+                    }
+                }
+            });
+        }
+    
+        // Run the check on page load
+        window.onload = function () {
+            checkLoginStatus();
+            hideDropdownOnClickOutside();
+        };
     </script>
+    
 
 <section class="hero" id="home">
     <div class="container">
