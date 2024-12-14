@@ -87,39 +87,103 @@
                 }
             });
         }
+        function toggleDark(){
+            // Toggle Dark Mode
+const themeSwitch = document.getElementById('theme-switch');
+themeSwitch.addEventListener('change', () => {
+    document.body.classList.toggle('dark-theme');
+});
+
+// Save Theme Preference in Local Storage
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-theme');
+    themeSwitch.checked = true;
+}
+
+themeSwitch.addEventListener('change', () => {
+    if (themeSwitch.checked) {
+        document.body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+        }
     
         // Run the check on page load
         window.onload = function () {
             checkLoginStatus();
+            toggleDark();
         };
     </script>
     <section class="profile-card">
         <div class="banner-image">
-          <img src="/images/banner.jpeg" alt="Banner Image" class="banner-img">
-        </div> <!-- Banner Image -->
-        
-        <div class="profile-info">
-          <img src="/images/Picsart_24-10-17_11-59-06-880-removebg-preview.png" alt="Profile Image" class="profile-image">
-          <div class="profile-details">
-            <h3>Your Profile</h3>
-            <p><strong>Name:</strong> Vishakha Saini </p>
-            <p><strong>Email:</strong> sainivishakha9@gmail.com</p>
-            <p><strong>Bio:</strong> YouTube Educator | Mentor | Android Developer | Full Stack Web developer | Leader @AnantVikram | Founder: GreenLoop, CodeBuds | 4⭐ HackerRank | Learning at CHANDIGARH UNIVERSITY</p>
-            <a href="edit-profile.html" class="edit-profile-btn">Edit Profile</a>
-        
-
+            <img src="/images/banner.jpeg" alt="Banner Image" class="banner-img">
         </div>
-        <div class = "Badges">
-            <h1>Badges You Earned</h1>
-            <img src="/images/award1.png" alt = "Badges" class ="Badges-earned">
-            <img src="/images/award2.png" alt = "Badges" class ="Badges-earned">
-            <img src="/images/award3.png" alt = "Badges" class ="Badges-earned">
-            <img src="/images/award4.png" alt = "Badges" class ="Badges-earned">
-        </div>  
-
-          
-
-      </section>
+        <!-- Profile Info -->
+        <div class="profile-info">
+            <div class="left-column">
+                <img src="/images/Picsart_24-10-17_11-59-06-880-removebg-preview.png" alt="Profile Image" class="profile-image">
+                <div class="profile-details">
+                    <h3>Your Profile</h3>
+                    <p><strong>Name:</strong> Vishakha Saini</p>
+                    <p><strong>Email:</strong> sainivishakha9@gmail.com</p>
+                    <p><strong>Account Type:</strong> Manufacturer</p>
+                    <p><strong>Sustainability Points:</strong> 2450</p>
+                    <a href="edit-profile.html" class="edit-profile-btn">Edit Profile</a>
+                </div>
+            </div>
+    
+            <div class="right-column">
+                <!-- Progress Bar Section -->
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 50%;"></div> <!-- Example progress -->
+                </div>
+                
+                <!-- Badges Section -->
+                <div class="badges">
+                    <h1>Badges You Earned</h1>
+                    <img src="/images/award1.png" alt="Badges" class="badge-earned">
+                    <img src="/images/award2.png" alt="Badges" class="badge-earned">
+                    <img src="/images/award3.png" alt="Badges" class="badge-earned">
+                    <img src="/images/award4.png" alt="Badges" class="badge-earned">
+                </div>
+            </div>
+        </div>
+    
+        <!-- Other Sections: Recent Activities and QR Code -->
+        <div class="right-section">
+            <!-- Recent Activities Section -->
+            <div class="recent-activities">
+                <h3>Recent Activities</h3>
+                <ul>
+                    <li>Reduced 10kg of plastic waste this month.</li>
+                    <li>Purchased 25 biodegradable bags.</li>
+                    <li>Earned the "Eco Warrior" badge.</li>
+                </ul>
+            </div>
+            
+            <!-- QR Code for Profile Sharing -->
+            <div class="qr-code-section">
+                <h3>Share Your Profile</h3>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://greenloop.com/user/vishakhasaini" alt="Profile QR Code" class="qr-code">
+                <p>Scan to view your profile.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Dark Mode Toggle -->
+    <div class="theme-toggle">
+        <label class="toggle">
+            <input type="checkbox" id="theme-switch">
+            <span class="slider"></span>
+        </label>
+        <span>Toggle Dark Mode</span>
+    </div>
+    
+    
       
     
     <footer class="footer">
