@@ -1097,3 +1097,39 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(26px);
 }
+
+
+.sustainability-tip {
+    height: 100px;
+    text-align: left;
+    background-color: #f0f9f1;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #333;
+    margin: 35px 20px;
+}
+
+.sustainability-tip h4{
+    text-align: left;
+    font-size: 24px;
+}
+
+.leaderboard {
+    text-align: center;
+    background-color: #fffaf0;
+    border: 1px solid #f5deb3;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 35px 20px;
+}
+.leaderboard ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.leaderboard li {
+    margin: 5px 0;
+    font-weight: bold;
+}
