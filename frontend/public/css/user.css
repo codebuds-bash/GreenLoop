@@ -1099,76 +1099,58 @@ input:checked + .slider:before {
 }
 
 
-.sustainability-tip {
-    height: 100px;
-    text-align: left;
-    background-color: #f0f9f1;
-    padding: 8px 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 18px;
-    color: #333;
-    margin: 35px 20px;
-}
-
-.sustainability-tip h4{
-    text-align: left;
-    font-size: 24px;
-}
-
-.leaderboard {
-    text-align: center;
-    background-color: #fffaf0;
-    border: 1px solid #f5deb3;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 35px 20px;
-}
-.leaderboard ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.leaderboard li {
-    margin: 5px 0;
-    font-weight: bold;
-}
-
-
-.green-summary {
+/* Main Container to Adjust Width */
+.sustainability-container {
+    max-width: 700px; /* Further decrease the container width */
+    margin: 0 auto; /* Center the container */
     display: flex;
-    justify-content: space-between; /* Align left and right */
-    align-items: flex-start;
-    gap: 20px; /* Space between Green Summary and Leaderboard */
-    background-color: #f9fdf9; /* Light greenish background */
-    border: 1px solid #e0e0e0;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px; /* Decreased spacing between items */
+    margin-top: 20px;
+}
+
+.sustainability-tip,
+.green-summary,
+.leaderboard {
+    box-sizing: border-box; /* Prevents padding from increasing width */
+    border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 15px;
-    margin: 35px 20px;
+    padding: 10px; /* Reduced padding inside sections */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
-.summary-left {
-    flex: 1;
+/* Adjust Tip Section */
+.sustainability-tip {
+    width: 100%; /* Full width within the reduced container */
+    background-color: #f0fdf4;
 }
 
-.summary-left h4 {
-    color: #4caf50; /* Green heading */
-    margin-bottom: 10px;
+/* Green Summary and Leaderboard */
+.green-summary,
+.leaderboard {
+    width: calc(48% - 5px); /* Slightly narrower width with small spacing */
 }
 
-.summary-left ul {
-    list-style: none;
-    padding: 0;
+/* Text and Font Sizes Adjustments */
+h3, h4 {
+    margin-bottom: 8px; /* Smaller spacing for headings */
+    font-size: 16px; /* Decreased font size */
+    color: #4caf50;
 }
 
-.summary-left ul li {
-    margin-bottom: 8px;
-    font-size: 14px;
+ul, ol {
+    padding-left: 10px; /* Reduced indentation */
+    font-size: 15px; /* Smaller font size for list items */
     color: #555;
 }
 
-.summary-left ul li strong {
-    color: #4caf50; /* Highlight important numbers */
-    font-size: 16px;
+li {
+    margin-bottom: 6px; /* Reduced spacing between list items */
 }
 
+.green-summary li strong {
+    color: #4caf50;
+    font-size: 19px; /* Slightly smaller emphasis text */
+}
