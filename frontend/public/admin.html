@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input, .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #218838;
+        }
+
+        .drag-area {
+            width: 100%;
+            height: 150px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 16px;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .drag-area img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+
+        .product-card {
+            display: flex;
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .product-card img {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .product-card div {
+            flex: 1;
+        }
+
+        .product-card h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <div class="form-container">
+        <h2>Add Product</h2>
+        <form id="product-form">
+            <input type="text" id="product-name" placeholder="Product Name" required>
+            <textarea id="product-description" placeholder="Product Description" required></textarea>
+            <!-- Image Upload -->
+            <div class="drag-area" id="drag-area">
+                <span>Drag & Drop Image Here or Click to Select</span>
+                <input type="file" id="product-image-input" accept="image/*" style="display: none;">
+            </div>
+            <input type="text" id="product-price" placeholder="Product Price" required>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
+    <h2>Products</h2>
+    <div id="product-list"></div>
+
+    <script>
+        // Fetch existing products (if any)
+        async function loadProducts() {
+            const response = await fetch('/api/products');
+            const products = await response.json();
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '';
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <div>
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <p><strong>Price: ${product.price}</strong></p>
+                    </div>
+                `;
+                productList.appendChild(productCard);
+            });
+        }
+
+        // Image preview and drag-and-drop functionality
+        const dragArea = document.getElementById('drag-area');
+        const imageInput = document.getElementById('product-image-input');
+        let imageURL = null;
+
+        dragArea.addEventListener('click', () => {
+            imageInput.click(); // Trigger the file input when the drag area is clicked
+        });
+
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageURL = e.target.result; // Set image URL for upload
+                    dragArea.innerHTML = `<img src="${imageURL}" alt="Product Image">`; // Show the uploaded image
+                };
+                reader.readAsDataURL(file); // Read the image as a data URL
+            }
+        });
+
+        // Drag-and-drop functionality
+        dragArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dragArea.style.borderColor = '#28a745'; // Change border on drag
+        });
+
+        dragArea.addEventListener('dragleave', () => {
+            dragArea.style.borderColor = '#ccc'; // Revert border when drag leaves
+        });
+
+        dragArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageURL = e.target.result; // Set image URL for upload
+                    dragArea.innerHTML = `<img src="${imageURL}" alt="Product Image">`; // Show the uploaded image
+                };
+                reader.readAsDataURL(file); // Read the image as a data URL
+            }
+        });
+
+        // Add product to the backend
+        document.getElementById('product-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('product-name').value;
+            const description = document.getElementById('product-description').value;
+            const price = document.getElementById('product-price').value;
+
+            if (!imageURL) {
+                alert('Please upload an image!');
+                return;
+            }
+
+            const newProduct = { name, description, image: imageURL, price };
+
+            const response = await fetch('/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newProduct)
+            });
+
+            if (response.ok) {
+                alert('Product added successfully!');
+                loadProducts();
+                document.getElementById('product-form').reset();
+                dragArea.innerHTML = '<span>Drag & Drop Image Here or Click to Select</span>'; // Reset the image preview
+            } else {
+                alert('Failed to add product');
+            }
+        });
+
+        // Load products on page load
+        window.onload = loadProducts;
+    </script>
+</body>
+</html>

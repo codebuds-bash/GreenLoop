@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cors = require('cors'); // Import CORS
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -51,6 +51,17 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+// Product Schema and Model
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: Number, required: true },
+  imageUrl: { type: String, required: true },
+  category: { type: String, required: true },
+});
+
+const Product = mongoose.model('Product', productSchema);
+
 // Registration Route
 app.post('/api/register', async (req, res) => {
   try {
@@ -86,9 +97,31 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Catch-all Route for SPA
+// Get All Products Route
+app.get('/api/products', async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ message: 'Server error fetching products' });
+  }
+});
 
-// Fallback route for unmatched requests
+// Add New Product Route (Admin only)
+app.post('/api/products', async (req, res) => {
+  try {
+    const { name, description, price, imageUrl, category } = req.body;
+    const newProduct = new Product({ name, description, price, imageUrl, category });
+    await newProduct.save();
+    res.status(201).json({ message: 'Product added successfully', product: newProduct });
+  } catch (error) {
+    console.error('Error adding product:', error);
+    res.status(500).json({ message: 'Server error adding product' });
+  }
+});
+
+// Catch-all Route for SPA
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
 });

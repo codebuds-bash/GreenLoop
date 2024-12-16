@@ -13,6 +13,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
 <body>
     <header class="navbar">
         <div class="container">
@@ -32,7 +33,6 @@
                     <li id="profile-link" style="display: none;"><a href="profile.html">Profile</a></li>
                     <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
                 </ul>
-                
             </nav>
             <div class="search-bar" id="search-bar">
                 <input type="text" placeholder="Search...">
@@ -41,8 +41,6 @@
     </header>
 
     <script>
-        
-    
         // Function to check if the user is logged in
         function checkLoginStatus() {
             const token = localStorage.getItem('token');
@@ -50,7 +48,7 @@
             const registerLink = document.getElementById('register-link');
             const profileLink = document.getElementById('profile-link');
             const logoutLink = document.getElementById('logout-link');
-    
+
             if (token) {
                 // User is authenticated
                 loginLink.style.display = 'none';
@@ -65,19 +63,19 @@
                 logoutLink.style.display = 'none';
             }
         }
-    
+
         function logout() {
             localStorage.removeItem('token'); // Remove the token
             checkLoginStatus(); // Update UI
             window.location.href = '/index.html'; // Redirect to homepage
         }
-    
+
         // Function to hide profile and logout links when clicking outside
         function hideDropdownOnClickOutside() {
             document.addEventListener("click", function (event) {
                 const profileLink = document.getElementById("profile-link");
                 const logoutLink = document.getElementById("logout-link");
-    
+
                 if (profileLink.style.display === "block" || logoutLink.style.display === "block") {
                     const isClickInside = profileLink.contains(event.target) || logoutLink.contains(event.target);
                     if (!isClickInside) {
@@ -87,16 +85,15 @@
                 }
             });
         }
-    
+
         // Run the check on page load
         window.onload = function () {
             checkLoginStatus();
         };
     </script>
+    
     <style>
-        
-       
-
+        /* Add your existing styles here */
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -112,7 +109,7 @@
             overflow: hidden;
             transition: transform 0.3s;
         }
-        .price{
+        .price {
             font-size: 20px;
             margin-top: auto;
         }
@@ -128,28 +125,27 @@
         }
 
         .product-info {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 250px; /* Adjust based on your content */
-}
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 250px;
+        }
 
-.product-info h3, .product-info p, .product-info .price {
-    margin-bottom: 10px;
-}
+        .product-info h3, .product-info p, .product-info .price {
+            margin-bottom: 10px;
+        }
 
-.product-info button {
-    margin-top: auto; /* Push the button to the bottom of the card */
-    background-color: #2b8a3e;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-}
-
+        .product-info button {
+            margin-top: auto;
+            background-color: #2b8a3e;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
 
         .product-info button:hover {
             background-color: #237a34;
@@ -174,8 +170,7 @@
             margin-top: 20px;
         }
     </style>
-</head>
-<body>
+
     <header>
         Our Products
     </header>
@@ -205,11 +200,11 @@
                 <div class="product-info">
                     <h3>Paper Bag</h3>
                     <p>Durable, lightweight, and trackable packaging made from 100% recycled materials.</p>
-                    <p class="price">₹150/- </p>
+                    <p class="price">₹150/-</p>
                     <button>Add to Cart</button>
                 </div>
             </div>
-        
+
             <!-- Product 2 -->
             <div class="product-card">
                 <img src="images/product2.png" alt="Product 2">
@@ -220,7 +215,7 @@
                     <button>Add to Cart</button>
                 </div>
             </div>
-        
+
             <!-- Product 3 -->
             <div class="product-card">
                 <img src="images/product3.png" alt="Product 3">
@@ -231,7 +226,7 @@
                     <button>Add to Cart</button>
                 </div>
             </div>
-        
+
             <!-- Product 4 -->
             <div class="product-card">
                 <img src="images/product4.png" alt="Product 4">
@@ -242,76 +237,9 @@
                     <button>Add to Cart</button>
                 </div>
             </div>
-        
-            <!-- Product 5 -->
-            <div class="product-card">
-                <img src="images/product5.png" alt="Product 5">
-                <div class="product-info">
-                    <h3>Grocery Bag</h3>
-                    <p>An innovative wrap that degrades naturally without harming the environment.</p>
-                    <p class="price">₹150/-</p>
-                    <button>Add to Cart</button>
-                </div>
-            </div>
-        
-            <!-- Product 6 -->
-            <div class="product-card">
-                <img src="images/product6.png" alt="Product 6">
-                <div class="product-info">
-                    <h3>Thamboolam Bag</h3>
-                    <p>A perfect solution for packaging needs, crafted with biodegradable materials.</p>
-                    <p class="price">₹150/-</p>
-                    <button>Add to Cart</button>
-                </div>
-            </div>
+
+            <!-- Add more products here -->
         </section>
-        
     </div>
-    <footer class="footer">
-        <div class="footer-container">
-            <!-- Logo and Copyright Section -->
-            <div class="footer-logo">
-                <img src="/images/logo1.png" alt="GreenLoop Logo" class="footer-logo-image">
-                <p>© 2024 GreenLoop Compostables. <br> All rights reserved.</p>
-                <div class="footer-social">
-                    <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-            <!-- Get in Touch Section -->
-            <div class="footer-section">
-                <h3>Get in Touch</h3>
-                <p>Chandigarh University, Mohali<br>
-                Chandigarh, Punjab, 140143</p>
-                <p>Email: <a href="mailto:infogreenloop.com">infogreenloop.com</a></p>
-                <p>Phone: <a href="tel:+91 1234567890">+91 1234567890</a></p>
-            </div>
-            <!-- Quick Links Section -->
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="#">Order Sample Kit</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <!-- Newsletter Section -->
-            <div class="footer-section">
-                <h3>Our Newsletter</h3>
-                <p>Subscribe to our newsletter to get our news & deals delivered to you.</p>
-                <form class="newsletter-form">
-                    <div class="input-wrapper">
-                        <input type="email" placeholder="Enter your email" required>
-                        <button type="submit">Join</button>
-                    </div>
-                </form>
-            </div>            
-        </div>
-    </footer>
-    
 </body>
-</html>  
+</html>
