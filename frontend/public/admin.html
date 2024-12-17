@@ -1,216 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
 
-        .form-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+      width: 50%;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .form-container input, .form-container textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
 
-        .form-container button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .form-group {
+      margin-bottom: 15px;
+    }
 
-        .form-container button:hover {
-            background-color: #218838;
-        }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
 
-        .drag-area {
-            width: 100%;
-            height: 150px;
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ccc;
-            font-size: 16px;
-            margin: 10px 0;
-            position: relative;
-        }
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
 
-        .drag-area img {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 8px;
-        }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-        .product-card {
-            display: flex;
-            margin: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .product-card img {
-            width: 100px;
-            height: auto;
-            margin-right: 20px;
-        }
-
-        .product-card div {
-            flex: 1;
-        }
-
-        .product-card h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .product-card p {
-            font-size: 14px;
-            margin: 5px 0;
-        }
-    </style>
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
+  <div class="container">
+    <h1>Add New Product</h1>
+    <form id="addProductForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
 
-    <div class="form-container">
-        <h2>Add Product</h2>
-        <form id="product-form">
-            <input type="text" id="product-name" placeholder="Product Name" required>
-            <textarea id="product-description" placeholder="Product Description" required></textarea>
-            <!-- Image Upload -->
-            <div class="drag-area" id="drag-area">
-                <span>Drag & Drop Image Here or Click to Select</span>
-                <input type="file" id="product-image-input" accept="image/*" style="display: none;">
-            </div>
-            <input type="text" id="product-price" placeholder="Product Price" required>
-            <button type="submit">Add Product</button>
-        </form>
-    </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required></textarea>
+      </div>
 
-    <h2>Products</h2>
-    <div id="product-list"></div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" required>
+      </div>
 
-    <script>
-        // Fetch existing products (if any)
-        async function loadProducts() {
-            const response = await fetch('/api/products');
-            const products = await response.json();
-            const productList = document.getElementById('product-list');
-            productList.innerHTML = '';
-            products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.classList.add('product-card');
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
-                    <div>
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <p><strong>Price: ${product.price}</strong></p>
-                    </div>
-                `;
-                productList.appendChild(productCard);
-            });
+      <div class="form-group">
+        <label for="product-image">Product Image</label>
+        <input type="file" id="product-image" name="product-image" accept="image/*" required>
+      </div>
+
+      <button type="submit">Add Product</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('addProductForm'); // Select the form element
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form); // Create FormData from the form
+
+      // Log FormData content
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+
+      try {
+        const response = await fetch('http://localhost:3000/api/products', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert('Product added successfully!');
+          form.reset();
+        } else {
+          alert(result.error || 'Failed to add product');
         }
-
-        // Image preview and drag-and-drop functionality
-        const dragArea = document.getElementById('drag-area');
-        const imageInput = document.getElementById('product-image-input');
-        let imageURL = null;
-
-        dragArea.addEventListener('click', () => {
-            imageInput.click(); // Trigger the file input when the drag area is clicked
-        });
-
-        imageInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imageURL = e.target.result; // Set image URL for upload
-                    dragArea.innerHTML = `<img src="${imageURL}" alt="Product Image">`; // Show the uploaded image
-                };
-                reader.readAsDataURL(file); // Read the image as a data URL
-            }
-        });
-
-        // Drag-and-drop functionality
-        dragArea.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            dragArea.style.borderColor = '#28a745'; // Change border on drag
-        });
-
-        dragArea.addEventListener('dragleave', () => {
-            dragArea.style.borderColor = '#ccc'; // Revert border when drag leaves
-        });
-
-        dragArea.addEventListener('drop', (event) => {
-            event.preventDefault();
-            const file = event.dataTransfer.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imageURL = e.target.result; // Set image URL for upload
-                    dragArea.innerHTML = `<img src="${imageURL}" alt="Product Image">`; // Show the uploaded image
-                };
-                reader.readAsDataURL(file); // Read the image as a data URL
-            }
-        });
-
-        // Add product to the backend
-        document.getElementById('product-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('product-name').value;
-            const description = document.getElementById('product-description').value;
-            const price = document.getElementById('product-price').value;
-
-            if (!imageURL) {
-                alert('Please upload an image!');
-                return;
-            }
-
-            const newProduct = { name, description, image: imageURL, price };
-
-            const response = await fetch('/api/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newProduct)
-            });
-
-            if (response.ok) {
-                alert('Product added successfully!');
-                loadProducts();
-                document.getElementById('product-form').reset();
-                dragArea.innerHTML = '<span>Drag & Drop Image Here or Click to Select</span>'; // Reset the image preview
-            } else {
-                alert('Failed to add product');
-            }
-        });
-
-        // Load products on page load
-        window.onload = loadProducts;
-    </script>
+      } catch (error) {
+        alert('Error adding product: ' + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
