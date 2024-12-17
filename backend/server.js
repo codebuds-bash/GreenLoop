@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
+const cloudinary = require('cloudinary').v2;
+const multer = require('multer');
+const streamifier = require('streamifier');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,12 +27,23 @@ app.use(
   })
 );
 
+// Cloudinary Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 // Middleware to parse JSON and handle form data
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
 // Serve static files (HTML, CSS, JS) from the frontend/public folder
 app.use(express.static(path.join(__dirname, 'frontend/public')));
+
+// Multer configuration for file upload
+const storage = multer.memoryStorage(); // Store file in memory
+const upload = multer({ storage });
 
 // Connect to MongoDB Atlas
 mongoose
@@ -45,6 +59,7 @@ const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
+  imageUrl: { type: String, required: true }, // Store the Cloudinary URL
 });
 
 const Product = mongoose.model('Product', productSchema);
@@ -60,24 +75,41 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// Add New Product Route
-app.post('/api/products', async (req, res) => {
-  console.log('Request Body:', req.body); // Log the body
+// Add New Product Route with Image Upload
+app.post('/api/products', upload.single('image'), async (req, res) => {
   try {
     const { name, description, price } = req.body;
 
-    // Log each field to check their values
-    console.log('Name:', name);
-    console.log('Description:', description);
-    console.log('Price:', price);
-
-    if (!name || !description || !price) {
-      return res.status(400).json({ error: 'All fields are required!' });
+    if (!req.file) {
+      return res.status(400).json({ error: 'Image is required!' });
     }
 
-    const newProduct = new Product({ name, description, price });
-    await newProduct.save();
-    res.status(201).json({ message: 'Product added successfully!', product: newProduct });
+    // Upload the image to Cloudinary
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'products' },
+      async (error, result) => {
+        if (error) {
+          console.error('Cloudinary Error:', error);
+          return res.status(500).json({ error: 'Image upload failed!' });
+        }
+
+        const imageUrl = result.secure_url;
+
+        // Create and save the product
+        const newProduct = new Product({
+          name,
+          description,
+          price,
+          imageUrl,
+        });
+
+        await newProduct.save();
+        res.status(201).json({ message: 'Product added successfully!', product: newProduct });
+      }
+    );
+
+    // Stream file buffer to Cloudinary
+    streamifier.createReadStream(req.file.buffer).pipe(stream);
   } catch (error) {
     console.error('Error adding product:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
