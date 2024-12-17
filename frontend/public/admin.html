@@ -3,121 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Product</title>
+  <title>Add Product - Admin</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
+      background-color: #f4f4f4;
     }
-
     .container {
       width: 50%;
-      margin: 50px auto;
+      margin: 20px auto;
       padding: 20px;
       background-color: #fff;
-      border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
     }
-
-    h1 {
+    h2 {
       text-align: center;
-      color: #333;
+      margin-bottom: 20px;
     }
-
-    .form-group {
-      margin-bottom: 15px;
+    form {
+      display: flex;
+      flex-direction: column;
     }
-
     label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
+      margin: 10px 0 5px;
     }
-
-    input[type="text"],
-    input[type="number"],
-    textarea,
-    input[type="file"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    button {
-      width: 100%;
+    input, textarea {
       padding: 10px;
-      background-color: #4CAF50;
+      margin: 5px 0 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px;
+      background-color: #28a745;
       color: white;
       border: none;
-      border-radius: 4px;
-      font-size: 16px;
+      border-radius: 5px;
       cursor: pointer;
     }
-
     button:hover {
-      background-color: #45a049;
+      background-color: #218838;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Add New Product</h1>
-    <form id="addProductForm" enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-      </div>
+    <h2>Add New Product</h2>
+    <div class="error" id="error-message"></div>
+    <form id="productForm">
+      <label for="name">Product Name</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="description">Product Description</label>
+      <textarea id="description" name="description" rows="4" required></textarea>
+      
+      <label for="price">Price</label>
+      <input type="number" id="price" name="price" required>
 
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" name="description" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="price">Price</label>
-        <input type="number" id="price" name="price" required>
-      </div>
-
-      <div class="form-group">
-        <label for="product-image">Product Image</label>
-        <input type="file" id="product-image" name="product-image" accept="image/*" required>
-      </div>
+      <label for="product-image">Product Image</label>
+      <input type="file" id="product-image" name="product-image" accept="image/*" required>
 
       <button type="submit">Add Product</button>
     </form>
   </div>
 
   <script>
-    const form = document.getElementById('addProductForm'); // Select the form element
+    const form = document.getElementById('productForm');
+    const errorMessage = document.getElementById('error-message');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const formData = new FormData(form); // Create FormData from the form
 
-      // Log FormData content
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
+      // Clear any previous error message
+      errorMessage.textContent = '';
+
+      const formData = new FormData(form);
+      const name = formData.get('name');
+      const description = formData.get('description');
+      const price = formData.get('price');
+      const productImage = formData.get('product-image');
+
+      // Check if the image is selected
+      if (!productImage) {
+        errorMessage.textContent = 'Please select an image.';
+        return;
       }
 
+      // Prepare the data for API request
+      const productData = {
+        name,
+        description,
+        price
+      };
+
       try {
+        // Send the product data and image to the server
         const response = await fetch('http://localhost:3000/api/products', {
           method: 'POST',
           body: formData,
         });
 
-        const result = await response.json();
+        const data = await response.json();
+
         if (response.ok) {
           alert('Product added successfully!');
           form.reset();
         } else {
-          alert(result.error || 'Failed to add product');
+          throw new Error(data.error || 'Something went wrong.');
         }
       } catch (error) {
-        alert('Error adding product: ' + error.message);
+        errorMessage.textContent = error.message;
       }
     });
   </script>
