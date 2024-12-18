@@ -1,219 +1,148 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        .form-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-container input, .form-container textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .form-container button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .form-container button:hover {
-            background-color: #218838;
-        }
-
-        .drag-area {
-            width: 100%;
-            height: 150px;
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ccc;
-            font-size: 16px;
-            margin: 10px 0;
-            position: relative;
-        }
-
-        .drag-area img {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 8px;
-        }
-
-        .product-card {
-            display: flex;
-            margin: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .product-card img {
-            width: 100px;
-            height: auto;
-            margin-right: 20px;
-        }
-
-        .product-card div {
-            flex: 1;
-        }
-
-        .product-card h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .product-card p {
-            font-size: 14px;
-            margin: 5px 0;
-        }
-    </style>
-</head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GreenLoop - Blockchain-Based Plastic Reduction System</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <body>
-    <h1>Admin Dashboard</h1>
-
-    <div class="form-container">
-        <h2>Add Product</h2>
-        <form id="product-form">
-            <input type="text" id="product-name" placeholder="Product Name" required>
-            <textarea id="product-description" placeholder="Product Description" required></textarea>
-            <!-- Image Upload -->
-            <div class="drag-area" id="drag-area">
-                <span>Drag & Drop Image Here or Click to Select</span>
-                <input type="file" id="product-image-input" accept="image/*" style="display: none;">
+    <header class="navbar">
+        <div class="container">
+            <a href="#home" class="logo">
+                <img src="/images/logo1.png" alt="GreenLoop Logo" class="logo-image">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="/products.html">Products</a></li>
+                    <li><a href="#tracking">Tracking</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li id="login-link"><a href="/login.html">Login</a></li>
+                    <li id="register-link"><a href="/register.html">Register</a></li>
+                    <li id="profile-link" style="display: none;"><a href="profile.html">Profile</a></li>
+                    <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
+                </ul>
+                
+            </nav>
+            <div class="search-bar" id="search-bar">
+                <input type="text" placeholder="Search...">
             </div>
-            <input type="text" id="product-price" placeholder="Product Price" required>
-            <input type="text" id="product-category" placeholder="Product Category" required>
-            <button type="submit">Add Product</button>
-        </form>
-    </div>
-
-    <h2>Products</h2>
-    <div id="product-list"></div>
+        </div>
+    </header>
 
     <script>
-        // Fetch existing products (if any)
-        async function loadProducts() {
-            const response = await fetch('/api/products');
-            const products = await response.json();
-            const productList = document.getElementById('product-list');
-            productList.innerHTML = '';
-            products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.classList.add('product-card');
-                productCard.innerHTML = `
-                    <img src="${product.imageUrl}" alt="${product.name}">
-                    <div>
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <p><strong>Price: ${product.price}</strong></p>
-                        <p><strong>Category: ${product.category}</strong></p>
-                    </div>
-                `;
-                productList.appendChild(productCard);
+        
+    
+        // Function to check if the user is logged in
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const loginLink = document.getElementById('login-link');
+            const registerLink = document.getElementById('register-link');
+            const profileLink = document.getElementById('profile-link');
+            const logoutLink = document.getElementById('logout-link');
+    
+            if (token) {
+                // User is authenticated
+                loginLink.style.display = 'none';
+                registerLink.style.display = 'none';
+                profileLink.style.display = 'block';
+                logoutLink.style.display = 'block';
+            } else {
+                // User is not authenticated
+                loginLink.style.display = 'block';
+                registerLink.style.display = 'block';
+                profileLink.style.display = 'none';
+                logoutLink.style.display = 'none';
+            }
+        }
+    
+        function logout() {
+            localStorage.removeItem('token'); // Remove the token
+            checkLoginStatus(); // Update UI
+            window.location.href = '/index.html'; // Redirect to homepage
+        }
+    
+        // Function to hide profile and logout links when clicking outside
+        function hideDropdownOnClickOutside() {
+            document.addEventListener("click", function (event) {
+                const profileLink = document.getElementById("profile-link");
+                const logoutLink = document.getElementById("logout-link");
+    
+                if (profileLink.style.display === "block" || logoutLink.style.display === "block") {
+                    const isClickInside = profileLink.contains(event.target) || logoutLink.contains(event.target);
+                    if (!isClickInside) {
+                        profileLink.style.display = "none";
+                        logoutLink.style.display = "none";
+                    }
+                }
             });
         }
-
-        // Image preview and drag-and-drop functionality
-        const dragArea = document.getElementById('drag-area');
-        const imageInput = document.getElementById('product-image-input');
-        let imageUrl = null;
-
-        dragArea.addEventListener('click', () => {
-            imageInput.click(); // Trigger the file input when the drag area is clicked
-        });
-
-        imageInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imageUrl = e.target.result; // Set image URL for upload
-                    dragArea.innerHTML = `<img src="${imageUrl}" alt="Product Image">`; // Show the uploaded image
-                };
-                reader.readAsDataURL(file); // Read the image as a data URL
-            }
-        });
-
-        // Drag-and-drop functionality
-        dragArea.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            dragArea.style.borderColor = '#28a745'; // Change border on drag
-        });
-
-        dragArea.addEventListener('dragleave', () => {
-            dragArea.style.borderColor = '#ccc'; // Revert border when drag leaves
-        });
-
-        dragArea.addEventListener('drop', (event) => {
-            event.preventDefault();
-            const file = event.dataTransfer.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imageUrl = e.target.result; // Set image URL for upload
-                    dragArea.innerHTML = `<img src="${imageUrl}" alt="Product Image">`; // Show the uploaded image
-                };
-                reader.readAsDataURL(file); // Read the image as a data URL
-            }
-        });
-
-        // Add product to the backend
-        document.getElementById('product-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('product-name').value;
-            const description = document.getElementById('product-description').value;
-            const price = document.getElementById('product-price').value;
-            const category = document.getElementById('product-category').value;
-
-            if (!imageUrl) {
-                alert('Please upload an image!');
-                return;
-            }
-
-            const newProduct = { name, description, imageUrl, price, category };
-
-            const response = await fetch('/api/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newProduct)
-            });
-
-            if (response.ok) {
-                alert('Product added successfully!');
-                loadProducts();
-                document.getElementById('product-form').reset();
-                dragArea.innerHTML = '<span>Drag & Drop Image Here or Click to Select</span>'; // Reset the image preview
-            } else {
-                alert('Failed to add product');
-            }
-        });
-
-        // Load products on page load
-        window.onload = loadProducts;
+    
+        // Run the check on page load
+        window.onload = function () {
+            checkLoginStatus();
+            hideDropdownOnClickOutside();
+        };
     </script>
+    
+
+
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Logo and Copyright Section -->
+            <div class="footer-logo">
+                <img src="/images/logo1.png" alt="GreenLoop Logo" class="footer-logo-image">
+                <p>© 2024 GreenLoop Compostables. <br> All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <!-- Get in Touch Section -->
+            <div class="footer-section">
+                <h3>Get in Touch</h3>
+                <p>Chandigarh University, Mohali<br>
+                Chandigarh, Punjab, 140143</p>
+                <p>Email: <a href="mailto:infogreenloop.com">infogreenloop.com</a></p>
+                <p>Phone: <a href="tel:+91 1234567890">+91 1234567890</a></p>
+            </div>
+            <!-- Quick Links Section -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Order Sample Kit</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- Newsletter Section -->
+            <div class="footer-section">
+                <h3>Our Newsletter</h3>
+                <p>Subscribe to our newsletter to get our news & deals delivered to you.</p>
+                <form class="newsletter-form">
+                    <div class="input-wrapper">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Join</button>
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </footer>
+    
 </body>
-</html>
+</html>  
