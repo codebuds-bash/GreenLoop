@@ -40,6 +40,8 @@
     </header>
 
     <script>
+        
+    
         // Function to check if the user is logged in
         function checkLoginStatus() {
             const token = localStorage.getItem('token');
@@ -84,47 +86,47 @@
                 }
             });
         }
-    
         async function loadProducts() {
-            try {
-                const response = await fetch('http://localhost:3000/api/products'); // Replace with your API endpoint
-                const products = await response.json();
+      try {
+        const response = await fetch('http://localhost:3000/api/products'); // Replace with your API endpoint
+        const products = await response.json();
+
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = ''; // Clear the existing list
+
+        products.forEach(product => {
+          // Create a product card for each product in the array
+          const productCard = document.createElement('div');
+          productCard.classList.add('product-card');
+
+          // Create the HTML content for each product
+          productCard.innerHTML = `
+            <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
+            <div class="product-details">
+              <h3 class="product-name">${product.name}</h3>
+              <p class="product-description">${product.description}</p>
+              <span class="product-price">$${product.price}</span>
+            </div>
+          `;
+
+          // Append the product card to the product list
+          productList.appendChild(productCard);
+        });
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        alert('Failed to load products. Please try again later.');
+      }
+    }
+
+    // Call the function to load products when the page loads
+    window.onload = loadProducts;
     
-                const productList = document.getElementById('product-list');
-                productList.innerHTML = ''; // Clear the existing list
-    
-                products.forEach(product => {
-                    // Create a product card for each product in the array
-                    const productCard = document.createElement('div');
-                    productCard.classList.add('product-card');
-    
-                    // Create the HTML content for each product
-                    productCard.innerHTML = `
-                        <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
-                        <div class="product-details">
-                            <h3 class="product-name">${product.name}</h3>
-                            <p class="product-description">${product.description}</p>
-                            <span class="product-price">$${product.price}</span>
-                        </div>
-                    `;
-    
-                    // Append the product card to the product list
-                    productList.appendChild(productCard);
-                });
-            } catch (error) {
-                console.error('Error fetching products:', error);
-                alert('Failed to load products. Please try again later.');
-            }
-        }
-    
-        // Call the function to load products when the page loads
+        // Run the check on page load
         window.onload = function () {
             checkLoginStatus();
             hideDropdownOnClickOutside();
-            loadProducts();
         };
     </script>
-    
     
 
 <section class="hero" id="home">
