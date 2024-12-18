@@ -37,6 +37,78 @@
                 <input type="text" placeholder="Search...">
             </div>
         </div>
+        <style>
+            /* General Styles */
+            body {
+                font-family: 'Fira Sans', sans-serif;
+                margin: 0;
+                padding: 0;
+                margin-top: 150px;
+                background-color: #f4f4f4;
+
+            }
+    
+            /* Container for Cards */
+            .product-card {
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                margin: 20px;
+                display: inline-block;
+                width: 300px;
+                text-align: center;
+                transition: transform 0.3s ease-in-out;
+            }
+    
+            .product-card:hover {
+                transform: scale(1.05);
+            }
+    
+            .product-image {
+                width: 100%;
+                height: auto;
+                border-bottom: 2px solid #eee;
+            }
+    
+            .product-details {
+                padding: 15px;
+            }
+    
+            .product-name {
+                font-size: 1.5em;
+                color: #333;
+                margin: 10px 0;
+            }
+    
+            .product-description {
+                font-size: 1em;
+                color: #666;
+                margin: 10px 0;
+            }
+    
+            .product-price {
+                font-size: 1.2em;
+                font-weight: bold;
+                color: #00aaff;
+            }
+    
+            /* Flexbox for Product List */
+            #product-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+    
+            /* Search Bar */
+            .search-bar input {
+                padding: 10px;
+                margin: 10px;
+                width: 250px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+        </style>
     </header>
 
     <!-- Main Content -->
