@@ -131,7 +131,42 @@ app.post('/api/products', upload, async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+// Delete Product Route
+app.delete('/api/products/:id', async (req, res) => {
+  try {
+    const productId = req.params.id;
 
+    // Find and delete the product by its ID
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+
+    if (!deletedProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ message: 'Product deleted successfully', product: deletedProduct });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ message: 'Server error deleting product' });
+  }
+});
+// Delete Product Route
+app.delete('/api/products/:id', async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    // Find and delete the product by its ID
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+
+    if (!deletedProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ message: 'Product deleted successfully', product: deletedProduct });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ message: 'Server error deleting product' });
+  }
+});
 // Catch-all Route for SPA
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/public/index.html'));
