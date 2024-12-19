@@ -22,7 +22,7 @@
             <nav>
                 <ul>
                     <li><a href="/index.html">Home</a></li>
-                    <li><a href="#products">Products</a></li>
+                    <li><a href="/products.html">Products</a></li>
                     <li><a href="#tracking">Tracking</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
@@ -73,20 +73,7 @@
         }
     
         // Function to hide profile and logout links when clicking outside
-        function hideDropdownOnClickOutside() {
-            document.addEventListener("click", function (event) {
-                const profileLink = document.getElementById("profile-link");
-                const logoutLink = document.getElementById("logout-link");
-    
-                if (profileLink.style.display === "block" || logoutLink.style.display === "block") {
-                    const isClickInside = profileLink.contains(event.target) || logoutLink.contains(event.target);
-                    if (!isClickInside) {
-                        profileLink.style.display = "none";
-                        logoutLink.style.display = "none";
-                    }
-                }
-            });
-        }
+        
         function toggleDark(){
             // Toggle Dark Mode
 const themeSwitch = document.getElementById('theme-switch');
