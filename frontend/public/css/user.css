@@ -993,7 +993,16 @@ body {
     margin-top: 10px;
     display: inline-block;
 }
+.add-product-btn{
+    background-color: #207ee2;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
 
+}
 .right-column .progress-container {
     background-color: #e0e0e0;
     border-radius: 25px;
