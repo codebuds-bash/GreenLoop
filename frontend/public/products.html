@@ -46,7 +46,7 @@
     font-family: 'Fira Sans', sans-serif;
     display: flex;
     flex-direction: column;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
 }
     
             /* Container for Cards */
@@ -93,6 +93,41 @@
                 font-weight: bold;
                 color: #00aaff;
             }
+            .product-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.product-buttons .btn-buy-now,
+.product-buttons .btn-view {
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.product-buttons .btn-buy-now {
+    background-color: #28a745; /* Green background */
+    color: white;
+}
+
+.product-buttons .btn-view {
+    background-color: white;
+    color: #9e4949; /* Blue text */
+    border: 2px solid #a65c5c; /* Blue border */
+}
+
+.product-buttons .btn-buy-now:hover {
+    background-color: #218838; /* Darker green for hover */
+}
+
+.product-buttons .btn-view:hover {
+    background-color: #f8f9fa; /* Light background for hover */
+}
+
     
             /* Flexbox for Product List */
             #product-list {
@@ -264,13 +299,18 @@ footer {
 
                 // Create the HTML content for each product
                 productCard.innerHTML = `
-                    <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
-                    <div class="product-details">
-                        <h3 class="product-name">${product.name}</h3>
-                        <p class="product-description">${product.description}</p>
-                        <span class="product-price">$${product.price}</span>
-                    </div>
-                `;
+    <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
+    <div class="product-details">
+        <h3 class="product-name">${product.name}</h3>
+        <p class="product-description">${product.description}</p>
+        <span class="product-price">₹${product.price}</span>
+        <div class="product-buttons">
+            <button class="btn-buy-now">Buy Now</button>
+            <button class="btn-view">View</button>
+        </div>
+    </div>
+`;
+
 
                 // Append the product card to the product list
                 productList.appendChild(productCard);
