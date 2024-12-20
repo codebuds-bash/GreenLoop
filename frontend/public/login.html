@@ -51,7 +51,7 @@
     </div>
 
     <script>
-        const backendURL = 'http://localhost:3000'; // Replace with your Render backend URL
+        const backendURL = 'https://greenloop-85lc.onrender.com'; // Replace with your Render backend URL
 
         // Toggle between forms
         document.getElementById('showConsumerForm').addEventListener('click', () => {
@@ -65,31 +65,33 @@
         });
 
         // Handle Consumer Login
-        document.getElementById('consumerLoginForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
+        
+document.getElementById('consumerLoginForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
 
-            try {
-                const response = await fetch(`${backendURL}/api/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    alert('Consumer Login Successful');
-                    localStorage.setItem('token', result.token); // Store JWT token
-                    window.location.href = '/index.html'; // Redirect after login
-                } else {
-                    alert(`Error: ${result.message}`);
-                }
-            } catch (error) {
-                console.error('Login Error:', error);
-                alert('Something went wrong!');
-            }
+    try {
+        const response = await fetch(`${backendURL}/api/login`, {
+            method: 'POST',  // Ensure this is POST
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
         });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Consumer Login Successful');
+            localStorage.setItem('token', result.token); // Store JWT token
+            window.location.href = '/index.html'; // Redirect after login
+        } else {
+            alert(`Error: ${result.message}`);
+        }
+    } catch (error) {
+        console.error('Login Error:', error);
+        alert('Something went wrong!');
+    }
+});
+
 
         // Handle Retailer Login
         document.getElementById('retailerLoginForm').addEventListener('submit', async (event) => {
