@@ -7,25 +7,65 @@ require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const streamifier = require('streamifier');
+const bcrypt = require('bcrypt'); // Ensure bcrypt is included for password hashing
+const jwt = require('jsonwebtoken'); // Include jwt for token generation
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json()); // Middleware to parse JSON data
+
+// MongoDB User Schema
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true },
+  password: { type: String, required: true },
+  role: { type: String, required: true },
+});
+
+const User = mongoose.model('User', userSchema);
+
+// Login Route
+// Consumer and Retailer Login Endpoint
+router.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Find the user (either consumer or retailer)
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        // Compare the provided password with the stored password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+
+        // Send token and success response
+        res.status(200).json({ message: `${user.role.charAt(0).toUpperCase() + user.role.slice(1)} Login Successful`, token });
+    } catch (error) {
+        console.error('Login Error:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+module.exports = router;
+
 // Configure CORS to allow requests from specific origins
-const allowedOrigins = ['https://green-loop-tau.vercel.app']; // Update with your frontend URL
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-  })
-);
+const corsOptions = {
+    origin: 'https://green-loop-tau.vercel.app', // Replace with your frontend URL
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+// Use CORS middleware
+app.use(cors(corsOptions));
 
 // Cloudinary Configuration
 cloudinary.config({
@@ -37,9 +77,6 @@ cloudinary.config({
 // Middleware to parse JSON and handle form data
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-
-// Serve static files (HTML, CSS, JS) from the frontend/public folder
-app.use(express.static(path.join(__dirname, 'frontend/public')));
 
 // Connect to MongoDB Atlas
 mongoose
@@ -143,7 +180,6 @@ app.delete('/api/products/:id', async (req, res) => {
 });
 
 // Route to get product information by ID
-// Route to get product information by ID
 app.get('/api/products/:id', async (req, res) => {
   try {
     const productId = req.params.id;
@@ -167,12 +203,6 @@ app.get('/api/products/:id', async (req, res) => {
     console.error('Error fetching product:', error);
     res.status(500).json({ message: 'Server error' });
   }
-});
-
-
-// Catch-all Route for SPA
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/public/index.html'));
 });
 
 // Start the server
