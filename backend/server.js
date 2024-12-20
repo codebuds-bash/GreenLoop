@@ -58,20 +58,14 @@ router.post('/api/login', async (req, res) => {
 module.exports = router;
 
 // Configure CORS to allow requests from specific origins
-const allowedOrigins = ['https://green-loop-tau.vercel.app', 'http://localhost:3000']; // Update with your frontend URL
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-  })
-);
+const corsOptions = {
+    origin: 'https://green-loop-tau.vercel.app', // Replace with your frontend URL
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+// Use CORS middleware
+app.use(cors(corsOptions));
 
 // Cloudinary Configuration
 cloudinary.config({
