@@ -7,6 +7,8 @@ require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const streamifier = require('streamifier');
+const bcrypt = require('bcrypt'); // Ensure bcrypt is included for password hashing
+const jwt = require('jsonwebtoken'); // Include jwt for token generation
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -58,7 +60,6 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-
 // Configure CORS to allow requests from specific origins
 const allowedOrigins = ['https://green-loop-tau.vercel.app', 'http://localhost:3000']; // Update with your frontend URL
 app.use(
@@ -85,9 +86,6 @@ cloudinary.config({
 // Middleware to parse JSON and handle form data
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-
-// Serve static files (HTML, CSS, JS) from the frontend/public folder
-app.use(express.static(path.join(__dirname, 'frontend/public')));
 
 // Connect to MongoDB Atlas
 mongoose
@@ -191,7 +189,6 @@ app.delete('/api/products/:id', async (req, res) => {
 });
 
 // Route to get product information by ID
-// Route to get product information by ID
 app.get('/api/products/:id', async (req, res) => {
   try {
     const productId = req.params.id;
@@ -215,12 +212,6 @@ app.get('/api/products/:id', async (req, res) => {
     console.error('Error fetching product:', error);
     res.status(500).json({ message: 'Server error' });
   }
-});
-
-
-// Catch-all Route for SPA
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/public/index.html'));
 });
 
 // Start the server
