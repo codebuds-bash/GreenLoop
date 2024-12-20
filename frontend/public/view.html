@@ -237,7 +237,7 @@ const productId = urlParams.get('id');
 
 if (productId) {
     // Fetch the product details using the productId
-    fetch(`http://localhost:3000/api/products/${productId}`)
+    fetch(`https://greenloop-nkls.onrender.com/api/products/${productId}`)
         .then(response => response.json())
         .then(product => {
             // Populate product image
