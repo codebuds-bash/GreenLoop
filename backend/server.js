@@ -80,38 +80,32 @@ app.get('/api/products', async (req, res) => {
 
 // Add New Product Route
 app.post('/api/products', upload, async (req, res) => {
-  console.log('Request Body:', req.body); // Log the body
-  console.log('Uploaded file:', req.file); // Check the uploaded file
+  console.log('Request Body:', req.body);
+  console.log('Uploaded file:', req.file);
 
-  // Check if the required fields are provided
   if (!req.body.name || !req.body.description || !req.body.price) {
     return res.status(400).json({ error: 'All fields are required!' });
   }
 
-  // Check if an image is uploaded
   if (!req.file) {
     return res.status(400).json({ error: 'Image file is required!' });
   }
 
-  // Upload the image to Cloudinary
   try {
     const uploadResponse = await cloudinary.uploader.upload_stream(
-      { resource_type: 'image' }, 
+      { resource_type: 'image' },
       async (error, result) => {
         if (error) {
           return res.status(500).json({ error: 'Error uploading image to Cloudinary' });
         }
 
-        // Image URL from Cloudinary's response
         const imageUrl = result.secure_url;
-
-        // Create a new product and save to the database
         const { name, description, price } = req.body;
         const newProduct = new Product({
           name,
           description,
           price,
-          imageUrl // Store Cloudinary image URL
+          imageUrl
         });
 
         try {
@@ -124,19 +118,17 @@ app.post('/api/products', upload, async (req, res) => {
       }
     );
 
-    // Write the file to the Cloudinary upload stream
     streamifier.createReadStream(req.file.buffer).pipe(uploadResponse);
   } catch (error) {
     console.error('Error uploading image:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 // Delete Product Route
 app.delete('/api/products/:id', async (req, res) => {
   try {
     const productId = req.params.id;
-
-    // Find and delete the product by its ID
     const deletedProduct = await Product.findByIdAndDelete(productId);
 
     if (!deletedProduct) {
@@ -149,24 +141,35 @@ app.delete('/api/products/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error deleting product' });
   }
 });
-// Delete Product Route
-app.delete('/api/products/:id', async (req, res) => {
+
+// Route to get product information by ID
+// Route to get product information by ID
+app.get('/api/products/:id', async (req, res) => {
   try {
     const productId = req.params.id;
+    const product = await Product.findById(productId);
 
-    // Find and delete the product by its ID
-    const deletedProduct = await Product.findByIdAndDelete(productId);
-
-    if (!deletedProduct) {
+    if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    res.status(200).json({ message: 'Product deleted successfully', product: deletedProduct });
+    // Transform the response data
+    const productData = {
+      _id: product._id.toString(), // Convert ObjectId to string
+      name: product.name,
+      description: product.description,
+      price: product.price, // Assuming price is already a number
+      imageUrl: product.imageUrl,
+    };
+
+    res.status(200).json(productData);
   } catch (error) {
-    console.error('Error deleting product:', error);
-    res.status(500).json({ message: 'Server error deleting product' });
+    console.error('Error fetching product:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
+
 // Catch-all Route for SPA
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/public/index.html'));
