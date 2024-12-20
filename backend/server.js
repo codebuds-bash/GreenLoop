@@ -25,40 +25,37 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Login Route
-app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
+// Consumer and Retailer Login Endpoint
+router.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
 
-  try {
-    // Find the user by username
-    const user = await User.findOne({ username });
+    try {
+        // Find the user (either consumer or retailer)
+        const user = await User.findOne({ username });
 
-    // If user is not found
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        // Compare the provided password with the stored password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+
+        // Send token and success response
+        res.status(200).json({ message: `${user.role.charAt(0).toUpperCase() + user.role.slice(1)} Login Successful`, token });
+    } catch (error) {
+        console.error('Login Error:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
-
-    // Compare the provided password with the hashed password stored in DB
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-
-    // Generate a JWT token
-    const token = jwt.sign(
-      { userId: user._id, role: user.role },
-      process.env.JWT_SECRET, // Replace with your JWT secret key
-      { expiresIn: '1h' } // Set token expiry time (optional)
-    );
-
-    // Send the token and user role as response
-    res.status(200).json({ message: 'Login successful', token, role: user.role });
-
-  } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
 });
+
+module.exports = router;
 
 // Configure CORS to allow requests from specific origins
 const allowedOrigins = ['https://green-loop-tau.vercel.app', 'http://localhost:3000']; // Update with your frontend URL
