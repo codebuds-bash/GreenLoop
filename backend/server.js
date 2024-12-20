@@ -58,14 +58,11 @@ router.post('/api/login', async (req, res) => {
 module.exports = router;
 
 // Configure CORS to allow requests from specific origins
-const corsOptions = {
-    origin: 'https://green-loop-tau.vercel.app', // Replace with your frontend URL
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-// Use CORS middleware
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: '*', // specify the frontend URL
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Cloudinary Configuration
 cloudinary.config({
