@@ -106,41 +106,43 @@ body {
     font-size: 1rem;
 }
 
-/* Styling for Search Icon */
-.search-icon a {
-    font-size: 1.2rem;
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.search-icon a:hover {
-    color: #007bff;
-}
-
-/* Styling for Hidden Search Input */
 .search-bar {
-    display: none;
-    position: absolute;
-    top: 60px; /* Adjust based on your navbar height */
-    right: 20px;
-    z-index: 1000;
-}
-
-.search-bar input {
-    width: 200px;
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 30px;
     padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    max-width: 400px;
+    margin: 10px auto;
+    background-color: #ffffff;
+  }
+  
+  .search-input {
+    width: 100%;
+    border: none;
+    padding: 8px;
+    border-radius: 30px;
+    font-size: 16px;
     outline: none;
-}
-
-.search-bar input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-
+    background-color: transparent;
+  }
+  
+  .search-button {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .search-button i {
+    color: #555;
+  }
+  
+  .search-button:hover i {
+    color: #007BFF;
+  }
+  
 /* Hero Section */
 .hero {
     position: relative;
