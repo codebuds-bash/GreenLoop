@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Configure CORS to allow requests from specific origins
-const allowedOrigins = ['http://127.0.0.1:5500']; // Update with your frontend URL
+const allowedOrigins = ['https://green-loop-tau.vercel.app']; // Update with your frontend URL
 app.use(
   cors({
     origin: (origin, callback) => {
