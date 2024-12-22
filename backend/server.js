@@ -10,12 +10,18 @@ const streamifier = require('streamifier');
 const router = express.Router();
 const bcrypt = require('bcrypt'); // Ensure bcrypt is included for password hashing
 const jwt = require('jsonwebtoken'); // Include jwt for token generation
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); // Middleware to parse JSON data
+// Configure CORS to allow requests from specific origins
+const corsOptions = {
+    origin: 'https://green-loop-tau.vercel.app',  // Your frontend URL
+    methods: 'GET,POST',
+    allowedHeaders: 'Content-Type,Authorization',
+};
 
+app.use(cors(corsOptions));
 // MongoDB User Schema
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -30,12 +36,7 @@ const User = mongoose.model('User', userSchema);
 app.use('/api/auth', authRoutes);  
 
 
-// Configure CORS to allow requests from specific origins
-app.use(cors({
-  origin: '*', // specify the frontend URL
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+
 
 // Cloudinary Configuration
 cloudinary.config({
