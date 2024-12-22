@@ -7,14 +7,13 @@ require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const streamifier = require('streamifier');
-const authRoutes = require('./routes/auth');  // Correct import for auth routes
-const User = require('./models/User');  // Import User model
-  // Import Product model
-
+const authRoutes = require('./routes/auth');  
+const User = require('./models/User');  
 const app = express();
+const authRoutes = require('./routes/auth');
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json()); // Middleware to parse JSON data
+
 
 // Configure CORS to allow requests from specific origins
 const corsOptions = {
@@ -23,7 +22,11 @@ const corsOptions = {
     allowedHeaders: 'Content-Type,Authorization',
 };
 
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: 'https://green-loop-tau.vercel.app', // Your frontend URL
+    methods: 'GET,POST',
+    allowedHeaders: 'Content-Type,Authorization',
+  }));
 
 // Use authRoutes for handling authentication
 app.use('/api/auth', authRoutes);
