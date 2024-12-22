@@ -10,7 +10,6 @@ const streamifier = require('streamifier');
 const authRoutes = require('./routes/auth');  
 const User = require('./models/User');  
 const app = express();
-const authRoutes = require('./routes/auth');
 const PORT = process.env.PORT || 3000;
 
 
