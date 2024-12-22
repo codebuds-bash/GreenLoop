@@ -56,7 +56,6 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-module.exports = router;
 
 // Configure CORS to allow requests from specific origins
 app.use(cors({
