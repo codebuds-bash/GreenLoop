@@ -129,7 +129,7 @@
     // Fetch products and display them
     async function fetchProducts() {
       try {
-        const response = await fetch('http://localhost:3000/api/products');
+        const response = await fetch('https://greenloop-67y2.onrender.com/api/products');
         const products = await response.json();
 
         const productList = document.getElementById('product-list');
@@ -167,7 +167,7 @@
       formData.append('product-image', document.getElementById('product-image').files[0]);
 
       try {
-        const response = await fetch('http://localhost:3000/api/products', {
+        const response = await fetch('https://greenloop-67y2.onrender.com/api/products', {
           method: 'POST',
           body: formData,
         });
@@ -187,7 +187,7 @@
     // Delete product by ID
     async function deleteProduct(productId) {
       try {
-        const response = await fetch(`http://localhost:3000/api/products/${productId}`, {
+        const response = await fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`, {
           method: 'DELETE',
         });
 
