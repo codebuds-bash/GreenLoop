@@ -7,63 +7,26 @@ require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const streamifier = require('streamifier');
-const router = express.Router();
-const bcrypt = require('bcrypt'); // Ensure bcrypt is included for password hashing
-const jwt = require('jsonwebtoken'); // Include jwt for token generation
+const authRoutes = require('./routes/auth');  // Correct import for auth routes
+const User = require('./models/User');  // Import User model
+  // Import Product model
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); // Middleware to parse JSON data
 
-// MongoDB User Schema
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  password: { type: String, required: true },
-  role: { type: String, required: true },
-});
-
-const User = mongoose.model('User', userSchema);
-
-// Login Route
-// Consumer and Retailer Login Endpoint
-app.post('/api/login', async (req, res) => {
-    const { username, password } = req.body;
-
-    try {
-        // Find the user (either consumer or retailer)
-        const user = await User.findOne({ username });
-
-        if (!user) {
-            return res.status(400).json({ message: 'User not found' });
-        }
-
-        // Compare the provided password with the stored password
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        
-        if (!isPasswordValid) {
-            return res.status(400).json({ message: 'Invalid credentials' });
-        }
-
-        // Generate JWT token
-        const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
-
-        // Send token and success response
-        res.status(200).json({ message: `${user.role.charAt(0).toUpperCase() + user.role.slice(1)} Login Successful`, token });
-    } catch (error) {
-        console.error('Login Error:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
-
-module.exports = router;
-
 // Configure CORS to allow requests from specific origins
-app.use(cors({
-  origin: '*', // specify the frontend URL
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+const corsOptions = {
+    origin: 'https://green-loop-tau.vercel.app',  // Your frontend URL
+    methods: 'GET,POST',
+    allowedHeaders: 'Content-Type,Authorization',
+};
+
+app.use(cors(corsOptions));
+
+// Use authRoutes for handling authentication
+app.use('/api/auth', authRoutes);
 
 // Cloudinary Configuration
 cloudinary.config({
@@ -84,16 +47,6 @@ mongoose
     console.error('MongoDB connection error:', err);
     process.exit(1);
   });
-
-// Product Schema and Model
-const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  price: { type: Number, required: true },
-  imageUrl: { type: String, required: true }, // Field to store image URL
-});
-
-const Product = mongoose.model('Product', productSchema);
 
 // Setup Multer storage in memory to upload the image to Cloudinary
 const multerStorage = multer.memoryStorage(); // Store file in memory
