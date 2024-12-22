@@ -11,6 +11,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt'); // Ensure bcrypt is included for password hashing
 const jwt = require('jsonwebtoken'); // Include jwt for token generation
 const app = express();
+const authRoutes = require('./routes/auth');
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); // Middleware to parse JSON data
