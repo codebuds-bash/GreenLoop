@@ -7,6 +7,7 @@ require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const streamifier = require('streamifier');
+const router = express.Router();
 const bcrypt = require('bcrypt'); // Ensure bcrypt is included for password hashing
 const jwt = require('jsonwebtoken'); // Include jwt for token generation
 
@@ -26,7 +27,7 @@ const User = mongoose.model('User', userSchema);
 
 // Login Route
 // Consumer and Retailer Login Endpoint
-router.post('/api/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
