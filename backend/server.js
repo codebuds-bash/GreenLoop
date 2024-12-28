@@ -13,14 +13,7 @@ const User = require('./models/User');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
-
-// Configure CORS to allow requests from specific origins
-const corsOptions = {
-    origin: 'https://green-loop-tau.vercel.app',  // Your frontend URL
-    methods: 'GET,POST',
-    allowedHeaders: 'Content-Type,Authorization',
-};
+app.use(express.json());
 
 app.use(cors({
     origin: 'https://green-loop-tau.vercel.app', // Your frontend URL
