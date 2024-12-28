@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
         // Check if the user already exists
         const existingUser = await User.findOne({ username });
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({ message: 'Username already taken, please choose a different one' });
         }
 
         // Create a new user
@@ -26,6 +26,7 @@ router.post('/register', async (req, res) => {
         await user.save();  // Save the user to the database
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
+        console.error(error);  // Log the error for debugging
         res.status(500).json({ message: 'Server error' });
     }
 });
@@ -53,6 +54,7 @@ router.post('/login', async (req, res) => {
 
         res.json({ token });
     } catch (error) {
+        console.error(error);  // Log the error for debugging
         res.status(500).json({ message: 'Server error' });
     }
 });
