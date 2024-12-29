@@ -109,6 +109,7 @@
     .edit-btn:hover {
       background-color: #3c5166;
     }
+    
     /* Add Product Form */
     #add-product-form {
       background-color: white;
@@ -182,7 +183,7 @@
               <p class="product-description">${product.description}</p>
               <p class="product-details">Price: ₹${product.price}</p>
               <button class="delete-btn" onclick="deleteProduct('${product._id}')">Delete</button>
-              <button class="edit-btn" onclick="editProduct('${product._id}')">edit</button>
+              <button class="edit-btn" onclick="editProduct('${product._id}')">Edit</button>
             </div>
           `;
           productList.appendChild(productCard);
