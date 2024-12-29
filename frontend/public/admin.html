@@ -72,6 +72,11 @@
       color: #32cc04;
       margin-bottom: 10px;
     }
+    .product-description {
+      font-size: 16px;
+      color: #32cc04;
+      margin-bottom: 10px;
+    }
   
 
     /* Delete Button */
@@ -160,7 +165,7 @@
             </div>
             <div class="product-info">
               <h3>${product.name}</h3>
-              <p class="product-details">${product.description}</p>
+              <p class="product-description">${product.description}</p>
               <p class="product-details">Price: ₹${product.price}</p>
               <button class="delete-btn" onclick="deleteProduct('${product._id}')">Delete</button>
             </div>
