@@ -54,6 +54,7 @@
 }
 
 .services-heading {
+    margin-top: 100px;
   font-size: 2.5em;
   color: #3b7d2b; /* Green theme for sustainability */
   margin-bottom: 20px;
@@ -67,8 +68,8 @@
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  gap: 20px; /* Space between cards */
 }
 
 .service-card {
@@ -225,12 +226,34 @@ footer {
                   Provide real-time insights on product lifecycle, packaging performance, and customer interaction using blockchain data.
                 </p>
               </div>
+          
+              <!-- Service 5 -->
+              <div class="service-card">
+                <div class="service-icon">
+                  <img src="images/camping.png" alt="Consumer Engagement Icon" />
+                </div>
+                <h2 class="service-title">Consumer Engagement</h2>
+                <p class="service-description">
+                  Enable direct interaction with consumers through QR codes, providing detailed product information and promoting brand transparency.
+                </p>
+              </div>
+          
+              <!-- Service 6 -->
+              <div class="service-card">
+                <div class="service-icon">
+                  <img src="images/cryptocurrency-mining.png" alt="Blockchain Rewards Icon" />
+                </div>
+                <h2 class="service-title">Blockchain Rewards</h2>
+                <p class="service-description">
+                  Incentivize sustainable practices by offering blockchain-based rewards to consumers and partners for eco-friendly choices.
+                </p>
+              </div>
             </div>
           </div>
           
+          
        
  <!-- This is where products will be loaded -->
-        </section>
 
         <script>
 function checkLoginStatus() {
