@@ -39,7 +39,7 @@ body {
     height: auto;
     align-items: start;
     width: 190px;
-    margin-left: -40px;
+    margin-left: 10px;
     margin-top: 10px;
 }
 
@@ -83,7 +83,7 @@ body {
 }
 
 .navbar nav ul li a:hover {
-    text-decoration: underline;
+  
     color: #00b60c;/* Light hover effect */
     border-radius: 5px; /* Rounded corners for hover effect */
 }
@@ -386,31 +386,6 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .product-item {
-        width: calc(50% - 20px); /* Two items per row on smaller screens */
-    }
-    .logo img{
-        height: auto;
-        align-items: start;
-        width: 190px;
-        margin-left: -80px;
-        margin-top: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .product-item {
-        width: 100%; /* One item per row on extra small screens */
-    }
-    .logo img{
-        height: auto;
-        align-items: start;
-        width: 190px;
-        margin-left: -80px;
-        margin-top: 10px;
-    }
-}
 
 
 /* About Creators Section */
