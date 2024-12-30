@@ -135,7 +135,7 @@ form button:hover, .role-button:hover {
 form input {
     width: 80%; /* Full width of the parent container */
     padding: 12px; /* Space inside the input box */
-    margin: 10px 0; /* Space above and below the input */
+    margin: 5px 0; /* Space above and below the input */
     border: 2px solid #ccc; /* Light gray border */
     border-radius: 8px; /* Rounded corners */
     font-size: 16px; /* Text size */
@@ -160,6 +160,13 @@ form input:focus {
 .logbutton{
     background-color: orangered;;
 }
+.styled-line {
+    border: none;
+    border-top: 2px solid #ccc; /* Light gray line */
+    margin: 20px 0; /* Space around the line */
+    width: 100%; /* Full width of the parent container */
+}
+
 
 /* Social logo styling */
 .social-logo {
