@@ -112,7 +112,7 @@
     
     /* Add Product Form */
     #add-product-form {
-      background-color: white;
+      background-color: rgb(255, 255, 255);
       padding: 30px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
@@ -126,10 +126,12 @@
       max-width: 400px;
       margin: 10px 0;
       padding: 10px;
+      border: 2px solid rgb(0, 0, 0);
       border-radius: 55px;
-      border: 1px solid #ccc;
+  
       font-size: 16px;
     }
+    
     #add-product-form button {
       background-color: #4CAF50;
       color: white;
@@ -156,7 +158,7 @@
       <input type="text" id="name" name="name" placeholder="Product Name" required>
       <textarea id="description" name="description" placeholder="Product Description" required></textarea>
       <input type="number" id="price" name="price" placeholder="Product Price" required>
-      <input type="file" id="product-image" name="product-image" accept="image/*" required>
+      <input type="file" class="product-image" name="product-image" accept="image/*" required>
       <button type="submit">Add Product</button>
     </form>
   </div>
