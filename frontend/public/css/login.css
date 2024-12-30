@@ -114,6 +114,53 @@ body {
     text-decoration: underline;
 }
 
+/* Button styling */
+form button, .role-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover, .role-button:hover {
+    background-color: #218838;
+}
+
+/* Input box styles */
+form input {
+    width: 80%; /* Full width of the parent container */
+    padding: 12px; /* Space inside the input box */
+    margin: 10px 0; /* Space above and below the input */
+    border: 2px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px; /* Text size */
+    color: #333; /* Text color */
+    background-color: #f9f9f9; /* Light background color */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus state */
+}
+
+/* Placeholder text styles */
+form input::placeholder {
+    color: #aaa; /* Light gray color */
+    font-style: italic; /* Italic placeholder text */
+}
+
+/* Focus state styles */
+form input:focus {
+    outline: none; /* Remove default browser outline */
+    border-color: #28a745; /* Green border on focus */
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Soft green glow on focus */
+    background-color: #fff; /* Slightly brighter background when focused */
+}
+.logbutton{
+    background-color: orangered;;
+}
+
 /* Social logo styling */
 .social-logo {
     width: 50px; /* Adjust the size of the image */
