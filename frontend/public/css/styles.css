@@ -30,15 +30,17 @@ body {
     transition: background-color 0.3s;
 }
 .logo {
-    width: 100; /* Adjust this value to decrease/increase the size */
+    width: 100px; /* Adjust this value to decrease/increase the size */
     height: auto;
-    margin-left: -30px;
-    margin-top: 20px;
+    margin-left: -40px;
+   
 }
 .logo img{
     height: auto;
-    width: 250px;
+    align-items: start;
+    width: 190px;
     margin-left: -40px;
+    margin-top: 10px;
 }
 
 
@@ -58,18 +60,18 @@ body {
 
 .navbar nav ul {
     list-style: none; /* Removes default list styling */
-    
     display: flex; /* Use flexbox for list items */
     gap: 20px; /* Space between list items */
     align-items: center; /* Center list items vertically */
     margin-top: 0; /* Remove default margin */
+    margin-left: 100px;
     padding: 0; /* Remove default padding */
 }
 
 .navbar nav ul li {
     font: 1.2em "Urbanist";
    
-    margin-top: -80px;
+    margin-top: -60px;
     color: #000; /* Set color for list items */
 }
 
