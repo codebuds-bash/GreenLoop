@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="images/logo1.png" alt="">
+        <img src="images/logo1.png" alt=".logo-image">
         <h1>Register</h1>
         <form id="register-form">
             <input type="text" id="reg-username" placeholder="Username" required>
@@ -32,7 +32,7 @@
           const data = Object.fromEntries(formData.entries());
   
           try {
-              const response = await fetch(`${backendURL}/api/register`, {
+              const response = await fetch(`${backendURL}/api/auth/register`, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(data),
