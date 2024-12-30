@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GreenLoop - Blockchain-Based Plastic Reduction System</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container">
+            <a href="#home" class="logo">
+                <img src="/images/logo1.png" alt="GreenLoop Logo" class="logo-image">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/products.html">Products</a></li>
+                    <li><a href="/tracking.html">Tracking</a></li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/services.html">Services</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                    <li id="login-link"><a href="/login.html">Login</a></li>
+                    <li id="register-link"><a href="/register.html">Register</a></li>
+                    <li id="profile-link" style="display: none;"><a href="profile.html">Profile</a></li>
+                    <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
+                </ul>
+            </nav>
+            
+        </div>
+        <style>
+            /* General Styles */
+            body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Fira Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+.services-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+.services-heading {
+    margin-top: 100px;
+  font-size: 2.5em;
+  color: #3b7d2b; /* Green theme for sustainability */
+  margin-bottom: 20px;
+}
+
+.services-intro {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  gap: 20px; /* Space between cards */
+}
+
+.service-card {
+  background: #ffffff; /* Subtle greenish background */
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.service-icon img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.service-title {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.service-description {
+  font-size: 1em;
+  color: #666;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    position: relative;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.footer-logo, .footer-section {
+    flex: 1;
+}
+
+.footer-social a {
+    margin: 0 10px;
+}
+
+.footer-social a i {
+    font-size: 24px;
+}
+
+.footer-section h3 {
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.newsletter-form .input-wrapper {
+    display: flex;
+}
+
+.newsletter-form input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.newsletter-form button {
+    padding: 10px 20px;
+    background-color: #00aaff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.newsletter-form button:hover {
+    background-color: #0088cc;
+}
+        </style>
+    </header>
+
+    <!-- Main Content -->
+    <main id="about-greenloop" class="about-section">
+        <div class="services-container">
+            <h1 class="services-heading">Our Services</h1>
+            <p class="services-intro">
+              GreenChain revolutionizes packaging with blockchain-powered solutions, ensuring sustainability, transparency, and accountability. Explore our innovative services:
+            </p>
+            <div class="services-grid">
+              <!-- Service 1 -->
+              <div class="service-card">
+                <div class="service-icon">
+                  <img src="/images/tracking.png" alt="Tracking Icon" />
+                </div>
+                <h2 class="service-title">Smart Package Tracking</h2>
+                <p class="service-description">
+                  Enable end-to-end traceability for products, ensuring transparency in the supply chain with blockchain-backed QR codes.
+                </p>
+              </div>
+          
+              <!-- Service 2 -->
+              <div class="service-card">
+                <div class="service-icon">
+                  <img src="images/blockchain.png" alt="Authenticity Icon" />
+                </div>
+                <h2 class="service-title">Authenticity Verification</h2>
+                <p class="service-description">
+                  Verify product authenticity and combat counterfeiting through immutable blockchain records linked to smart packaging.
+                </p>
+              </div>
+          
+              <!-- Service 3 -->
+              <div class="service-card">
+                <div class="service-icon">
+                  <img src="images/coffee-bag.png" alt="Sustainability Icon" />
+                </div>
+                <h2 class="service-title">Sustainable Packaging</h2>
+                <p class="service-description">
+                  Promote eco-friendly practices with innovative packaging solutions and reward systems for sustainable initiatives.
+                </p>
+              </div>
+          
+              <!-- Service 4 -->
+              <div class="service-card">
+                <div class="service-icon">
+                  <img src="images/data-science.png" alt="Analytics Icon" />
+                </div>
+                <h2 class="service-title">Data & Analytics</h2>
+                <p class="service-description">
+                  Provide real-time insights on product lifecycle, packaging performance, and customer interaction using blockchain data.
+                </p>
+              </div>
+          
+              <!-- Service 5 -->
+              <div class="service-card">
+                <div class="service-icon">
+                  <img src="images/camping.png" alt="Consumer Engagement Icon" />
+                </div>
+                <h2 class="service-title">Consumer Engagement</h2>
+                <p class="service-description">
+                  Enable direct interaction with consumers through QR codes, providing detailed product information and promoting brand transparency.
+                </p>
+              </div>
+          
+              <!-- Service 6 -->
+              <div class="service-card">
+                <div class="service-icon">
+                  <img src="images/cryptocurrency-mining.png" alt="Blockchain Rewards Icon" />
+                </div>
+                <h2 class="service-title">Blockchain Rewards</h2>
+                <p class="service-description">
+                  Incentivize sustainable practices by offering blockchain-based rewards to consumers and partners for eco-friendly choices.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        <script>
+function checkLoginStatus() {
+        const token = localStorage.getItem('token');
+        const loginLink = document.getElementById('login-link');
+        const registerLink = document.getElementById('register-link');
+        const profileLink = document.getElementById('profile-link');
+        const logoutLink = document.getElementById('logout-link');
+
+        if (token) {
+            // User is authenticated
+            loginLink.style.display = 'none';
+            registerLink.style.display = 'none';
+            profileLink.style.display = 'block';
+            logoutLink.style.display = 'block';
+        } else {
+            // User is not authenticated
+            loginLink.style.display = 'block';
+            registerLink.style.display = 'block';
+            profileLink.style.display = 'none';
+            logoutLink.style.display = 'none';
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('token'); // Remove the token
+        checkLoginStatus(); // Update UI
+        window.location.href = '/index.html'; // Redirect to homepage
+    }
+
+    // Function to hide profile and logout links when clicking outside
+    function hideDropdownOnClickOutside() {
+        document.addEventListener("click", function (event) {
+            const profileLink = document.getElementById("profile-link");
+            const logoutLink = document.getElementById("logout-link");
+
+            if (profileLink.style.display === "block" || logoutLink.style.display === "block") {
+                const isClickInside = profileLink.contains(event.target) || logoutLink.contains(event.target);
+                if (!isClickInside) {
+                    profileLink.style.display = "none";
+                    logoutLink.style.display = "none";
+                }
+            }
+        });
+    }
+
+    
+
+
+    // Call the function to load products when the page loads
+    window.onload = function () {
+        checkLoginStatus();
+       
+    }; 
+</script>
+
+         
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Logo and Copyright Section -->
+            <div class="footer-logo">
+                <img src="/images/logo1.png" alt="GreenLoop Logo" class="footer-logo-image">
+                <p>© 2024 GreenLoop Compostables. <br> All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <!-- Get in Touch Section -->
+            <div class="footer-section">
+                <h3>Get in Touch</h3>
+                <p>Chandigarh University, Mohali<br>
+                Chandigarh, Punjab, 140143</p>
+                <p>Email: <a href="mailto:infogreenloop.com">infogreenloop.com</a></p>
+                <p>Phone: <a href="tel:+91 1234567890">+91 1234567890</a></p>
+            </div>
+            <!-- Quick Links Section -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Order Sample Kit</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- Newsletter Section -->
+            <div class="footer-section">
+                <h3>Our Newsletter</h3>
+                <p>Subscribe to our newsletter to get our news & deals delivered to you.</p>
+                <form class="newsletter-form">
+                    <div class="input-wrapper">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Join</button>
+                    </div>
+                </form>
+            </div>             
+        </div>
+    </footer>
+
+</body>
+</html>
