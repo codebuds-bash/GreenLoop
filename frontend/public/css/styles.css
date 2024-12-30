@@ -390,11 +390,25 @@ body {
     .product-item {
         width: calc(50% - 20px); /* Two items per row on smaller screens */
     }
+    .logo img{
+        height: auto;
+        align-items: start;
+        width: 190px;
+        margin-left: -80px;
+        margin-top: 10px;
+    }
 }
 
 @media (max-width: 480px) {
     .product-item {
         width: 100%; /* One item per row on extra small screens */
+    }
+    .logo img{
+        height: auto;
+        align-items: start;
+        width: 190px;
+        margin-left: -80px;
+        margin-top: 10px;
     }
 }
 
