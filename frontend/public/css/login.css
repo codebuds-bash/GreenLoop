@@ -166,7 +166,7 @@ form input:focus {
     width: 50px; /* Adjust the size of the image */
     height: auto;
     display: inline-block;
-    margin: 30px;
+    margin: 15px;
     cursor: pointer; /* Show a pointer cursor on hover */
     transition: transform 0.3s ease;
 }
