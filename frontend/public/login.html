@@ -4,51 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
 
     <div class="login-wrapper">
-        <!-- Left Side Image -->
-        <div class="login-image">
-            <img src="/images/dl.beatsnoop.com-ft32Sp9gUd.jpg" alt="Login Image"> <!-- Replace with your image path -->
-        </div>
+        
 
         <!-- Right Side Card for Login -->
-        <div class="login-card">
-            <div class="login-form">
-                <h2>Login to GreenChain</h2>
-                <p>Select your role to log in or register</p>
-
-                <!-- Role Selection Login Forms -->
-                <form id="consumerLoginForm" class="hidden">
-                    <h3>Consumer Login</h3>
-                    <input type="text" name="username" placeholder="Username" required><br>
-                    <input type="password" name="password" placeholder="Password" required><br>
-                    <button type="submit">Login as Consumer</button>
-                </form>
-
-                <form id="retailerLoginForm" class="hidden">
-                    <h3>Retailer Login</h3>
-                    <input type="text" name="username" placeholder="Username" required><br>
-                    <input type="password" name="password" placeholder="Password" required><br>
-                    <button type="submit">Login as Retailer</button>
-                </form>
-
-                <!-- Role Selection Buttons -->
-                <div class="login-buttons">
-                    <button id="showConsumerForm" class="role-button farmer-button">Login as Consumer</button>
-                    <button id="showRetailerForm" class="role-button retailer-button">Login as Retailer</button>
-                </div>
-
-                <!-- Register Now -->
-                <div class="register-now">
-                    <p>New here?</p>
-                    <a href="/register.html" class="register-button">Register Now</a>
+        <div class="outercontainer">
+            <div class="paracontainer">
+                <p>
+                    Access your account and continue the journey to save the environment. 
+                </p>
+                <p>
+                    Together, we can create a greener tomorrow.
+                </p>
+                <div class="gif-container">
+                    
+                    <img src="images/baggif.gif" alt="Saving Environment GIF" class="animated-gif">
                 </div>
             </div>
+            
+            <div class="container">
+                <img src="images/logo1.png" alt="GreenChain Logo">
+                <h1>Welcome Back!</h1>
+                <h2>Login to GreenChain</h2>
+                <p>Select your role to log in</p>
+        
+                <!-- Consumer Login Form -->
+                <form id="consumerLoginForm" class="hidden">
+                    <h3>Consumer Login</h3>
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit" class="logbutton">Login as Consumer</button>
+                </form>
+        
+                <!-- Retailer Login Form -->
+                <form id="retailerLoginForm" class="hidden">
+                    <h3>Retailer Login</h3>
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login as Retailer</button>
+                </form>
+        
+                <!-- Role Selection Buttons -->
+                <div class="login-buttons">
+                    <button id="showConsumerForm" class="role-button">Login as Consumer</button>
+                    <button id="showRetailerForm" class="role-button">Login as Retailer</button>
+                </div>
+        
+                <!-- Register Now -->
+                <p>New here? <a href="/register.html">Register Now</a></p>
+        
+                <!-- Social Media Links -->
+                <a href="https://www.google.com" target="_blank">
+                    <img src="images/google.png" alt="Google Logo" class="social-logo">
+                </a>
+                <a href="https://www.facebook.com" target="_blank">
+                    <img src="images/facebook.png" alt="Facebook Logo" class="social-logo">
+                </a> 
+                <a href="https://www.twitter.com" target="_blank">
+                    <img src="images/twitter.png" alt="Twitter Logo" class="social-logo">
+                </a>
+            </div>
         </div>
-    </div>
 
     <script>
         const backendURL = 'https://greenloop-67y2.onrender.com'; // Replace with your Render backend URL
