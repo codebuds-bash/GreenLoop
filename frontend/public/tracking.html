@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>GreenLoop Tracking System</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
-
     <link rel="stylesheet" href="/css/user.css">
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <!-- Include Html5Qrcode Library -->
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
 </head>
 <body>
     
@@ -41,11 +41,12 @@
             </div>
         </div>
     </header>
+
     <main>
         <h1>Track Your Greenloop Bag</h1>
         <div class="container">
             <div class="svg-container">
-                <img src="https://www.svgrepo.com/show/331226/qr-code-scan.svg" alt="QR Code SVG">
+                <img src="images/qr.png" alt="QR Code SVG">
             </div>
 
             <h3>Scan QR Code</h3>
@@ -56,11 +57,9 @@
             <input type="text" id="blockchainId" placeholder="Enter Blockchain ID">
             <button onclick="fetchBlockchainData()">Track</button>
 
-            <div id="blockchainResult"></div>
+            <div id="blockchainResult">Loading data...</div>
         </div>
     </main>
-
-
 
     <footer class="footer">
         <div class="footer-container">
@@ -77,8 +76,8 @@
             <div class="footer-section">
                 <h3>Get in Touch</h3>
                 <p>Chandigarh University, Mohali<br> Chandigarh, Punjab, 140143</p>
-                <p>Email: <a href="mailto:infogreenloop.com">infogreenloop.com</a></p>
-                <p>Phone: <a href="tel:+91 1234567890">+91 1234567890</a></p>
+                <p>Email: <a href="mailto:info@greenloop.com">info@greenloop.com</a></p>
+                <p>Phone: <a href="tel:+911234567890">+91 1234567890</a></p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
@@ -102,9 +101,111 @@
             </div>            
         </div>
     </footer>
+
     <style>
-        
-    </style>    
+        main {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        main h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        main .container {
+            margin-top: 0px;
+            max-width: 90%;
+            width: auto;
+            text-align: center;
+            background: #fff;
+            border-radius: 15px;
+           
+            padding: 20px;
+            overflow: hidden;
+           
+        }
+
+        main #qr-reader {
+            width: 100%;
+            margin: 20px auto;
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+        }
+
+        main input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        main button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        main button:hover {
+            background-color: #45a049;
+        }
+
+        main #result, main #blockchainResult {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            color: #333;
+            font-size: 14px;
+        }
+
+        @keyframes slide-in {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        main .svg-container {
+            margin-top: 20px;
+        }
+
+        main .svg-container img {
+            width: 100%;
+            max-width: 200px;
+        }
+
+        @media (max-width: 768px) {
+            main h1 {
+                font-size: 1.5rem;
+            }
+            main .container {
+                width: 95%;
+            }
+        }
+    </style>
+
     <script>
         function checkLoginStatus() {
             const token = localStorage.getItem('token');
@@ -154,11 +255,46 @@
             });
         }
 
-        window.onload = function () {
-            checkLoginStatus();
-            toggleDark();
-        };
-    </script>
+        const qrReader = new Html5Qrcode("qr-reader");
+        qrReader.start({ facingMode: "environment" }, {
+            fps: 10,
+            qrbox: 250
+        }, qrCodeMessage => {
+            document.getElementById("result").innerHTML = `<strong>Scanned ID:</strong> ${qrCodeMessage}`;
+            fetchBlockchainData(qrCodeMessage); // Fetch data for scanned ID
+        }).catch(err => {
+            console.error(err);
+            document.getElementById("result").innerHTML = `<strong>Error:</strong> Unable to access camera.`;
+        });
 
+        // Fetch Blockchain Data Function
+        async function fetchBlockchainData(blockchainId = null) {
+            const id = blockchainId || document.getElementById("blockchainId").value;
+
+            if (!id) {
+                alert("Please enter or scan a valid Blockchain ID");
+                return;
+            }
+
+            // Replace with your Ethereum RPC provider or Infura endpoint
+            const provider = new ethers.providers.JsonRpcProvider("https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID");
+
+            // Replace with your contract address and ABI
+            const contractAddress = "YOUR_CONTRACT_ADDRESS";
+            const contractABI = [
+                "function getRecyclingData(string id) public view returns (string memory)"
+            ];
+
+            const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+            try {
+                const data = await contract.getRecyclingData(id);
+                document.getElementById("blockchainResult").innerHTML = `<strong>Blockchain Data:</strong> ${data}`;
+            } catch (error) {
+                console.error(error);
+                alert("Failed to fetch data. Please check the Blockchain ID.");
+            }
+        }
+    </script>
 </body>
 </html>
