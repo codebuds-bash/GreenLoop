@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenloop Tracking</title>
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #qr-reader {
+            width: 100%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Track Your Greenloop Bag</h1>
+    <div class="container">
+        <h3>Scan QR Code</h3>
+        <div id="qr-reader"></div>
+        <div id="result"></div>
+
+        <h3>Or Enter Blockchain ID</h3>
+        <input type="text" id="blockchainId" placeholder="Enter Blockchain ID">
+        <button onclick="fetchBlockchainData()">Track</button>
+
+        <div id="blockchainResult"></div>
+    </div>
+
+    <script>
+        // Initialize QR Code scanner
+        const qrReader = new Html5Qrcode("qr-reader");
+        qrReader.start({ facingMode: "environment" }, {
+            fps: 10,
+            qrbox: 250
+        }, qrCodeMessage => {
+            document.getElementById("result").innerHTML = `Scanned ID: ${qrCodeMessage}`;
+            fetchBlockchainData(qrCodeMessage); // Fetch data for scanned ID
+        }).catch(err => console.error(err));
+
+        // Fetch Blockchain Data Function
+        async function fetchBlockchainData(blockchainId = null) {
+            const id = blockchainId || document.getElementById("blockchainId").value;
+
+            if (!id) {
+                alert("Please enter or scan a valid Blockchain ID");
+                return;
+            }
+
+            // Replace with your Ethereum RPC provider or Infura endpoint
+            const provider = new ethers.providers.JsonRpcProvider("https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID");
+
+            // Replace with your contract address and ABI
+            const contractAddress = "YOUR_CONTRACT_ADDRESS";
+            const contractABI = [
+                "function getRecyclingData(string id) public view returns (string memory)"
+            ];
+
+            const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+            try {
+                const data = await contract.getRecyclingData(id);
+                document.getElementById("blockchainResult").innerHTML = `<strong>Blockchain Data:</strong> ${data}`;
+            } catch (error) {
+                console.error(error);
+                alert("Failed to fetch data. Please check the Blockchain ID.");
+            }
+        }
+    </script>
+</body>
+</html>
