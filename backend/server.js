@@ -19,8 +19,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 
-const cors = require('cors');
-
 const allowedOrigins = [
   'https://green-loop-tau.vercel.app', // Production frontend URL
   'http://127.0.0.1:5500', // Local development frontend URL
