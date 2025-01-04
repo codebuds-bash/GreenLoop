@@ -23,7 +23,7 @@ const cors = require('cors');
 
 const allowedOrigins = [
   'https://green-loop-tau.vercel.app', // Production frontend URL
-  'http://localhost:3000', // Local development frontend URL
+  'http://127.0.0.1:5500', // Local development frontend URL
 ];
 
 app.use(cors({
