@@ -227,101 +227,7 @@ footer {
             <!-- Dynamic Product Details -->
         </div>
     </main>
-        <script>
-            // Extract productId from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get('id');
 
-if (productId) {
-    // Fetch the product details using the productId
-    fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`)
-        .then(response => response.json())
-        .then(product => {
-            // Populate product image
-            const productImageDiv = document.getElementById('product-image');
-            productImageDiv.innerHTML = `<img src="${product.imageUrl}" alt="${product.name}">`;
-
-            // Populate product details
-            const productDetailsDiv = document.getElementById('product-details');
-            productDetailsDiv.innerHTML = `
-                <h1>${product.name}</h1>
-                <p class="price">Price: ₹${product.price.toFixed(2)}</p>
-                <p><strong>Description:</strong> ${product.description}</p>
-                <ul>
-                    ${product.features ? product.features.map(feature => `<li>${feature}</li>`).join('') : ''}
-                </ul>
-                <p><strong>Application:</strong> ${product.application}</p>
-                <p><strong>Contact:</strong> ${product.contact}</p>
-                <p class="disclaimer"><strong>Disclaimer:</strong> ${product.disclaimer}</p>
-            `;
-        })
-        .catch(error => {
-            console.error('Error fetching product:', error);
-            alert('Unable to load product details.');
-        });
-} else {
-    console.error('Product ID not found in URL');
-    alert('Invalid product. Please go back and try again.');
-}
-
-    // Function to check if the user is logged in
-    function checkLoginStatus() {
-        const token = localStorage.getItem('token');
-        const loginLink = document.getElementById('login-link');
-        const registerLink = document.getElementById('register-link');
-        const profileLink = document.getElementById('profile-link');
-        const logoutLink = document.getElementById('logout-link');
-
-        if (token) {
-            // User is authenticated
-            loginLink.style.display = 'none';
-            registerLink.style.display = 'none';
-            profileLink.style.display = 'block';
-            logoutLink.style.display = 'block';
-        } else {
-            // User is not authenticated
-            loginLink.style.display = 'block';
-            registerLink.style.display = 'block';
-            profileLink.style.display = 'none';
-            logoutLink.style.display = 'none';
-        }
-    }
-
-    function logout() {
-        localStorage.removeItem('token'); // Remove the token
-        checkLoginStatus(); // Update UI
-        window.location.href = '/index.html'; // Redirect to homepage
-    }
-
-    // Function to hide profile and logout links when clicking outside
-    function hideDropdownOnClickOutside() {
-        document.addEventListener("click", function (event) {
-            const profileLink = document.getElementById("profile-link");
-            const logoutLink = document.getElementById("logout-link");
-
-            if (profileLink.style.display === "block" || logoutLink.style.display === "block") {
-                const isClickInside = profileLink.contains(event.target) || logoutLink.contains(event.target);
-                if (!isClickInside) {
-                    profileLink.style.display = "none";
-                    logoutLink.style.display = "none";
-                }
-            }
-        });
-    }
-
-    
-
-
-    // Call the function to load products when the page loads
-    window.onload = function () {
-        checkLoginStatus();
-       
-
-    };
-</script>
-
-         
-    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -369,6 +275,95 @@ if (productId) {
             </div>             
         </div>
     </footer>
+    <script>
+        // Extract productId from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        
+        // Log the productId to ensure it's correctly retrieved from the URL
+        console.log('Product ID:', productId); 
+
+        if (productId) {
+            // Fetch the product details using the productId
+            console.log('Fetching product with ID:', productId); 
+            fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(product => {
+                    // Log the product data to see what is being returned
+                    console.log('Product Data:', product);
+
+                    // Check if product data contains necessary properties
+                    if (product && product.name && product.price && product.imageUrl) {
+                        // Populate product image
+                        const productImageDiv = document.getElementById('product-image');
+                        productImageDiv.innerHTML = `<img src="${product.imageUrl}" alt="${product.name}">`;
+
+                        // Populate product details
+                        const productDetailsDiv = document.getElementById('product-details');
+                        productDetailsDiv.innerHTML = `
+                            <h1>${product.name}</h1>
+                            <p class="price">Price: ₹${product.price.toFixed(2)}</p>
+                            <p><strong>Description:</strong> ${product.description || 'No description available.'}</p>
+                            <ul>
+                                ${product.features ? product.features.map(feature => `<li>${feature}</li>`).join('') : '<li>No features available.</li>'}
+                            </ul>
+                            <p><strong>Application:</strong> ${product.application || 'No application available.'}</p>
+                            <p><strong>Contact:</strong> ${product.contact || 'No contact information available.'}</p>
+                            <p class="disclaimer"><strong>Disclaimer:</strong> ${product.disclaimer || 'No disclaimer available.'}</p>
+                        `;
+                    } else {
+                        console.error('Invalid product data:', product);
+                        alert('Invalid product data received from the server.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching product:', error);
+                    alert('Unable to load product details.');
+                });
+        } else {
+            console.error('Product ID not found in URL');
+            alert('Invalid product ID. Please go back and try again.');
+        }
+
+        // Function to check if the user is logged in
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const loginLink = document.getElementById('login-link');
+            const registerLink = document.getElementById('register-link');
+            const profileLink = document.getElementById('profile-link');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (token) {
+                // User is authenticated
+                loginLink.style.display = 'none';
+                registerLink.style.display = 'none';
+                profileLink.style.display = 'block';
+                logoutLink.style.display = 'block';
+            } else {
+                // User is not authenticated
+                loginLink.style.display = 'block';
+                registerLink.style.display = 'block';
+                profileLink.style.display = 'none';
+                logoutLink.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token'); // Remove the token
+            checkLoginStatus(); // Update UI
+            window.location.href = '/index.html'; // Redirect to homepage
+        }
+
+        // Call the function to load products when the page loads
+        window.onload = function () {
+            checkLoginStatus();
+        };
+    </script>
 
 </body>
 </html>
