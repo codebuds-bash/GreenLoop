@@ -33,9 +33,6 @@
                     <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
                 </ul>
             </nav>
-            <div class="search-bar" id="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
         </div>
         <style>
             /* General Styles */
@@ -237,7 +234,7 @@ const productId = urlParams.get('id');
 
 if (productId) {
     // Fetch the product details using the productId
-    fetch(`https://greenloop-nkls.onrender.com/api/products/${productId}`)
+    fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`)
         .then(response => response.json())
         .then(product => {
             // Populate product image
