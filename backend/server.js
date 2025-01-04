@@ -13,13 +13,31 @@ const User = require('./models/User');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
+// Set EJS as the template engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 
+const cors = require('cors');
+
+const allowedOrigins = [
+  'https://green-loop-tau.vercel.app', // Production frontend URL
+  'http://localhost:3000', // Local development frontend URL
+];
+
 app.use(cors({
-    origin: 'https://green-loop-tau.vercel.app', // Your frontend URL
-    methods: 'GET,POST',
-    allowedHeaders: 'Content-Type,Authorization',
-  }));
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS')); // Block the request
+    }
+  },
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type,Authorization',
+}));
+
 
 // Use authRoutes for handling authentication
 app.use('/api/auth', authRoutes);
@@ -149,6 +167,28 @@ app.get('/api/products/:id', async (req, res) => {
   } catch (error) {
     console.error('Error fetching product:', error);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+// Get Profile Page (using EJS)
+app.get('/profile', async (req, res) => {
+  const userId = req.query.userId; // You can dynamically set this from session or other means
+  try {
+    const user = await User.findById(userId);
+    if (user) {
+      // Render the profile page with user data using EJS
+      res.render('profile', { 
+        name: user.name, 
+        email: user.email, 
+        accountType: user.accountType,
+        points: user.sustainabilityPoints,
+        imageUrl: user.imageUrl || '/images/default-profile.png',
+      });
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
