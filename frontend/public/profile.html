@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
 <body>
     <header class="navbar">
         <div class="container">
@@ -24,16 +25,15 @@
                 <ul>
                     <li><a href="/index.html">Home</a></li>
                     <li><a href="/products.html">Products</a></li>
-                    <li><a href="#tracking">Tracking</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/tracking.html">Tracking</a></li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/services.html">Services</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
                     <li id="login-link"><a href="/login.html">Login</a></li>
                     <li id="register-link"><a href="/register.html">Register</a></li>
                     <li id="profile-link" style="display: none;"><a href="profile.html">Profile</a></li>
                     <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
                 </ul>
-                
             </nav>
             <div class="search-bar" id="search-bar">
                 <input type="text" placeholder="Search...">
@@ -42,9 +42,6 @@
     </header>
 
     <script>
-        
-    
-        // Function to check if the user is logged in
         function checkLoginStatus() {
             const token = localStorage.getItem('token');
             const loginLink = document.getElementById('login-link');
@@ -53,13 +50,11 @@
             const logoutLink = document.getElementById('logout-link');
     
             if (token) {
-                // User is authenticated
                 loginLink.style.display = 'none';
                 registerLink.style.display = 'none';
                 profileLink.style.display = 'block';
                 logoutLink.style.display = 'block';
             } else {
-                // User is not authenticated
                 loginLink.style.display = 'block';
                 registerLink.style.display = 'block';
                 profileLink.style.display = 'none';
@@ -68,49 +63,43 @@
         }
     
         function logout() {
-            localStorage.removeItem('token'); // Remove the token
-            checkLoginStatus(); // Update UI
-            window.location.href = '/index.html'; // Redirect to homepage
+            localStorage.removeItem('token');
+            checkLoginStatus();
+            window.location.href = '/index.html';
         }
-    
-        // Function to hide profile and logout links when clicking outside
-        
-        function toggleDark(){
-            // Toggle Dark Mode
-const themeSwitch = document.getElementById('theme-switch');
-themeSwitch.addEventListener('change', () => {
-    document.body.classList.toggle('dark-theme');
-});
 
-// Save Theme Preference in Local Storage
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-theme');
-    themeSwitch.checked = true;
-}
+        function toggleDark() {
+            const themeSwitch = document.getElementById('theme-switch');
+            themeSwitch.addEventListener('change', () => {
+                document.body.classList.toggle('dark-theme');
+            });
 
-themeSwitch.addEventListener('change', () => {
-    if (themeSwitch.checked) {
-        document.body.classList.add('dark-theme');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        document.body.classList.remove('dark-theme');
-        localStorage.setItem('theme', 'light');
-    }
-});
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeSwitch.checked = true;
+            }
 
+            themeSwitch.addEventListener('change', () => {
+                if (themeSwitch.checked) {
+                    document.body.classList.add('dark-theme');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
         }
-    
-        // Run the check on page load
+
         window.onload = function () {
             checkLoginStatus();
             toggleDark();
         };
     </script>
+
     <section class="profile-card">
         <div class="banner-image">
             <img src="/images/banner.jpeg" alt="Banner Image" class="banner-img">
         </div>
-        <!-- Profile Info -->
         <div class="profile-info">
             <div class="left-column">
                 <img src="/images/Picsart_24-10-17_11-59-06-880-removebg-preview.png" alt="Profile Image" class="profile-image">
@@ -124,51 +113,31 @@ themeSwitch.addEventListener('change', () => {
                     <a href="admin.html" class="add-product-btn">Add Products</a>
                 </div>
             </div>
-
-                <!-- Sustainability Tip Section -->
-                <div class="sustainability-container">
-                    <!-- Tip Section -->
-                    <div class="sustainability-tip">
-                        <h3>🌱 Sustainability Tip</h3>
-                        <p>Using reusable bags reduces single-use plastic waste. Keep one handy for your shopping trips!</p>
-                    </div>
-                
-                    <!-- Green Summary Section -->
-                    <div class="green-summary">
-                        <h4>🌿 Your Green Summary</h4>
-                        <ul>
-                            <li><strong>2450</strong> Sustainability Points Earned</li>
-                            <li><strong>25</strong> Biodegradable Bags Purchased</li>
-                            
-                        </ul>
-                    </div>
-                
-                    <!-- Leaderboard Section -->
-                    <div class="leaderboard">
-                        <h4>🏆 Top Sustainability Leaders</h4>
-                        <ol>
-                            <li>Vishakha Saini - <strong>2450 points</strong></li>
-                            <li>Ashish Sharma - <strong>2000 points</strong></li>
-                            <li>Kashish Gupta - <strong>1800 points</strong></li>
-                        </ol>
-                    </div>
+            <div class="sustainability-container">
+                <div class="sustainability-tip">
+                    <h3>🌱 Sustainability Tip</h3>
+                    <p>Using reusable bags reduces single-use plastic waste. Keep one handy for your shopping trips!</p>
                 </div>
-                
-
-            
-            
-
-    
+                <div class="green-summary">
+                    <h4>🌿 Your Green Summary</h4>
+                    <ul>
+                        <li><strong>2450</strong> Sustainability Points Earned</li>
+                        <li><strong>25</strong> Biodegradable Bags Purchased</li>
+                    </ul>
+                </div>
+                <div class="leaderboard">
+                    <h4>🏆 Top Sustainability Leaders</h4>
+                    <ol>
+                        <li>Vishakha Saini - <strong>2450 points</strong></li>
+                        <li>Ashish Sharma - <strong>2000 points</strong></li>
+                        <li>Kashish Gupta - <strong>1800 points</strong></li>
+                    </ol>
+                </div>
+            </div>
             <div class="right-column">
-                <!-- Progress Bar Section -->
                 <div class="progress-container">
-                    <div class="progress-bar" style="width: 50%;"></div> <!-- Example progress -->
+                    <div class="progress-bar" style="width: 50%;"></div>
                 </div>
-                
-
-                
-                
-                <!-- Badges Section -->
                 <div class="badges">
                     <h1>Badges You Earned</h1>
                     <img src="/images/award1.png" alt="Badges" class="badge-earned">
@@ -178,10 +147,8 @@ themeSwitch.addEventListener('change', () => {
                 </div>
             </div>
         </div>
-    
-        <!-- Other Sections: Recent Activities and QR Code -->
+
         <div class="right-section">
-            <!-- Recent Activities Section -->
             <div class="recent-activities">
                 <h3>Recent Activities</h3>
                 <ul>
@@ -190,8 +157,6 @@ themeSwitch.addEventListener('change', () => {
                     <li>Earned the "Eco Warrior" badge.</li>
                 </ul>
             </div>
-            
-            <!-- QR Code for Profile Sharing -->
             <div class="qr-code-section">
                 <h3>Share Your Profile</h3>
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://greenloop.com/user/vishakhasaini" alt="Profile QR Code" class="qr-code">
@@ -199,8 +164,7 @@ themeSwitch.addEventListener('change', () => {
             </div>
         </div>
     </section>
-    
-    <!-- Dark Mode Toggle -->
+
     <div class="theme-toggle">
         <label class="toggle">
             <input type="checkbox" id="theme-switch">
@@ -208,13 +172,9 @@ themeSwitch.addEventListener('change', () => {
         </label>
         <span>Toggle Dark Mode</span>
     </div>
-    
-    
-      
-    
+
     <footer class="footer">
         <div class="footer-container">
-            <!-- Logo and Copyright Section -->
             <div class="footer-logo">
                 <img src="/images/logo1.png" alt="GreenLoop Logo" class="footer-logo-image">
                 <p>© 2024 GreenLoop Compostables. <br> All rights reserved.</p>
@@ -225,15 +185,12 @@ themeSwitch.addEventListener('change', () => {
                     <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
-            <!-- Get in Touch Section -->
             <div class="footer-section">
                 <h3>Get in Touch</h3>
-                <p>Chandigarh University, Mohali<br>
-                Chandigarh, Punjab, 140143</p>
+                <p>Chandigarh University, Mohali<br> Chandigarh, Punjab, 140143</p>
                 <p>Email: <a href="mailto:infogreenloop.com">infogreenloop.com</a></p>
                 <p>Phone: <a href="tel:+91 1234567890">+91 1234567890</a></p>
             </div>
-            <!-- Quick Links Section -->
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
@@ -244,7 +201,6 @@ themeSwitch.addEventListener('change', () => {
                     <li><a href="#">Contact Us</a></li>
                 </ul>
             </div>
-            <!-- Newsletter Section -->
             <div class="footer-section">
                 <h3>Our Newsletter</h3>
                 <p>Subscribe to our newsletter to get our news & deals delivered to you.</p>
@@ -257,6 +213,5 @@ themeSwitch.addEventListener('change', () => {
             </div>            
         </div>
     </footer>
-    
 </body>
-</html>  
+</html>
