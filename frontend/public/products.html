@@ -308,8 +308,8 @@ function checkLoginStatus() {
         <p class="product-description">${product.description}</p>
         <span class="product-price">₹${product.price}</span>
         <div class="product-buttons">
-            <a href="buy.html" class="btn-buy-now">Buy Now</a>
-            <a href="view.html" class="btn-view">View</a>
+            <a href="buy.html?id=${product._id}" class="btn-buy-now">Buy Now</a>
+            <a href="view.html?id=${product._id}" class="btn-view">View</a>
         </div>
     </div>
 `;
