@@ -335,12 +335,7 @@ footer {
                         <h1 class="product-name">${data.name}</h1>
                         <p class="product-price">₹${data.price}</p>
                         <p class="product-description">${data.description}</p>
-                        <div class="product-features">
-                            <h3>Features:</h3>
-                            <ul>
-                                ${data.features.map(feature => `<li>${feature}</li>`).join("")}
-                            </ul>
-                        </div>
+            
                         <div class="product-buttons">
                             <a href="buy.html?id=${data.id}" class="btn-buy-now">Buy Now</a>
                             <a href="view.html?id=${data.id}" class="btn-view">View More</a>
@@ -363,6 +358,7 @@ footer {
     document.addEventListener("DOMContentLoaded", () => {
         checkLoginStatus(); // Check login status
         loadProductDetails(); // Load product details dynamically
+        getProductIdFromURL();
     });
 
     function checkLoginStatus() {
