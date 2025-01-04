@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Now - Greenloop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #product-details {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #product-details h2 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+
+        #product-details img {
+            margin: 20px 0;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        #product-details p {
+            margin: 10px 0;
+        }
+
+        #product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        #buy-now-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #buy-now-button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const queryParams = new URLSearchParams(window.location.search);
+            const productId = queryParams.get("id");
+
+            if (!productId) {
+                document.getElementById("product-details").innerHTML = "<p>Product not found.</p>";
+                return;
+            }
+
+            fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch product details.");
+                    }
+                    return response.json();
+                })
+                .then(product => {
+                    document.getElementById("product-name").textContent = product.name;
+                    document.getElementById("product-image").src = product.imageUrl;
+                    document.getElementById("product-image").alt = product.name;
+                    document.getElementById("product-description").textContent = product.description;
+                    document.getElementById("product-price").textContent = `Price: $${product.price}`;
+                })
+                .catch(error => {
+                    document.getElementById("product-details").innerHTML = `<p>Error loading product: ${error.message}</p>`;
+                });
+
+            document.getElementById("buy-now-button").addEventListener("click", () => {
+                alert("Thank you for your purchase!");
+                // Add your payment integration logic here.
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Greenloop</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="product-details">
+            <h2 id="product-name">Loading...</h2>
+            <img id="product-image" src="" alt="Product Image" style="max-width: 300px;"/>
+            <p id="product-description">Loading...</p>
+            <p id="product-price">Price: $0</p>
+            <button id="buy-now-button">Buy Now</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Greenloop. All rights reserved.</p>
+    </footer>
+</body>
+</html>
