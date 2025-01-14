@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Product</title>
+  <title>Edit Product</title>   
   <script>
+    function getProductIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('id'); // Assumes URL is something like: /products.html?id=123
+    }
     // Function to fetch product details and populate the form
     async function loadProductDetails(productId) {
       try {
-        const response = await fetch(`https://greenloop-67y2.onrender.com/api/productRoutes/products/${productId}`);
+        const response = await fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`);
         
         if (response.ok) {
           const product = await response.json();
@@ -56,7 +60,7 @@
         if (response.ok) {
           alert("Product updated successfully!");
           // Optionally redirect back to the admin page
-          window.location.href = "admin-page.html"; // Replace with your actual admin page URL
+          window.location.href = "admin.html"; // Replace with your actual admin page URL
         } else {
           alert("Failed to update product.");
         }
