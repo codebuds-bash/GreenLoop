@@ -87,16 +87,16 @@
   </style>
   <script>
   // On Page Load: Fetch Product Details
-  window.onload = function () {
-    const productId = new URLSearchParams(window.location.search).get("productId");
-    console.log("Extracted Product ID:", productId); // Debugging log
+  const params = new URLSearchParams(window.location.search);
+const productId = params.get("id") || params.get("productId"); // Support both keys
+console.log("Extracted Product ID:", productId);
 
-    if (productId) {
-      loadProductDetails(productId);
-    } else {
-      alert("No product ID found in the URL. Please check.");
-    }
-  };
+if (productId) {
+  loadProductDetails(productId);
+} else {
+  alert("No product ID found in the URL. Please check.");
+}
+
 
   // Fetch Product Details
   async function loadProductDetails(productId) {
