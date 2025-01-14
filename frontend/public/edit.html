@@ -3,27 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Product</title>   
-  <script>
-    function getProductIdFromURL() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('id'); // Assumes URL is something like: /products.html?id=123
+  <title>Edit Product</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
     }
-    // Function to fetch product details and populate the form
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #333;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="url"],
+    textarea,
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    button:active {
+      background-color: #3e8e41;
+    }
+
+    .readonly {
+      background-color: #f0f0f0;
+      cursor: not-allowed;
+    }
+
+    .divider {
+      height: 2px;
+      background-color: #ccc;
+      margin: 20px 0;
+    }
+  </style>
+  <script>
+    // Fetch Product Details and Populate Top Section
     async function loadProductDetails(productId) {
       try {
         const response = await fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`);
-        
         if (response.ok) {
           const product = await response.json();
-          // Fill the form with product details
-          document.getElementById("productId").value = productId;
+
+          // Display product details (read-only)
+          document.getElementById("displayName").value = product.name;
+          document.getElementById("displayDescription").value = product.description;
+          document.getElementById("displayPrice").value = product.price;
+          document.getElementById("displayImageUrl").value = product.imageUrl;
+
+          // Populate the edit form with product details
+          document.getElementById("productId").value = product._id;
           document.getElementById("name").value = product.name;
           document.getElementById("description").value = product.description;
           document.getElementById("price").value = product.price;
           document.getElementById("imageUrl").value = product.imageUrl;
         } else {
-          alert("Failed to fetch product details");
+          alert("Product not found. Please check the product ID.");
         }
       } catch (error) {
         console.error("Error fetching product details:", error);
@@ -31,9 +114,9 @@
       }
     }
 
-    // Function to handle product update
+    // Handle Product Update
     async function editProduct(event) {
-      event.preventDefault(); // Prevent the form from submitting traditionally
+      event.preventDefault(); // Prevent default form submission
 
       const productId = document.getElementById("productId").value;
       const name = document.getElementById("name").value;
@@ -41,7 +124,7 @@
       const price = parseFloat(document.getElementById("price").value);
       const imageUrl = document.getElementById("imageUrl").value;
 
-      if (!name || !description || !price || !imageUrl) {
+      if (!name || !description || isNaN(price) || !imageUrl) {
         alert("Please fill in all fields.");
         return;
       }
@@ -59,8 +142,7 @@
 
         if (response.ok) {
           alert("Product updated successfully!");
-          // Optionally redirect back to the admin page
-          window.location.href = "admin.html"; // Replace with your actual admin page URL
+          window.location.href = "admin.html"; // Redirect back to admin page
         } else {
           alert("Failed to update product.");
         }
@@ -70,7 +152,7 @@
       }
     }
 
-    // Load product details on page load
+    // On Page Load: Fetch Product Details
     window.onload = function () {
       const productId = new URLSearchParams(window.location.search).get("productId");
       if (productId) {
@@ -82,96 +164,47 @@
   </script>
 </head>
 <body>
-    <style>
-        body {
-          font-family: Arial, sans-serif;
-          background-color: #f4f4f9;
-          margin: 0;
-          padding: 0;
-        }
-      
-        h1 {
-          text-align: center;
-          color: #333;
-          margin-top: 20px;
-        }
-      
-        form {
-          max-width: 600px;
-          margin: 30px auto;
-          background: #ffffff;
-          border-radius: 8px;
-          padding: 20px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-      
-        label {
-          font-weight: bold;
-          color: #333;
-          display: block;
-          margin-bottom: 5px;
-        }
-      
-        input[type="text"],
-        input[type="number"],
-        input[type="url"],
-        textarea,
-        button {
-          width: 100%;
-          padding: 10px;
-          margin-bottom: 15px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          font-size: 16px;
-          box-sizing: border-box;
-        }
-      
-        textarea {
-          resize: vertical;
-          height: 100px;
-        }
-      
-        button {
-          background-color: #4CAF50;
-          color: white;
-          border: none;
-          cursor: pointer;
-          font-size: 18px;
-          transition: background-color 0.3s ease;
-        }
-      
-        button:hover {
-          background-color: #45a049;
-        }
-      
-        button:active {
-          background-color: #3e8e41;
-        }
-      
-        .readonly {
-          background-color: #f0f0f0;
-          cursor: not-allowed;
-        }
-      </style>
-
   <h1>Edit Product</h1>
-  <form id="editProductForm" onsubmit="editProduct(event)">
-    <label for="productId">Product ID:</label><br>
-    <input type="text" id="productId" name="productId" readonly><br><br>
+  <div class="container">
+    <!-- Top Section: Display Product Details -->
+    <div class="section">
+      <h2>Product Details</h2>
+      <label for="displayName">Product Name:</label>
+      <input type="text" id="displayName" class="readonly" readonly>
 
-    <label for="name">Product Name:</label><br>
-    <input type="text" id="name" name="name" required><br><br>
+      <label for="displayDescription">Description:</label>
+      <textarea id="displayDescription" class="readonly" readonly></textarea>
 
-    <label for="description">Description:</label><br>
-    <textarea id="description" name="description" required></textarea><br><br>
+      <label for="displayPrice">Price:</label>
+      <input type="number" id="displayPrice" class="readonly" readonly>
 
-    <label for="price">Price:</label><br>
-    <input type="number" id="price" name="price" step="0.01" required><br><br>
+      <label for="displayImageUrl">Image URL:</label>
+      <input type="url" id="displayImageUrl" class="readonly" readonly>
+    </div>
 
-    <label for="imageUrl">Image URL:</label><br>
-    <input type="url" id="imageUrl" name="imageUrl" required><br><br>
+    <div class="divider"></div>
 
-    <button type="submit">Update Product</button>
-  </form>
+    <!-- Bottom Section: Edit Product Form -->
+    <div class="section">
+      <h2>Edit Product</h2>
+      <form id="editProductForm" onsubmit="editProduct(event)">
+        <input type="hidden" id="productId" name="productId">
+
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+
+        <label for="imageUrl">Image URL:</label>
+        <input type="url" id="imageUrl" name="imageUrl" required>
+
+        <button type="submit">Update Product</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
