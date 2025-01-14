@@ -86,33 +86,48 @@
     }
   </style>
   <script>
-    // Fetch Product Details and Populate Top Section
-    async function loadProductDetails(productId) {
-      try {
-        const response = await fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`);
-        if (response.ok) {
-          const product = await response.json();
+  // On Page Load: Fetch Product Details
+  window.onload = function () {
+    const productId = new URLSearchParams(window.location.search).get("productId");
+    console.log("Extracted Product ID:", productId); // Debugging log
 
-          // Display product details (read-only)
-          document.getElementById("displayName").value = product.name;
-          document.getElementById("displayDescription").value = product.description;
-          document.getElementById("displayPrice").value = product.price;
-          document.getElementById("displayImageUrl").value = product.imageUrl;
-
-          // Populate the edit form with product details
-          document.getElementById("productId").value = product._id;
-          document.getElementById("name").value = product.name;
-          document.getElementById("description").value = product.description;
-          document.getElementById("price").value = product.price;
-          document.getElementById("imageUrl").value = product.imageUrl;
-        } else {
-          alert("Product not found. Please check the product ID.");
-        }
-      } catch (error) {
-        console.error("Error fetching product details:", error);
-        alert("An error occurred while fetching product details.");
-      }
+    if (productId) {
+      loadProductDetails(productId);
+    } else {
+      alert("No product ID found in the URL. Please check.");
     }
+  };
+
+  // Fetch Product Details
+  async function loadProductDetails(productId) {
+    try {
+      const response = await fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`);
+      if (response.ok) {
+        const product = await response.json();
+        console.log("Product Details:", product); // Debugging log
+
+        // Populate Display Section
+        document.getElementById("displayName").value = product.name;
+        document.getElementById("displayDescription").value = product.description;
+        document.getElementById("displayPrice").value = product.price;
+        document.getElementById("displayImageUrl").value = product.imageUrl;
+
+        // Populate Edit Form
+        document.getElementById("productId").value = product._id;
+        document.getElementById("name").value = product.name;
+        document.getElementById("description").value = product.description;
+        document.getElementById("price").value = product.price;
+        document.getElementById("imageUrl").value = product.imageUrl;
+      } else {
+        alert("Product not found. Please check the product ID.");
+      }
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+      alert("An error occurred while fetching product details.");
+    }
+  }
+
+
 
     // Handle Product Update
     async function editProduct(event) {
@@ -153,14 +168,7 @@
     }
 
     // On Page Load: Fetch Product Details
-    window.onload = function () {
-      const productId = new URLSearchParams(window.location.search).get("productId");
-      if (productId) {
-        loadProductDetails(productId);
-      } else {
-        alert("No product ID provided in the URL.");
-      }
-    };
+    
   </script>
 </head>
 <body>
