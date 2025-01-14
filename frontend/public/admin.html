@@ -185,7 +185,7 @@
               <p class="product-description">${product.description}</p>
               <p class="product-details">Price: ₹${product.price}</p>
               <button class="delete-btn" onclick="deleteProduct('${product._id}')">Delete</button>
-              <button class="edit-btn" onclick="editProduct('${product._id}')">Edit</button>
+              <a href ="edit.html?id=${product._id}" class="edit-btn">Edit</button>
             </div>
           `;
           productList.appendChild(productCard);
