@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@100..900&display=swap" rel="stylesheet">
     <title>Register</title>
 </head>
 <body>
@@ -13,21 +13,17 @@
             <p>
                 Join our journey to make a difference. Together, we can save the environment! 🌍
             </p>
-            <p>
-                "Imagine a world where nature thrives and communities flourish. Let's work together to make that dream a reality.🌱"
-            </p>
-            <p>
-                "Saving the environment isn't a task; it's a lifestyle. Be part of our journey to create a sustainable tomorrow!🌼"
-            </p>
             <div class="gif-container">
                 <h2>Let's Make a Difference!</h2>
                 <img src="images/O3Qk.gif" alt="Saving Environment GIF" class="animated-gif">
             </div>
         </div>
+
         <div class="container">
             <img src="images/logo1.png" alt="logo-image">
-            <h1>Time to Save Environment!!! </h1>
-            <h1>"Register Now" </h1>
+            <h1>Time to Save Environment!!!</h1>
+            <h1>"Register Now"</h1>
+
             <form id="register-form">
                 <!-- Added fields for name and email -->
                 <input type="text" id="reg-name" placeholder="Full Name" required>
@@ -41,39 +37,49 @@
                 </select>
                 <button type="submit">Register</button>
             </form>
+            
             <p>Already have an account? <a href="login.html">Login here</a></p>
-            <a href="https://www.google.com" target="_blank">
-                <img src="images/google.png" alt="Google Logo" class="social-logo">
-            </a>
-            <a href="https://www.facebook.com" target="_blank">
-                <img src="images/facebook.png" alt="Facebook Logo" class="social-logo">
-            </a>
-            <a href="https://www.twitter.com" target="_blank">
-                <img src="images/twitter.png" alt="Twitter Logo" class="social-logo">
-            </a>
+            <div class="social-links">
+                <a href="https://www.google.com" target="_blank">
+                    <img src="images/google.png" alt="Google Logo" class="social-logo">
+                </a>
+                <a href="https://www.facebook.com" target="_blank">
+                    <img src="images/facebook.png" alt="Facebook Logo" class="social-logo">
+                </a>
+                <a href="https://www.twitter.com" target="_blank">
+                    <img src="images/twitter.png" alt="Twitter Logo" class="social-logo">
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
-        const backendURL = 'https://greenloop-67y2.onrender.com'; // Make sure this is correct
+        const backendURL = 'https://greenloop-67y2.onrender.com'; // Ensure this is correct
         document.getElementById('register-form').addEventListener('submit', async (event) => {
             event.preventDefault(); // Prevent page reload
 
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries()); // Convert form data to an object
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+            const role = document.getElementById('reg-role').value;
+
+            const data = { name, email, username, password, role };
 
             try {
                 const response = await fetch(`${backendURL}/api/auth/register`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify(data), // Send data as JSON
                 });
 
                 const result = await response.json();
+
                 if (response.ok) {
                     alert('Registration successful!');
-                    // Optionally, you can redirect the user to login page after successful registration:
-                    window.location.href = '/login.html';
+                    window.location.href = '/login.html'; // Redirect to login page
                 } else {
                     alert(`Error: ${result.message}`);
                 }
