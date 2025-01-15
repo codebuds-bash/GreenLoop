@@ -10,6 +10,7 @@ const streamifier = require('streamifier');
 const authRoutes = require('./routes/auth'); 
 const Product = require('./models/Product'); 
 const productRoutes = require('./routes/products');
+const profileRoutes = require('./routes/profile');
 const User = require('./models/User');  
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -40,6 +41,8 @@ app.use(cors({
 
 // Use authRoutes for handling authentication
 app.use('/api/auth', authRoutes);
+// Add the profile routes
+app.use('/api/profile', profileRoutes);
 
 app.use('/api/products', productRoutes);
 

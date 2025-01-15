@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+// User schema
 const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },  // Add name field
-    email: { type: String, required: true, unique: true },  // Add email field (unique)
-  // Retain username
-    password: { type: String, required: true },  // Retain password
-    role: { type: String, enum: ['consumer', 'retailer', 'manufacturer'], required: true },  // Retain role
-});
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    imageUrl: { type: String, default: 'https://www.niceinstitute.info/img/no-img.png' },// Field for profile image URL
+    accountType: { type: String, default: 'consumer' }, // Field for account type
+}, { timestamps: true });
 
-// Hash password before saving to database
+// Hash password before saving
 userSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 10);

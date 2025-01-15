@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+</head>
+<body>
+  <section class="profile-card">
+    <div class="banner-image">
+        <img src="/images/banner.jpeg" alt="Banner Image" class="banner-img">
+    </div>
+    <div class="profile-info">
+      <div class="left-column">
+        <img src="<%= imageUrl %>" alt="Profile Image" class="profile-image">
+        <div class="profile-details">
+          <h3>Your Profile</h3>
+          <p><strong>Name:</strong> <%= name %></p>
+          <p><strong>Email:</strong> <%= email %></p>
+          <p><strong>Account Type:</strong> <%= accountType %></p>
+          <p><strong>Sustainability Points:</strong> <%= points %></p>
+        </div>
+      </div>
+      <!-- Additional sections... -->
+    </div>
+  </section>
+</body>
+</html>

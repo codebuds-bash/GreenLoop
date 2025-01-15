@@ -5,11 +5,10 @@ const { User } = require('../models'); // Import the User model
 
 const router = express.Router();
 
-// Registration endpoint
 router.post('/register', async (req, res) => {
     const { name, email, password, role } = req.body;
 
-    try {
+    try {   
         // Check if the email already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -22,10 +21,22 @@ router.post('/register', async (req, res) => {
             email,
             password,  // Password will be hashed automatically due to the pre-save hook
             role,
+            profileImage: null, // Default value
+            accountType: 'Basic', // Default account type
         });
 
         await user.save();  // Save the user to the database
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({
+            message: 'User registered successfully',
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                profileImage: user.profileImage,
+                accountType: user.accountType,
+            },
+        });
     } catch (error) {
         console.error(error);  // Log the error for debugging
         res.status(500).json({ message: 'Server error' });
@@ -33,7 +44,7 @@ router.post('/register', async (req, res) => {
 });
 
 
-// Login endpoint
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -41,14 +52,12 @@ router.post('/login', async (req, res) => {
         // Find the user by email
         const user = await User.findOne({ email });
         if (!user) {
-            // Return a generic error message (don't specify if the email or password is incorrect)
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
         // Compare the provided password with the hashed password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            // Return a generic error message (don't specify if the email or password is incorrect)
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
@@ -57,18 +66,19 @@ router.post('/login', async (req, res) => {
             expiresIn: '1h',
         });
 
-        // Send the token and user information (excluding password) as the response
+        // Send the token and full user information (excluding password)
         const userProfile = {
             id: user._id,
             name: user.name,
             email: user.email,
             role: user.role,
+            profileImage: user.profileImage, // Include profile image
+            accountType: user.accountType,   // Include account type
         };
 
-        // Successful login response
         res.json({ token, userProfile });
     } catch (error) {
-        console.error(error);  // Log the error for debugging
+        console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 });

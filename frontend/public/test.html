@@ -1,45 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bouncing Animation</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-      overflow: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenloop Tracking</title>
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-    .container {
-      position: relative;
-      width: 200px;
-      height: 180px;
-    }
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-align: center;
+        }
 
-    .coffee-bag {
-      width: 100%;
-      height: auto;
-      animation: bounce 1.5s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
-    }
+        .container {
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow: hidden;
+            animation: slide-in 0.8s ease-out;
+        }
 
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-30px);
-      }
-    }
-  </style>
+        #qr-reader {
+            width: 100%;
+            margin: 20px auto;
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            position: relative;
+        }
+
+        #qr-reader::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top: 3px solid #4CAF50;
+            border-radius: 10px;
+            animation: scan-animation 2s linear infinite;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result, #blockchainResult {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            color: #333;
+            font-size: 14px;
+        }
+
+        @keyframes slide-in {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+       
+
+        .svg-container {
+            margin-top: 20px;
+        }
+
+        .svg-container img {
+            width: 100%;
+            max-width: 200px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <img src="/frontend/public/images/coffee-bag.png" alt="Coffee Bag" class="coffee-bag">
-  </div>
+    <h1>Track Your Greenloop Bag</h1>
+    <div class="container">
+        <div class="svg-container">
+            <img src="https://www.svgrepo.com/show/331226/qr-code-scan.svg" alt="QR Code SVG">
+        </div>
+
+        <h3>Scan QR Code</h3>
+        <div id="qr-reader"></div>
+        <div id="result">Waiting for QR Code...</div>
+
+        <h3>Or Enter Blockchain ID</h3>
+        <input type="text" id="blockchainId" placeholder="Enter Blockchain ID">
+        <button onclick="fetchBlockchainData()">Track</button>
+
+        <div id="blockchainResult"></div>
+    </div>
+
+    <script>
+        // Initialize QR Code scanner with animation
+        const qrReader = new Html5Qrcode("qr-reader");
+        qrReader.start({ facingMode: "environment" }, {
+            fps: 10,
+            qrbox: 250
+        }, qrCodeMessage => {
+            document.getElementById("result").innerHTML = `<strong>Scanned ID:</strong> ${qrCodeMessage}`;
+            fetchBlockchainData(qrCodeMessage); // Fetch data for scanned ID
+        }).catch(err => {
+            console.error(err);
+            document.getElementById("result").innerHTML = `<strong>Error:</strong> Unable to access camera.`;
+        });
+
+        // Fetch Blockchain Data Function
+        async function fetchBlockchainData(blockchainId = null) {
+            const id = blockchainId || document.getElementById("blockchainId").value;
+
+            if (!id) {
+                alert("Please enter or scan a valid Blockchain ID");
+                return;
+            }
+
+            // Replace with your Ethereum RPC provider or Infura endpoint
+            const provider = new ethers.providers.JsonRpcProvider("https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID");
+
+            // Replace with your contract address and ABI
+            const contractAddress = "YOUR_CONTRACT_ADDRESS";
+            const contractABI = [
+                "function getRecyclingData(string id) public view returns (string memory)"
+            ];
+
+            const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+            try {
+                const data = await contract.getRecyclingData(id);
+                document.getElementById("blockchainResult").innerHTML = `<strong>Blockchain Data:</strong> ${data}`;
+            } catch (error) {
+                console.error(error);
+                alert("Failed to fetch data. Please check the Blockchain ID.");
+            }
+        }
+    </script>
 </body>
 </html>

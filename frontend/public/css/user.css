@@ -520,6 +520,7 @@ body {
 
 /* Footer Styling */
 .footer {
+    margin-top: auto;
     background-color: #ffffff;
     padding: 40px 20px;
     text-align: left;
