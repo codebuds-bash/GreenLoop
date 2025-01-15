@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile</title>
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.js"></script>
+    <style>
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="file"],
+        select {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="file"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .file-input {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .file-input label {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .file-input label:hover {
+            background-color: #0056b3;
+        }
+
+        .image-preview {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .image-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 48%;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .back-button {
+            background-color: #6c757d;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Your Profile</h1>
+        <form id="profile-form" enctype="multipart/form-data">
+            <!-- Display Name and Email -->
+            <label for="user-name">Name</label>
+            <input type="text" id="user-name" name="name" readonly>
+
+            <label for="user-email">Email</label>
+            <input type="email" id="user-email" name="email" readonly>
+
+            <!-- Profile Image Upload -->
+            <label for="profile-image">Upload Profile Image</label>
+            <div class="file-input">
+                <label for="profile-image">Choose Image</label>
+                <input type="file" id="profile-image" name="profile-image" accept="image/*" required>
+            </div>
+
+            <div class="image-preview" id="image-preview-container">
+                <!-- Image Preview Area -->
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" class="back-button" onclick="window.location.href = '/profile.html';">Back</button>
+                <button type="submit">Save Profile</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const backendURL = 'https://greenloop-67y2.onrender.com'; // Your backend URL
+        const token = localStorage.getItem('token');
+
+        // Ensure user is logged in
+        if (!token) {
+            alert('Please log in!');
+            window.location.href = '/login.html';
+        }
+
+        // Fetch user profile data (Name & Email) from backend
+        async function fetchUserProfile() {
+            try {
+                const response = await fetch(`${backendURL}/api/profile`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Populate the form fields with user data
+                    document.getElementById('user-name').value = data.name;
+                    document.getElementById('user-email').value = data.email;
+                } else {
+                    alert(data.message || 'Failed to fetch user profile.');
+                }
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                alert('Something went wrong while fetching your profile.');
+            }
+        }
+
+        // Handle image cropping and upload
+        let cropper;
+        const imageInput = document.getElementById('profile-image');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = e.target.result;
+                    imagePreviewContainer.innerHTML = ''; // Clear previous image preview
+                    imagePreviewContainer.appendChild(imgElement);
+
+                    // Initialize cropper
+                    if (cropper) {
+                        cropper.destroy();
+                    }
+
+                    cropper = new Cropper(imgElement, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle profile form submission
+        document.getElementById('profile-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData();
+            const imageFile = document.getElementById('profile-image').files[0];
+            formData.append('profile-image', imageFile);
+
+            // If cropping is done, get cropped image data URL
+            if (cropper) {
+                const croppedCanvas = cropper.getCroppedCanvas();
+                croppedCanvas.toBlob((blob) => {
+                    formData.append('profile-image', blob);
+                    uploadProfileImage(formData);
+                });
+            } else {
+                alert('Please upload and crop an image.');
+            }
+        });
+
+        async function uploadProfileImage(formData) {
+            try {
+                const response = await fetch(`${backendURL}/api/profile/upload`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Profile updated successfully!');
+                    window.location.href = '/profile.html';
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Error uploading profile image:', error);
+                alert('Something went wrong!');
+            }
+        }
+
+        // Call fetchUserProfile to populate data on page load
+        fetchUserProfile();
+    </script>
+</body>
+</html>
