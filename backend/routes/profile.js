@@ -3,7 +3,7 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const streamifier = require('streamifier');
 const { User } = require('../models'); // Import the User model
-const authenticate = require('../middleware/authenticate'); // Middleware to verify JWT
+const authenticate = require('../middleware/auth'); // Middleware to verify JWT
 
 const router = express.Router();
 
