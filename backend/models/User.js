@@ -25,10 +25,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
-    accountType: {
-        type: String,
-        default: 'Basic',
-    },
 });
 
 // Hash password before saving

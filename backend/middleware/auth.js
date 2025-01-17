@@ -41,6 +41,45 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+router.post('/register', async (req, res) => {
+    const { name, email, password, role } = req.body;
 
+    try {   
+        // Check if the email already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already taken, please choose a different one' });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user
+        const user = new User({
+            name,
+            email,
+            password: hashedPassword,  // Store the hashed password
+            role,
+            profileImage: null, // Default value
+             // Default account type
+        });
+
+        await user.save();  // Save the user to the database
+        res.status(201).json({
+            message: 'User registered successfully',
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                profileImage: user.profileImage,
+                
+            },
+        });
+    } catch (error) {
+        console.error(error);  // Log the error for debugging
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 module.exports = router;
 

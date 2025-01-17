@@ -25,7 +25,7 @@ router.post('/register', async (req, res) => {
             password: hashedPassword,  // Store the hashed password
             role,
             profileImage: null, // Default value
-            accountType: 'Basic', // Default account type
+             // Default account type
         });
 
         await user.save();  // Save the user to the database
@@ -37,7 +37,7 @@ router.post('/register', async (req, res) => {
                 email: user.email,
                 role: user.role,
                 profileImage: user.profileImage,
-                accountType: user.accountType,
+                
             },
         });
     } catch (error) {
@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
             email: user.email,
             role: user.role,
             profileImage: user.profileImage, // Include profile image
-            accountType: user.accountType,   // Include account type
+            // Include account type
         };
 
         res.json({ token, userProfile });
