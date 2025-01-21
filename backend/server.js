@@ -38,6 +38,51 @@ app.use(cors({
   allowedHeaders: 'Content-Type,Authorization',
 }));
 
+app.post('/alexa/order', (req, res) => {
+  const alexaRequest = req.body;
+
+  // Check if the request is valid and contains the intent
+  if (
+    alexaRequest.request &&
+    alexaRequest.request.type === 'IntentRequest' &&
+    alexaRequest.request.intent.name === 'OrderIntent'
+  ) {
+    // Extract the 'item' slot value
+    const item = alexaRequest.request.intent.slots.item?.value;
+
+    if (item) {
+      // Process the order (you can integrate database logic here)
+      console.log(`Received order for: ${item}`);
+
+      // Respond to Alexa
+      res.json({
+        version: '1.0',
+        response: {
+          outputSpeech: {
+            type: 'PlainText',
+            text: `Your order for ${item} has been placed successfully!`,
+          },
+          shouldEndSession: true,
+        },
+      });
+    } else {
+      // Handle missing slot value
+      res.json({
+        version: '1.0',
+        response: {
+          outputSpeech: {
+            type: 'PlainText',
+            text: "I didn't catch what you'd like to order. Can you please repeat that?",
+          },
+          shouldEndSession: false,
+        },
+      });
+    }
+  } else {
+    // Handle invalid Alexa request
+    res.status(400).json({ message: 'Invalid request from Alexa.' });
+  }
+});
 
 // Use authRoutes for handling authentication
 app.use('/api/auth', authRoutes);
