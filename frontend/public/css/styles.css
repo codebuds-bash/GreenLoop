@@ -505,6 +505,10 @@ body {
 .developer-content {
     flex: 1; /* Allow content to take up the remaining space */
 }
+.developer-content img {
+    width: 20px;
+
+}
 
 .quote {
     font-style: italic; /* Italic style for quotes */
