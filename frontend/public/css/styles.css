@@ -484,6 +484,15 @@ body {
     align-items: center; /* Align items vertically */
     min-height: 0px;
 }
+.developer-card a{
+    text-decoration: none;
+    font-family:'Urbanist', sans-serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color:#007BFF;
+    position: relative;
+    top: 30px;
+}
 
 .developer-image {
     width:auto ; /* Set the width of the image */
