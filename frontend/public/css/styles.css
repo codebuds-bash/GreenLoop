@@ -507,6 +507,7 @@ body {
 }
 .developer-content img {
     position: relative;
+    left: 10px;
     top:30px;
     width: 20px;
 
