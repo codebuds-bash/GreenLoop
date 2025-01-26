@@ -492,6 +492,7 @@ body {
     color:#007BFF;
     position: relative;
     top: 30px;
+    left: 10px;
 }
 
 .developer-image {
@@ -507,7 +508,6 @@ body {
 }
 .developer-content img {
     position: relative;
-    left: 10px;
     top:30px;
     width: 20px;
 
