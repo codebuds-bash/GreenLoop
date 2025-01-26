@@ -506,6 +506,8 @@ body {
     flex: 1; /* Allow content to take up the remaining space */
 }
 .developer-content img {
+    position: relative;
+    top:30px;
     width: 20px;
 
 }
