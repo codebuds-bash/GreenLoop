@@ -11,6 +11,7 @@ const authRoutes = require('./routes/auth');
 const Product = require('./models/Product'); 
 const productRoutes = require('./routes/products');
 const profileRoutes = require('./routes/profile');
+const recyclingItemRoutes = require('./routes/recyclingItemRoutes');
 const User = require('./models/User');  
 const app = express();
 const PORT = process.env.PORT || 3000;
