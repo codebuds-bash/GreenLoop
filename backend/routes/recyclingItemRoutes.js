@@ -1,14 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-// Assuming you have a RecyclingItem model
 const RecyclingItem = require('../models/RecyclingItem');
-
-// Middleware to log requests (optional)
-router.use((req, res, next) => {
-  console.log('Recycling item route accessed');
-  next(); // Pass control to the next middleware or route handler
-});
 
 // GET all recycling items
 router.get('/', async (req, res) => {
@@ -38,24 +30,56 @@ router.get('/:id', async (req, res) => {
 
 // POST a new recycling item
 router.post('/', async (req, res) => {
+  const {
+    itemName,
+    materialDetails,
+    manufacturingLocation,
+    uniqueTrackingID,
+    recyclingFrequency,
+    priorForms,
+    recyclingState,
+    processingCenter,
+    energySavedAmount,
+    waterSavedAmount,
+    recycledOutput,
+    carbonEmissionReduction,
+    wasteDivertedWeight,
+    sustainabilityScore,
+    recyclingEvents,
+    rewardPoints,
+    totalRewards,
+    potentialReuse,
+    ecoTip,
+  } = req.body;
+
+  // Validate required fields
+  if (!itemName || !materialDetails || !uniqueTrackingID || !recyclingState || !processingCenter) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
   try {
-    const { name, material, status, energySaved, waterSaved } = req.body;
-
-    // Validation to ensure required fields are provided
-    if (!name || !material || !status) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    // Create a new recycling item
     const newItem = new RecyclingItem({
-      name,
-      material,
-      status,
-      energySaved,
-      waterSaved,
+      itemName,
+      materialDetails,
+      manufacturingLocation,
+      uniqueTrackingID,
+      recyclingFrequency,
+      priorForms,
+      recyclingState,
+      processingCenter,
+      energySavedAmount,
+      waterSavedAmount,
+      recycledOutput,
+      carbonEmissionReduction,
+      wasteDivertedWeight,
+      sustainabilityScore,
+      recyclingEvents,
+      rewardPoints,
+      totalRewards,
+      potentialReuse,
+      ecoTip,
     });
 
-    // Save the new item to the database
     await newItem.save();
     res.status(201).json({ message: 'Recycling item created', item: newItem });
   } catch (error) {
@@ -68,9 +92,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const itemId = req.params.id;
   try {
-    const updatedItem = await RecyclingItem.findByIdAndUpdate(itemId, req.body, {
-      new: true, // Return the updated document
-    });
+    const updatedItem = await RecyclingItem.findByIdAndUpdate(itemId, req.body, { new: true });
 
     if (!updatedItem) {
       return res.status(404).json({ message: 'Recycling item not found' });

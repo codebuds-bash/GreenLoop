@@ -91,7 +91,7 @@ app.use('/api/profile', profileRoutes);
 
 app.use('/api/products', productRoutes);
 
-app.use('/recycling-item', recyclingItemRoutes);
+app.use('/api/recycling-items', recyclingItemRoutes);
 
 // Cloudinary Configuration
 cloudinary.config({
