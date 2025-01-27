@@ -1,167 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recycling Item Details</title>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/trackofdetails.css">
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GreenLoop Tracking System</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <!-- Include Html5Qrcode Library -->
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>Your Recycling Journey</h1>
+    <header class="navbar">
+        <div class="container">
+            <a href="#home" class="logo">
+                <img src="/images/logo1.png" alt="GreenLoop Logo" class="logo-image">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/products.html">Products</a></li>
+                    <li><a href="/tracking.html">Tracking</a></li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/services.html">Services</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                    <li id="login-link"><a href="/login.html">Login</a></li>
+                    <li id="register-link"><a href="/register.html">Register</a></li>
+                    <li id="profile-link" style="display: none;"><a href="/profile.html">Profile</a></li>
+                    <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <!-- Item Details Section -->
-    <div class="item-details">
-      <h2>Item Details</h2>
-      <div class="detail-item">
-        <strong>Item Name:</strong> <span id="itemName">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Material Details:</strong> <span id="materialDetails">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Manufacturing Location:</strong> <span id="manufacturingLocation">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Unique Tracking ID:</strong> <span id="uniqueTrackingID">Loading...</span>
-      </div>
+    <main>
+        <h1>Track Your Greenloop Bag</h1>
+        <div class="container">
+            <div id="qr-reader"></div>
+            <div id="result">Waiting for QR Code...</div>
+        </div>
+    </main>
 
-      <!-- Recycling History Section -->
-      <h2>Recycling History</h2>
-      <div class="detail-item">
-        <strong>Recycling Frequency:</strong> <span id="recyclingFrequency">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Previous Forms:</strong> <span id="priorForms">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Recycling State:</strong> <span id="recyclingState">Loading...</span>
-      </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="/images/logo1.png" alt="GreenLoop Logo" class="footer-logo-image">
+                <p>© 2024 GreenLoop Compostables. <br> All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Get in Touch</h3>
+                <p>Chandigarh University, Mohali<br> Chandigarh, Punjab, 140143</p>
+                <p>Email: <a href="mailto:info@greenloop.com">info@greenloop.com</a></p>
+                <p>Phone: <a href="tel:+911234567890">+91 1234567890</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Order Sample Kit</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Our Newsletter</h3>
+                <p>Subscribe to our newsletter to get our news & deals delivered to you.</p>
+                <form class="newsletter-form">
+                    <div class="input-wrapper">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Join</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
 
-      <!-- Recycling Process Details -->
-      <h2>Recycling Process</h2>
-      <div class="detail-item">
-        <strong>Processing Center:</strong> <span id="processingCenter">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Energy Saved:</strong> <span id="energySavedAmount">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Water Saved:</strong> <span id="waterSavedAmount">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Recycled Output:</strong> <span id="recycledOutput">Loading...</span>
-      </div>
+    <style>
+        main {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-      <!-- Environmental Impact -->
-      <h2>Environmental Impact</h2>
-      <div class="detail-item">
-        <strong>Carbon Emission Reduction:</strong> <span id="carbonEmissionReduction">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Waste Diverted:</strong> <span id="wasteDivertedWeight">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Sustainability Score:</strong> <span id="sustainabilityScore">Loading...</span>
-      </div>
+        main h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-align: center;
+        }
 
-      <!-- Recycling Journey Timeline -->
-      <h2>Recycling Events</h2>
-      <ul id="recyclingEvents">
-        <!-- Timeline will be dynamically generated here -->
-      </ul>
+        main .container {
+            max-width: 90%;
+            width: auto;
+            text-align: center;
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            overflow: hidden;
+        }
 
-      <!-- Rewards Section -->
-      <h2>Rewards</h2>
-      <div class="detail-item">
-        <strong>Reward Points:</strong> <span id="rewardPoints">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Total Rewards:</strong> <span id="totalRewards">Loading...</span>
-      </div>
+        main #qr-reader {
+            width: 100%;
+            margin: 20px auto;
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+        }
 
-      <!-- Insights and Fun Facts -->
-      <h2>Insights and Fun Facts</h2>
-      <div class="detail-item">
-        <strong>Potential Reuse:</strong> <span id="potentialReuse">Loading...</span>
-      </div>
-      <div class="detail-item">
-        <strong>Eco Tip:</strong> <span id="ecoTip">Loading...</span>
-      </div>
-    </div>
+        main #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            color: #333;
+            font-size: 14px;
+        }
+    </style>
 
-    <!-- QR Code Section -->
-    <h2>QR Code</h2>
-    <div id="qrcode"></div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Extract itemId from the URL (assuming it's in the path, e.g., /recycling-item/{itemId})
-      const urlParams = new URLSearchParams(window.location.search);
-      const itemId = urlParams.get('itemId'); // or use a different way to extract if it's part of the path
-
-      if (!itemId) {
-        alert('Item ID is missing.');
-        return;
-      }
-
-      const currentPageUrl = `${window.location.origin}/recycling-item/${itemId}`;
-
-      // Generate QR Code
-      const qrCodeContainer = document.getElementById('qrcode');
-      new QRCode(qrCodeContainer, {
-        text: currentPageUrl,
-        width: 128,
-        height: 128,
-      });
-
-      // Fetch and render recycling data
-      fetch(`/recycling-item/${itemId}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data) {
-            // Populate item details dynamically
-            document.getElementById('itemName').textContent = data.itemName;
-            document.getElementById('materialDetails').textContent = data.materialDetails;
-            document.getElementById('manufacturingLocation').textContent = data.manufacturingLocation;
-            document.getElementById('uniqueTrackingID').textContent = data.uniqueTrackingID;
-            document.getElementById('recyclingFrequency').textContent = data.recyclingFrequency;
-            document.getElementById('priorForms').textContent = data.priorForms;
-            document.getElementById('recyclingState').textContent = data.recyclingState;
-            document.getElementById('processingCenter').textContent = data.processingCenter;
-            document.getElementById('energySavedAmount').textContent = data.energySavedAmount;
-            document.getElementById('waterSavedAmount').textContent = data.waterSavedAmount;
-            document.getElementById('recycledOutput').textContent = data.recycledOutput;
-            document.getElementById('carbonEmissionReduction').textContent = data.carbonEmissionReduction;
-            document.getElementById('wasteDivertedWeight').textContent = data.wasteDivertedWeight;
-            document.getElementById('sustainabilityScore').textContent = data.sustainabilityScore;
-
-            // Render Recycling Events (Timeline)
-            const recyclingEventsElement = document.getElementById('recyclingEvents');
-            recyclingEventsElement.innerHTML = ''; // Clear any existing events
-            data.recyclingEvents.forEach(event => {
-              const listItem = document.createElement('li');
-              listItem.innerHTML = `<strong>${event.date}:</strong> ${event.description}`;
-              recyclingEventsElement.appendChild(listItem);
-            });
-
-            // Render Rewards Section
-            document.getElementById('rewardPoints').textContent = data.rewardPoints;
-            document.getElementById('totalRewards').textContent = data.totalRewards;
-
-            // Render Insights and Fun Facts
-            document.getElementById('potentialReuse').textContent = data.potentialReuse;
-            document.getElementById('ecoTip').textContent = data.ecoTip;
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-          alert('There was an error fetching the recycling item data.');
+    <script>
+        const qrReader = new Html5Qrcode("qr-reader");
+        qrReader.start({ facingMode: "environment" }, {
+            fps: 10,
+            qrbox: 250
+        }, qrCodeMessage => {
+            document.getElementById("result").innerHTML = `<strong>Scanned ID:</strong> ${qrCodeMessage}`;
+            handleScannedQRCode(qrCodeMessage); // Redirect or process scanned data
+        }).catch(err => {
+            console.error(err);
+            document.getElementById("result").innerHTML = `<strong>Error:</strong> Unable to access camera.`;
         });
-    });
-  </script>
+
+        function handleScannedQRCode(qrCodeMessage) {
+            if (qrCodeMessage) {
+                window.location.href = `/tracking.html?id=${encodeURIComponent(qrCodeMessage)}`;
+            } else {
+                alert("Invalid QR Code data");
+            }
+        }
+
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const loginLink = document.getElementById('login-link');
+            const registerLink = document.getElementById('register-link');
+            const profileLink = document.getElementById('profile-link');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (token) {
+                loginLink.style.display = 'none';
+                registerLink.style.display = 'none';
+                profileLink.style.display = 'block';
+                logoutLink.style.display = 'block';
+            } else {
+                loginLink.style.display = 'block';
+                registerLink.style.display = 'block';
+                profileLink.style.display = 'none';
+                logoutLink.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            checkLoginStatus();
+            window.location.href = '/index.html';
+        }
+    </script>
 </body>
 </html>
