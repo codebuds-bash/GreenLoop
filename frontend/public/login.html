@@ -66,79 +66,81 @@
             </div>
         </div>
 
-    <script>
-        const backendURL = 'https://greenloop-67y2.onrender.com'; // Replace with your Render backend URL
-
-        // Toggle between forms
-        document.getElementById('showConsumerForm').addEventListener('click', () => {
-            document.getElementById('consumerLoginForm').classList.remove('hidden');
-            document.getElementById('retailerLoginForm').classList.add('hidden');
-        });
-
-        document.getElementById('showRetailerForm').addEventListener('click', () => {
-            document.getElementById('retailerLoginForm').classList.remove('hidden');
-            document.getElementById('consumerLoginForm').classList.add('hidden');
-        });
-
-        // Handle Consumer Login
-        document.getElementById('consumerLoginForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
-
-            try {
-                const response = await fetch(`https://greenloop-67y2.onrender.com/api/auth/login`, {
-                    method: 'POST',  // Ensure this is POST
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    alert('Consumer Login Successful');
-                    localStorage.setItem('token', result.token); // Store JWT token
-                    window.location.href = '/index.html'; // Redirect after login
-                } else {
-                    alert(`Error: ${result.message}`);
-                }
-            } catch (error) {
-                console.error('Login Error:', error);
-                alert('Something went wrong!');
-            }
-        });
-
-        // Handle Retailer Login
-        document.getElementById('retailerLoginForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
-
-            try {
-                const response = await fetch(`${backendURL}/api/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    alert('Retailer Login Successful');
-                    localStorage.setItem('token', result.token); // Store JWT token
-                    window.location.href = '/index.html'; // Redirect after login
-                } else {
-                    alert(`Error: ${result.message}`);
-                }
-            } catch (error) {
-                console.error('Login Error:', error);
-                alert('Something went wrong!');
-            }
-        });
-    </script>
+   
 
     <style>
         .hidden {
             display: none;
         }
     </style>
+    <script>
+        const backendURL = 'https://greenloop-67y2.onrender.com'; // Backend URL
+    
+        // Toggle between forms
+        document.getElementById('showConsumerForm').addEventListener('click', () => {
+            document.getElementById('consumerLoginForm').classList.remove('hidden');
+            document.getElementById('retailerLoginForm').classList.add('hidden');
+        });
+    
+        document.getElementById('showRetailerForm').addEventListener('click', () => {
+            document.getElementById('retailerLoginForm').classList.remove('hidden');
+            document.getElementById('consumerLoginForm').classList.add('hidden');
+        });
+    
+        // Handle Consumer Login
+        document.getElementById('consumerLoginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch(`${backendURL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+    
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Consumer Login Successful');
+                    localStorage.setItem('token', result.token);
+                    window.location.href = '/index.html';
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Login Error:', error);
+                alert('Something went wrong! Please try again later.');
+            }
+        });
+    
+        // Handle Retailer Login
+        document.getElementById('retailerLoginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await fetch(`${backendURL}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+    
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Retailer Login Successful');
+                    localStorage.setItem('token', result.token);
+                    window.location.href = '/index.html';
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Login Error:', error);
+                alert('Something went wrong! Please try again later.');
+            }
+        });
+    </script>
+    
 </body>
 </html>
