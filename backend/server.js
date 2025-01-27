@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.json());
+
 
 const allowedOrigins = [
   'www.greenloop.site', // Production frontend URL
@@ -26,16 +26,16 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true); // Allow the request
-    } else {
-      callback(new Error('Not allowed by CORS')); // Block the request
-    }
-  },
-  methods: 'GET,POST',
-  allowedHeaders: 'Content-Type,Authorization',
+  origin: 'https://www.greenloop.site', // Frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true, // Allow cookies or authorization headers
 }));
+app.use(express.json());
+
+
+
+
+
 
 app.post('/alexa/order', (req, res) => {
   const alexaRequest = req.body;
