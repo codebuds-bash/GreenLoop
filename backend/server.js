@@ -15,14 +15,13 @@ const User = require('./models/User');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 
 const allowedOrigins = [
-  'https://greenloop.site', // Production frontend URL
+  'www.greenloop.site', // Production frontend URL
   'http://127.0.0.1:5500', // Local development frontend URL
 ];
 
