@@ -22,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 
 const allowedOrigins = [
-  'https://green-loop-tau.vercel.app', // Production frontend URL
+  'https://greenloop.site', // Production frontend URL
   'http://127.0.0.1:5500', // Local development frontend URL
 ];
 
