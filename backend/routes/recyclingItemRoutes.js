@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Import the RecyclingItem model
-const RecyclingItem = require('../models/RecyclingItem');
+const RecyclingItem = require('../models/recyclingItem');
 
 // Middleware to log requests (optional)
 router.use((req, res, next) => {
