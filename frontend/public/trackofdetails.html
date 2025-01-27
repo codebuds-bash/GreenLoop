@@ -6,6 +6,7 @@
   <title>Recycling Item Details</title>
   <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/trackofdetails.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -90,12 +91,34 @@
         <strong>Eco Tip:</strong> <span id="ecoTip">Loading...</span>
       </div>
     </div>
+
+    <!-- QR Code Section -->
+    <h2>QR Code</h2>
+    <div id="qrcode"></div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const itemId = 'your_recycling_item_id_here'; // Replace with the actual recycling item ID
+      // Extract itemId from the URL (assuming it's in the path, e.g., /recycling-item/{itemId})
+      const urlParams = new URLSearchParams(window.location.search);
+      const itemId = urlParams.get('itemId'); // or use a different way to extract if it's part of the path
 
+      if (!itemId) {
+        alert('Item ID is missing.');
+        return;
+      }
+
+      const currentPageUrl = `${window.location.origin}/recycling-item/${itemId}`;
+
+      // Generate QR Code
+      const qrCodeContainer = document.getElementById('qrcode');
+      new QRCode(qrCodeContainer, {
+        text: currentPageUrl,
+        width: 128,
+        height: 128,
+      });
+
+      // Fetch and render recycling data
       fetch(`/recycling-item/${itemId}`)
         .then(response => response.json())
         .then(data => {
@@ -140,6 +163,5 @@
         });
     });
   </script>
-
 </body>
 </html>
