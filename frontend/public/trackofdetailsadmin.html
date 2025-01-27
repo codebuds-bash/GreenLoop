@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin: Manage Recycling Items</title>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/trackofdetails.css">
+</head>
+<body>
+  <div class="admin-container">
+    <h1>Manage Recycling Item Details</h1>
+    <form id="adminForm">
+      <label for="itemName">Item Name:</label>
+      <input type="text" id="itemName" required>
+
+      <label for="materialDetails">Material Details:</label>
+      <input type="text" id="materialDetails" required>
+
+      <label for="manufacturingLocation">Manufacturing Location:</label>
+      <input type="text" id="manufacturingLocation" required>
+
+      <label for="uniqueTrackingID">Unique Tracking ID:</label>
+      <input type="text" id="uniqueTrackingID" required>
+
+      <label for="recyclingFrequency">Recycling Frequency:</label>
+      <input type="number" id="recyclingFrequency" required>
+
+      <label for="priorForms">Previous Forms:</label>
+      <input type="text" id="priorForms" required>
+
+      <label for="recyclingState">Recycling State:</label>
+      <input type="text" id="recyclingState" required>
+
+      <label for="processingCenter">Processing Center:</label>
+      <input type="text" id="processingCenter" required>
+
+      <label for="energySavedAmount">Energy Saved:</label>
+      <input type="text" id="energySavedAmount" required>
+
+      <label for="waterSavedAmount">Water Saved:</label>
+      <input type="text" id="waterSavedAmount" required>
+
+      <label for="recycledOutput">Recycled Output:</label>
+      <input type="text" id="recycledOutput" required>
+
+      <label for="carbonEmissionReduction">Carbon Emission Reduction:</label>
+      <input type="text" id="carbonEmissionReduction" required>
+
+      <label for="wasteDivertedWeight">Waste Diverted:</label>
+      <input type="text" id="wasteDivertedWeight" required>
+
+      <label for="sustainabilityScore">Sustainability Score:</label>
+      <input type="text" id="sustainabilityScore" required>
+
+      <label for="recyclingEvents">Recycling Events (JSON):</label>
+      <textarea id="recyclingEvents" placeholder='[{"date":"2025-01-01","description":"Received at facility"}]' required></textarea>
+
+      <label for="rewardPoints">Reward Points:</label>
+      <input type="number" id="rewardPoints" required>
+
+      <label for="totalRewards">Total Rewards:</label>
+      <input type="number" id="totalRewards" required>
+
+      <label for="potentialReuse">Potential Reuse:</label>
+      <input type="text" id="potentialReuse" required>
+
+      <label for="ecoTip">Eco Tip:</label>
+      <input type="text" id="ecoTip" required>
+
+      <button type="submit">Save Item Details</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('adminForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const formData = {
+        itemName: document.getElementById('itemName').value,
+        materialDetails: document.getElementById('materialDetails').value,
+        manufacturingLocation: document.getElementById('manufacturingLocation').value,
+        uniqueTrackingID: document.getElementById('uniqueTrackingID').value,
+        recyclingFrequency: document.getElementById('recyclingFrequency').value,
+        priorForms: document.getElementById('priorForms').value,
+        recyclingState: document.getElementById('recyclingState').value,
+        processingCenter: document.getElementById('processingCenter').value,
+        energySavedAmount: document.getElementById('energySavedAmount').value,
+        waterSavedAmount: document.getElementById('waterSavedAmount').value,
+        recycledOutput: document.getElementById('recycledOutput').value,
+        carbonEmissionReduction: document.getElementById('carbonEmissionReduction').value,
+        wasteDivertedWeight: document.getElementById('wasteDivertedWeight').value,
+        sustainabilityScore: document.getElementById('sustainabilityScore').value,
+        recyclingEvents: JSON.parse(document.getElementById('recyclingEvents').value),
+        rewardPoints: document.getElementById('rewardPoints').value,
+        totalRewards: document.getElementById('totalRewards').value,
+        potentialReuse: document.getElementById('potentialReuse').value,
+        ecoTip: document.getElementById('ecoTip').value
+      };
+
+      fetch('/recycling-item', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Recycling item details saved successfully!');
+        document.getElementById('adminForm').reset(); // Clear form
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error saving the recycling item details.');
+      });
+    });
+  </script>
+</body>
+</html>

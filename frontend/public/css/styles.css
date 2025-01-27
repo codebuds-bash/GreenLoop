@@ -320,6 +320,7 @@ body {
     width: 50%; /* Makes the image responsive */
     height: auto; /* Maintains aspect ratio */
     border-radius: 8px; /* Rounds the corners */
+    margin-top: 30px;
     margin-bottom: 15px; /* Adds space between image and icon */
 }
 
@@ -350,10 +351,10 @@ body {
 }
 
 #our-products h2 {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 20px;
+    color: #5E3B18;
+    margin-top: 70px;
 }
 
 /* Styling for the product gallery */

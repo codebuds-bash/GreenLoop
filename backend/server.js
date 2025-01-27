@@ -90,6 +90,8 @@ app.use('/api/profile', profileRoutes);
 
 app.use('/api/products', productRoutes);
 
+app.use('/recycling-item', recyclingItemRoutes);
+
 // Cloudinary Configuration
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

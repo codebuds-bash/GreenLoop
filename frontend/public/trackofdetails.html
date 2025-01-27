@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recycling Item Details</title>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/trackofdetails.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Your Recycling Journey</h1>
+
+    <!-- Item Details Section -->
+    <div class="item-details">
+      <h2>Item Details</h2>
+      <div class="detail-item">
+        <strong>Item Name:</strong> <span id="itemName">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Material Details:</strong> <span id="materialDetails">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Manufacturing Location:</strong> <span id="manufacturingLocation">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Unique Tracking ID:</strong> <span id="uniqueTrackingID">Loading...</span>
+      </div>
+
+      <!-- Recycling History Section -->
+      <h2>Recycling History</h2>
+      <div class="detail-item">
+        <strong>Recycling Frequency:</strong> <span id="recyclingFrequency">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Previous Forms:</strong> <span id="priorForms">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Recycling State:</strong> <span id="recyclingState">Loading...</span>
+      </div>
+
+      <!-- Recycling Process Details -->
+      <h2>Recycling Process</h2>
+      <div class="detail-item">
+        <strong>Processing Center:</strong> <span id="processingCenter">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Energy Saved:</strong> <span id="energySavedAmount">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Water Saved:</strong> <span id="waterSavedAmount">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Recycled Output:</strong> <span id="recycledOutput">Loading...</span>
+      </div>
+
+      <!-- Environmental Impact -->
+      <h2>Environmental Impact</h2>
+      <div class="detail-item">
+        <strong>Carbon Emission Reduction:</strong> <span id="carbonEmissionReduction">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Waste Diverted:</strong> <span id="wasteDivertedWeight">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Sustainability Score:</strong> <span id="sustainabilityScore">Loading...</span>
+      </div>
+
+      <!-- Recycling Journey Timeline -->
+      <h2>Recycling Events</h2>
+      <ul id="recyclingEvents">
+        <!-- Timeline will be dynamically generated here -->
+      </ul>
+
+      <!-- Rewards Section -->
+      <h2>Rewards</h2>
+      <div class="detail-item">
+        <strong>Reward Points:</strong> <span id="rewardPoints">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Total Rewards:</strong> <span id="totalRewards">Loading...</span>
+      </div>
+
+      <!-- Insights and Fun Facts -->
+      <h2>Insights and Fun Facts</h2>
+      <div class="detail-item">
+        <strong>Potential Reuse:</strong> <span id="potentialReuse">Loading...</span>
+      </div>
+      <div class="detail-item">
+        <strong>Eco Tip:</strong> <span id="ecoTip">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const itemId = 'your_recycling_item_id_here'; // Replace with the actual recycling item ID
+
+      fetch(`/recycling-item/${itemId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data) {
+            // Populate item details dynamically
+            document.getElementById('itemName').textContent = data.itemName;
+            document.getElementById('materialDetails').textContent = data.materialDetails;
+            document.getElementById('manufacturingLocation').textContent = data.manufacturingLocation;
+            document.getElementById('uniqueTrackingID').textContent = data.uniqueTrackingID;
+            document.getElementById('recyclingFrequency').textContent = data.recyclingFrequency;
+            document.getElementById('priorForms').textContent = data.priorForms;
+            document.getElementById('recyclingState').textContent = data.recyclingState;
+            document.getElementById('processingCenter').textContent = data.processingCenter;
+            document.getElementById('energySavedAmount').textContent = data.energySavedAmount;
+            document.getElementById('waterSavedAmount').textContent = data.waterSavedAmount;
+            document.getElementById('recycledOutput').textContent = data.recycledOutput;
+            document.getElementById('carbonEmissionReduction').textContent = data.carbonEmissionReduction;
+            document.getElementById('wasteDivertedWeight').textContent = data.wasteDivertedWeight;
+            document.getElementById('sustainabilityScore').textContent = data.sustainabilityScore;
+
+            // Render Recycling Events (Timeline)
+            const recyclingEventsElement = document.getElementById('recyclingEvents');
+            recyclingEventsElement.innerHTML = ''; // Clear any existing events
+            data.recyclingEvents.forEach(event => {
+              const listItem = document.createElement('li');
+              listItem.innerHTML = `<strong>${event.date}:</strong> ${event.description}`;
+              recyclingEventsElement.appendChild(listItem);
+            });
+
+            // Render Rewards Section
+            document.getElementById('rewardPoints').textContent = data.rewardPoints;
+            document.getElementById('totalRewards').textContent = data.totalRewards;
+
+            // Render Insights and Fun Facts
+            document.getElementById('potentialReuse').textContent = data.potentialReuse;
+            document.getElementById('ecoTip').textContent = data.ecoTip;
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          alert('There was an error fetching the recycling item data.');
+        });
+    });
+  </script>
+
+</body>
+</html>
