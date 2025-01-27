@@ -206,95 +206,57 @@
         }
     </style>
 
-    <script>
-        function checkLoginStatus() {
-            const token = localStorage.getItem('token');
-            const loginLink = document.getElementById('login-link');
-            const registerLink = document.getElementById('register-link');
-            const profileLink = document.getElementById('profile-link');
-            const logoutLink = document.getElementById('logout-link');
-    
-            if (token) {
-                loginLink.style.display = 'none';
-                registerLink.style.display = 'none';
-                profileLink.style.display = 'block';
-                logoutLink.style.display = 'block';
-            } else {
-                loginLink.style.display = 'block';
-                registerLink.style.display = 'block';
-                profileLink.style.display = 'none';
-                logoutLink.style.display = 'none';
-            }
+<script>
+    // Initialize QR Code Reader
+    const qrReader = new Html5Qrcode("qr-reader");
+    qrReader.start({ facingMode: "environment" }, {
+        fps: 10,
+        qrbox: 250
+    }, qrCodeMessage => {
+        document.getElementById("result").innerHTML = `<strong>Scanned ID:</strong> ${qrCodeMessage}`;
+        handleScannedQRCode(qrCodeMessage); // Redirect or process scanned data
+    }).catch(err => {
+        console.error(err);
+        document.getElementById("result").innerHTML = `<strong>Error:</strong> Unable to access camera.`;
+    });
+
+    // Handle Scanned QR Code (Redirect to Tracking Page with ID)
+    function handleScannedQRCode(qrCodeMessage) {
+        if (qrCodeMessage) {
+            // Redirect to the tracking page with scanned ID as query parameter
+            window.location.href = `/tracking.html?id=${encodeURIComponent(qrCodeMessage)}`;
+        } else {
+            alert("Invalid QR Code data");
         }
-    
-        function logout() {
-            localStorage.removeItem('token');
-            checkLoginStatus();
-            window.location.href = '/index.html';
+    }
+
+    // Check User Login Status
+    function checkLoginStatus() {
+        const token = localStorage.getItem('token');
+        const loginLink = document.getElementById('login-link');
+        const registerLink = document.getElementById('register-link');
+        const profileLink = document.getElementById('profile-link');
+        const logoutLink = document.getElementById('logout-link');
+
+        if (token) {
+            loginLink.style.display = 'none';
+            registerLink.style.display = 'none';
+            profileLink.style.display = 'block';
+            logoutLink.style.display = 'block';
+        } else {
+            loginLink.style.display = 'block';
+            registerLink.style.display = 'block';
+            profileLink.style.display = 'none';
+            logoutLink.style.display = 'none';
         }
+    }
 
-        function toggleDark() {
-            const themeSwitch = document.getElementById('theme-switch');
-            themeSwitch.addEventListener('change', () => {
-                document.body.classList.toggle('dark-theme');
-            });
+    function logout() {
+        localStorage.removeItem('token');
+        checkLoginStatus();
+        window.location.href = '/index.html';
+    }
+</script>
 
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-theme');
-                themeSwitch.checked = true;
-            }
-
-            themeSwitch.addEventListener('change', () => {
-                if (themeSwitch.checked) {
-                    document.body.classList.add('dark-theme');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.body.classList.remove('dark-theme');
-                    localStorage.setItem('theme', 'light');
-                }
-            });
-        }
-
-        const qrReader = new Html5Qrcode("qr-reader");
-        qrReader.start({ facingMode: "environment" }, {
-            fps: 10,
-            qrbox: 250
-        }, qrCodeMessage => {
-            document.getElementById("result").innerHTML = `<strong>Scanned ID:</strong> ${qrCodeMessage}`;
-            fetchBlockchainData(qrCodeMessage); // Fetch data for scanned ID
-        }).catch(err => {
-            console.error(err);
-            document.getElementById("result").innerHTML = `<strong>Error:</strong> Unable to access camera.`;
-        });
-
-        // Fetch Blockchain Data Function
-        async function fetchBlockchainData(blockchainId = null) {
-            const id = blockchainId || document.getElementById("blockchainId").value;
-
-            if (!id) {
-                alert("Please enter or scan a valid Blockchain ID");
-                return;
-            }
-
-            // Replace with your Ethereum RPC provider or Infura endpoint
-            const provider = new ethers.providers.JsonRpcProvider("https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID");
-
-            // Replace with your contract address and ABI
-            const contractAddress = "YOUR_CONTRACT_ADDRESS";
-            const contractABI = [
-                "function getRecyclingData(string id) public view returns (string memory)"
-            ];
-
-            const contract = new ethers.Contract(contractAddress, contractABI, provider);
-
-            try {
-                const data = await contract.getRecyclingData(id);
-                document.getElementById("blockchainResult").innerHTML = `<strong>Blockchain Data:</strong> ${data}`;
-            } catch (error) {
-                console.error(error);
-                alert("Failed to fetch data. Please check the Blockchain ID.");
-            }
-        }
-    </script>
 </body>
 </html>
