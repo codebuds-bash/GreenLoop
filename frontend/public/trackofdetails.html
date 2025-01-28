@@ -4,181 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GreenLoop Tracking System</title>
-    <link rel="icon" type="image/png" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/user.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    <!-- Include Html5Qrcode Library -->
-    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
-</head>
-<body>
-    <header class="navbar">
-        <div class="container">
-            <a href="#home" class="logo">
-                <img src="/images/logo1.png" alt="GreenLoop Logo" class="logo-image">
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/products.html">Products</a></li>
-                    <li><a href="/tracking.html">Tracking</a></li>
-                    <li><a href="/about.html">About</a></li>
-                    <li><a href="/services.html">Services</a></li>
-                    <li><a href="/contact.html">Contact</a></li>
-                    <li id="login-link"><a href="/login.html">Login</a></li>
-                    <li id="register-link"><a href="/register.html">Register</a></li>
-                    <li id="profile-link" style="display: none;"><a href="/profile.html">Profile</a></li>
-                    <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <h1>Track Your Greenloop Bag</h1>
-        <div class="container">
-            <div id="qr-reader"></div>
-            <div id="result">Waiting for QR Code...</div>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="/images/logo1.png" alt="GreenLoop Logo" class="footer-logo-image">
-                <p>© 2024 GreenLoop Compostables. <br> All rights reserved.</p>
-                <div class="footer-social">
-                    <a href="#" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3>Get in Touch</h3>
-                <p>Chandigarh University, Mohali<br> Chandigarh, Punjab, 140143</p>
-                <p>Email: <a href="mailto:info@greenloop.com">info@greenloop.com</a></p>
-                <p>Phone: <a href="tel:+911234567890">+91 1234567890</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="#">Order Sample Kit</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Our Newsletter</h3>
-                <p>Subscribe to our newsletter to get our news & deals delivered to you.</p>
-                <form class="newsletter-form">
-                    <div class="input-wrapper">
-                        <input type="email" placeholder="Enter your email" required>
-                        <button type="submit">Join</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </footer>
-
+    <title>Track Recycling Item</title>
     <style>
-        main {
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
         }
 
-        main h1 {
-            color: #4CAF50;
-            margin-bottom: 20px;
-            font-size: 2rem;
-            text-align: center;
-        }
-
-        main .container {
-            max-width: 90%;
-            width: auto;
-            text-align: center;
+        .container {
+            width: 80%;
+            margin: 0 auto;
             background: #fff;
-            border-radius: 15px;
             padding: 20px;
-            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        main #qr-reader {
-            width: 100%;
-            margin: 20px auto;
-            border: 2px dashed #4CAF50;
-            border-radius: 10px;
-            padding: 10px;
-            background: #f9f9f9;
+        h1 {
+            color: #4CAF50;
+            text-align: center;
         }
 
-        main #result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background: #f9f9f9;
-            color: #333;
-            font-size: 14px;
+        .item-details {
+            margin: 20px 0;
+        }
+
+        .item-details p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .item-details span {
+            font-weight: bold;
         }
     </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Recycling Item Details</h1>
+
+        <div id="itemDetails" class="item-details">
+            <!-- Data will be dynamically inserted here -->
+        </div>
+    </div>
 
     <script>
-        const qrReader = new Html5Qrcode("qr-reader");
-        qrReader.start({ facingMode: "environment" }, {
-            fps: 10,
-            qrbox: 250
-        }, qrCodeMessage => {
-            document.getElementById("result").innerHTML = `<strong>Scanned ID:</strong> ${qrCodeMessage}`;
-            handleScannedQRCode(qrCodeMessage); // Redirect or process scanned data
-        }).catch(err => {
-            console.error(err);
-            document.getElementById("result").innerHTML = `<strong>Error:</strong> Unable to access camera.`;
-        });
+        // Get the tracking ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const trackingID = urlParams.get('id');
 
-        function handleScannedQRCode(qrCodeMessage) {
-            if (qrCodeMessage) {
-                window.location.href = `/tracking.html?id=${encodeURIComponent(qrCodeMessage)}`;
-            } else {
-                alert("Invalid QR Code data");
-            }
+        if (!trackingID) {
+            alert("Tracking ID is required!");
+            window.location.href = '/';
+        } else {
+            fetchRecyclingItem(trackingID);
         }
 
-        function checkLoginStatus() {
-            const token = localStorage.getItem('token');
-            const loginLink = document.getElementById('login-link');
-            const registerLink = document.getElementById('register-link');
-            const profileLink = document.getElementById('profile-link');
-            const logoutLink = document.getElementById('logout-link');
-
-            if (token) {
-                loginLink.style.display = 'none';
-                registerLink.style.display = 'none';
-                profileLink.style.display = 'block';
-                logoutLink.style.display = 'block';
-            } else {
-                loginLink.style.display = 'block';
-                registerLink.style.display = 'block';
-                profileLink.style.display = 'none';
-                logoutLink.style.display = 'none';
-            }
+        function fetchRecyclingItem(trackingID) {
+            // Make an API request to get the recycling item details based on tracking ID
+            fetch(`https://greenloop-67y2.onrender.com/api/recycling-items/${trackingID}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        // Display the item details
+                        displayItemDetails(data);
+                    } else {
+                        document.getElementById('itemDetails').innerHTML = '<p>No data found for this tracking ID.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('itemDetails').innerHTML = '<p>Error retrieving data.</p>';
+                });
         }
 
-        function logout() {
-            localStorage.removeItem('token');
-            checkLoginStatus();
-            window.location.href = '/index.html';
+        function displayItemDetails(data) {
+            const itemDetailsElement = document.getElementById('itemDetails');
+
+            // Construct HTML content for item details
+            itemDetailsElement.innerHTML = `
+                <p><span>Item Name:</span> ${data.itemName}</p>
+                <p><span>Material Details:</span> ${data.materialDetails}</p>
+                <p><span>Manufacturing Location:</span> ${data.manufacturingLocation || 'N/A'}</p>
+                <p><span>Recycling Frequency:</span> ${data.recyclingFrequency}</p>
+                <p><span>Prior Forms:</span> ${data.priorForms || 'N/A'}</p>
+                <p><span>Recycling State:</span> ${data.recyclingState}</p>
+                <p><span>Processing Center:</span> ${data.processingCenter}</p>
+                <p><span>Energy Saved:</span> ${data.energySavedAmount || 'N/A'}</p>
+                <p><span>Water Saved:</span> ${data.waterSavedAmount || 'N/A'}</p>
+                <p><span>Recycled Output:</span> ${data.recycledOutput || 'N/A'}</p>
+                <p><span>Carbon Emission Reduction:</span> ${data.carbonEmissionReduction || 'N/A'}</p>
+                <p><span>Waste Diverted Weight:</span> ${data.wasteDivertedWeight || 'N/A'}</p>
+                <p><span>Sustainability Score:</span> ${data.sustainabilityScore || 'N/A'}</p>
+                <p><span>Reward Points:</span> ${data.rewardPoints}</p>
+                <p><span>Total Rewards:</span> ${data.totalRewards}</p>
+                <p><span>Potential Reuse:</span> ${data.potentialReuse || 'N/A'}</p>
+                <p><span>Eco Tip:</span> ${data.ecoTip || 'N/A'}</p>
+                <h3>Recycling Events:</h3>
+                <ul>
+                    ${data.recyclingEvents.map(event => `
+                        <li><strong>Date:</strong> ${event.date}, <strong>Description:</strong> ${event.description}</li>
+                    `).join('')}
+                </ul>
+            `;
         }
     </script>
+
 </body>
 </html>
