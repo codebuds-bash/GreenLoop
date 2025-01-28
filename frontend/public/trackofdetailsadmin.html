@@ -3,116 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin: Manage Recycling Items</title>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/trackofdetails.css">
+  <title>Admin - Add Recycling Item</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    /* Reset and font settings */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #495057;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      color: #343a40;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+
+    /* Container for content */
+    #addItemForm {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    #addItemForm:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title for form sections */
+    .section-title {
+      font-size: 1.5em;
+      color: #007bff;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Input fields */
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    .form-input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    /* Button style */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    .btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-  <div class="admin-container">
-    <h1>Manage Recycling Item Details</h1>
-    <form id="adminForm">
-      <label for="itemName">Item Name:</label>
-      <input type="text" id="itemName" required>
+  <h1>Admin - Add Recycling Item</h1>
 
-      <label for="materialDetails">Material Details:</label>
-      <input type="text" id="materialDetails" required>
+  <div id="addItemForm">
+    <div class="section-title">Item Information</div>
+    <form id="itemForm">
+      <label for="itemName">Item Name</label>
+      <input class="form-input" type="text" id="itemName" name="itemName" required>
 
-      <label for="manufacturingLocation">Manufacturing Location:</label>
-      <input type="text" id="manufacturingLocation" required>
+      <label for="materialDetails">Material Details</label>
+      <input class="form-input" type="text" id="materialDetails" name="materialDetails" required>
 
-      <label for="uniqueTrackingID">Unique Tracking ID:</label>
-      <input type="text" id="uniqueTrackingID" required>
+      <label for="manufacturingLocation">Manufacturing Location</label>
+      <input class="form-input" type="text" id="manufacturingLocation" name="manufacturingLocation" required>
 
-      <label for="recyclingFrequency">Recycling Frequency:</label>
-      <input type="number" id="recyclingFrequency" required>
+      <label for="recyclingFrequency">Recycling Frequency</label>
+      <input class="form-input" type="text" id="recyclingFrequency" name="recyclingFrequency" required>
 
-      <label for="priorForms">Previous Forms:</label>
-      <input type="text" id="priorForms" required>
+      <label for="energySavedAmount">Energy Saved</label>
+      <input class="form-input" type="text" id="energySavedAmount" name="energySavedAmount" required>
 
-      <label for="recyclingState">Recycling State:</label>
-      <input type="text" id="recyclingState" required>
+      <label for="waterSavedAmount">Water Saved</label>
+      <input class="form-input" type="text" id="waterSavedAmount" name="waterSavedAmount" required>
 
-      <label for="processingCenter">Processing Center:</label>
-      <input type="text" id="processingCenter" required>
+      <label for="carbonEmissionReduction">Carbon Emission Reduction</label>
+      <input class="form-input" type="text" id="carbonEmissionReduction" name="carbonEmissionReduction" required>
 
-      <label for="energySavedAmount">Energy Saved:</label>
-      <input type="text" id="energySavedAmount" required>
+      <label for="wasteDivertedWeight">Waste Diverted Weight</label>
+      <input class="form-input" type="text" id="wasteDivertedWeight" name="wasteDivertedWeight" required>
 
-      <label for="waterSavedAmount">Water Saved:</label>
-      <input type="text" id="waterSavedAmount" required>
+      <label for="recyclingState">Recycling State</label>
+      <input class="form-input" type="text" id="recyclingState" name="recyclingState" required>
 
-      <label for="recycledOutput">Recycled Output:</label>
-      <input type="text" id="recycledOutput" required>
+      <label for="processingCenter">Processing Center</label>
+      <input class="form-input" type="text" id="processingCenter" name="processingCenter" required>
 
-      <label for="carbonEmissionReduction">Carbon Emission Reduction:</label>
-      <input type="text" id="carbonEmissionReduction" required>
+      <label for="rewardPoints">Reward Points</label>
+      <input class="form-input" type="number" id="rewardPoints" name="rewardPoints" required>
 
-      <label for="wasteDivertedWeight">Waste Diverted:</label>
-      <input type="text" id="wasteDivertedWeight" required>
+      <label for="totalRewards">Total Rewards</label>
+      <input class="form-input" type="number" id="totalRewards" name="totalRewards" required>
 
-      <label for="sustainabilityScore">Sustainability Score:</label>
-      <input type="text" id="sustainabilityScore" required>
+      <label for="recyclingEvents">Recycling Events</label>
+      <textarea class="form-input" id="recyclingEvents" name="recyclingEvents" rows="3"></textarea>
 
-      <label for="recyclingEvents">Recycling Events (JSON):</label>
-      <textarea id="recyclingEvents" placeholder='[{"date":"2025-01-01","description":"Received at facility"}]' required></textarea>
+      <label for="potentialReuse">Potential Reuse</label>
+      <input class="form-input" type="text" id="potentialReuse" name="potentialReuse" required>
 
-      <label for="rewardPoints">Reward Points:</label>
-      <input type="number" id="rewardPoints" required>
+      <label for="ecoTip">Eco Tip</label>
+      <textarea class="form-input" id="ecoTip" name="ecoTip" rows="3"></textarea>
 
-      <label for="totalRewards">Total Rewards:</label>
-      <input type="number" id="totalRewards" required>
+      <label for="uniqueTrackingID">Unique Tracking ID</label>
+      <input class="form-input" type="text" id="uniqueTrackingID" name="uniqueTrackingID" required>
 
-      <label for="potentialReuse">Potential Reuse:</label>
-      <input type="text" id="potentialReuse" required>
-
-      <label for="ecoTip">Eco Tip:</label>
-      <input type="text" id="ecoTip" required>
-
-      <button type="submit">Save Item Details</button>
+      <button type="submit" class="btn" id="submitBtn">Add Item</button>
     </form>
   </div>
 
   <script>
-    document.getElementById('adminForm').addEventListener('submit', function(event) {
+    // Handling form submission
+    document.getElementById('itemForm').addEventListener('submit', function (event) {
       event.preventDefault();
 
-      const formData = {
+      const itemData = {
         itemName: document.getElementById('itemName').value,
         materialDetails: document.getElementById('materialDetails').value,
         manufacturingLocation: document.getElementById('manufacturingLocation').value,
-        uniqueTrackingID: document.getElementById('uniqueTrackingID').value,
         recyclingFrequency: document.getElementById('recyclingFrequency').value,
-        priorForms: document.getElementById('priorForms').value,
-        recyclingState: document.getElementById('recyclingState').value,
-        processingCenter: document.getElementById('processingCenter').value,
         energySavedAmount: document.getElementById('energySavedAmount').value,
         waterSavedAmount: document.getElementById('waterSavedAmount').value,
-        recycledOutput: document.getElementById('recycledOutput').value,
         carbonEmissionReduction: document.getElementById('carbonEmissionReduction').value,
         wasteDivertedWeight: document.getElementById('wasteDivertedWeight').value,
-        sustainabilityScore: document.getElementById('sustainabilityScore').value,
-        recyclingEvents: JSON.parse(document.getElementById('recyclingEvents').value),
+        recyclingState: document.getElementById('recyclingState').value,
+        processingCenter: document.getElementById('processingCenter').value,
         rewardPoints: document.getElementById('rewardPoints').value,
         totalRewards: document.getElementById('totalRewards').value,
+        recyclingEvents: document.getElementById('recyclingEvents').value,
         potentialReuse: document.getElementById('potentialReuse').value,
-        ecoTip: document.getElementById('ecoTip').value
+        ecoTip: document.getElementById('ecoTip').value,
+        uniqueTrackingID: document.getElementById('uniqueTrackingID').value
       };
 
-      fetch('/recycling-item', {
+      fetch('https://greenloop-67y2.onrender.com/api/recycling-items', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(itemData)
       })
       .then(response => response.json())
       .then(data => {
-        alert('Recycling item details saved successfully!');
-        document.getElementById('adminForm').reset(); // Clear form
+        alert('Item added successfully!');
+        document.getElementById('itemForm').reset();
       })
       .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error saving the recycling item details.');
+        console.error('Error adding item:', error);
+        alert('Failed to add item');
       });
     });
   </script>
