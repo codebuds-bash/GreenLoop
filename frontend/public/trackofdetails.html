@@ -223,11 +223,10 @@
     <div id="qrcode"></div>
     <button id="download-btn" class="download-btn">Download QR Code</button>
   </div>
-
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const itemId = urlParams.get('id');
-
+  
     // Fetch the details of the item based on the ID
     fetch(`https://greenloop-67y2.onrender.com/api/recycling-items/${itemId}`)
       .then(response => response.json())
@@ -253,15 +252,25 @@
         console.error('Error fetching data:', error);
         alert('Failed to load recycling details');
       });
-
+  
+    // Get the product ID from the URL query parameter
+    const productId = urlParams.get('id');
+  
     // Generate the tracking URL based on the product ID
-    const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${itemId}`;
-
+    const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${productId}`;
+    console.log('Tracking URL:', trackingURL);  // Check the URL in the console
+  
     // Generate the QR code
-    QRCode.toCanvas(document.getElementById('qrcode'), trackingURL, function (error) {
-      if (error) console.error(error);
+    const qrcodeContainer = document.getElementById('qrcode');
+    QRCode.toCanvas(qrcodeContainer, trackingURL, function (error) {
+      if (error) {
+        console.error(error);
+        alert('Failed to generate QR code');
+      } else {
+        console.log('QR code generated successfully');
+      }
     });
-
+  
     // Download QR Code
     document.getElementById('download-btn').addEventListener('click', function() {
       const canvas = document.querySelector('#qrcode canvas');
@@ -269,10 +278,11 @@
         const qrImage = canvas.toDataURL('image/png');
         const link = document.createElement('a');
         link.href = qrImage;
-        link.download = `greenloop_qr_${itemId}.png`;
+        link.download = `greenloop_qr_${productId}.png`;
         link.click();
       }
     });
   </script>
+  
 </body>
 </html>
