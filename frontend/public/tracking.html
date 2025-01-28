@@ -209,54 +209,46 @@
 <script>
     // Initialize QR Code Reader
     const qrReader = new Html5Qrcode("qr-reader");
-    qrReader.start({ facingMode: "environment" }, {
-        fps: 10,
-        qrbox: 250
-    }, qrCodeMessage => {
-        document.getElementById("result").innerHTML = `<strong>Scanned ID:</strong> ${qrCodeMessage}`;
-        handleScannedQRCode(qrCodeMessage); // Redirect or process scanned data
-    }).catch(err => {
-        console.error(err);
-        document.getElementById("result").innerHTML = `<strong>Error:</strong> Unable to access camera.`;
-    });
 
-    // Handle Scanned QR Code (Open in New Tab)
-    function handleScannedQRCode(qrCodeMessage) {
+    // Start the QR code scanner
+    qrReader
+        .start(
+            { facingMode: "environment" }, // Use the back camera
+            {
+                fps: 10, // Frames per second for scanning
+                qrbox: 250 // The size of the scanning box
+            },
+            (qrCodeMessage) => {
+                // Successfully scanned a QR code
+                document.getElementById("result").innerHTML = `<strong>Scanned URL:</strong> ${qrCodeMessage}`;
+                openScannedURL(qrCodeMessage); // Handle the scanned data
+            },
+            (errorMessage) => {
+                // Error while scanning
+                console.warn("QR Code scanning error:", errorMessage);
+            }
+        )
+        .catch((err) => {
+            // Handle camera access or other initialization errors
+            console.error("Failed to start QR code scanner:", err);
+            document.getElementById("result").innerHTML = `<strong>Error:</strong> Unable to access the camera.`;
+        });
+
+    // Open Scanned URL in a New Tab
+    function openScannedURL(qrCodeMessage) {
         if (qrCodeMessage) {
-            // Open the tracking page with scanned ID as query parameter in a new tab
-            window.open(`/tracking.html?id=${encodeURIComponent(qrCodeMessage)}`, '_blank');
+            try {
+                console.log("Opening URL:", qrCodeMessage); // Debug log to check the URL
+                window.open(qrCodeMessage, '_blank'); // Open the scanned URL in a new tab
+            } catch (error) {
+                console.error("Error opening the scanned URL:", error);
+            }
         } else {
-            alert("Invalid QR Code data");
+            alert("Invalid QR Code data.");
         }
-    }
-
-    // Check User Login Status
-    function checkLoginStatus() {
-        const token = localStorage.getItem('token');
-        const loginLink = document.getElementById('login-link');
-        const registerLink = document.getElementById('register-link');
-        const profileLink = document.getElementById('profile-link');
-        const logoutLink = document.getElementById('logout-link');
-
-        if (token) {
-            loginLink.style.display = 'none';
-            registerLink.style.display = 'none';
-            profileLink.style.display = 'block';
-            logoutLink.style.display = 'block';
-        } else {
-            loginLink.style.display = 'block';
-            registerLink.style.display = 'block';
-            profileLink.style.display = 'none';
-            logoutLink.style.display = 'none';
-        }
-    }
-
-    function logout() {
-        localStorage.removeItem('token');
-        checkLoginStatus();
-        window.location.href = '/index.html';
     }
 </script>
+
 
 </body>
 </html>
