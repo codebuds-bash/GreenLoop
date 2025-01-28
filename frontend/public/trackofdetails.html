@@ -4,65 +4,277 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Track of Details</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
-    /* Your CSS styling here */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
+    /* Reset and font settings */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #495057;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      color: #343a40;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+
+    /* Container for content */
+    #recyclingDetails {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    #recyclingDetails:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title for sections */
+    .section-title {
+      font-size: 1.5em;
+      color: #007bff;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Details for each item */
     .details {
-      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #f1f3f5;
+    }
+
+    .details strong {
+      color: #09223d;
+      font-weight: 500;
+    }
+
+    .details span {
+      color: #6c757d;
+      font-size: 1.1em;
+    }
+
+    .details:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Button style */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      #recyclingDetails {
+        padding: 25px;
+      }
+
+      .details {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+    }
+    #qrcode {
+      margin-top: 20px;
+    }
+    .download-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .download-btn:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
+  <h1>Recycling Item Details</h1>
 
-<h1>Recycling Item Details</h1>
+  <div id="recyclingDetails">
+    <div class="section-title">Item Information</div>
+    <div class="details">
+      <strong>Item Name:</strong>
+      <span id="itemName">Loading...</span>
+    </div>
+    <div class="details">
+      <strong>Material Details:</strong>
+      <span id="materialDetails">Loading...</span>
+    </div>
+    <div class="details">
+      <strong>Manufacturing Location:</strong>
+      <span id="manufacturingLocation">Loading...</span>
+    </div>
+    <div class="details">
+      <strong>Recycling Frequency:</strong>
+      <span id="recyclingFrequency">Loading...</span>
+    </div>
 
-<div id="recyclingDetails">
-  <!-- Data will be dynamically injected here -->
-</div>
+    <div class="section-title">Environmental Impact</div>
+    <div class="details">
+      <strong>Energy Saved:</strong>
+      <span id="energySavedAmount">Loading...</span>
+    </div>
+    <div class="details">
+      <strong>Water Saved:</strong>
+      <span id="waterSavedAmount">Loading...</span>
+    </div>
+    <div class="details">
+      <strong>Carbon Emission Reduction:</strong>
+      <span id="carbonEmissionReduction">Loading...</span>
+    </div>
+    <div class="details">
+      <strong>Waste Diverted Weight:</strong>
+      <span id="wasteDivertedWeight">Loading...</span>
+    </div>
 
-<script>
-  // Get the 'id' parameter from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const itemId = urlParams.get('id');
+    <div class="section-title">Recycling Status</div>
+    <div class="details">
+      <strong>Recycling State:</strong>
+      <span id="recyclingState">Loading...</span>
+    </div>
+    <div class="details">
+      <strong>Processing Center:</strong>
+      <span id="processingCenter">Loading...</span>
+    </div>
 
-  // Fetch the recycling item data by id
-  fetch(`https://greenloop-67y2.onrender.com/api/recycling-items/${itemId}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data) {
-        const detailsDiv = document.getElementById('recyclingDetails');
-        detailsDiv.innerHTML = `
-          <div class="details"><strong>Item Name:</strong> ${data.itemName}</div>
-          <div class="details"><strong>Material Details:</strong> ${data.materialDetails}</div>
-          <div class="details"><strong>Manufacturing Location:</strong> ${data.manufacturingLocation}</div>
-          <div class="details"><strong>Unique Tracking ID:</strong> ${data.uniqueTrackingID}</div>
-          <div class="details"><strong>Recycling Frequency:</strong> ${data.recyclingFrequency}</div>
-          <div class="details"><strong>Recycling State:</strong> ${data.recyclingState}</div>
-          <div class="details"><strong>Processing Center:</strong> ${data.processingCenter}</div>
-          <div class="details"><strong>Energy Saved:</strong> ${data.energySavedAmount}</div>
-          <div class="details"><strong>Water Saved:</strong> ${data.waterSavedAmount}</div>
-          <div class="details"><strong>Recycled Output:</strong> ${data.recycledOutput}</div>
-          <div class="details"><strong>Carbon Emission Reduction:</strong> ${data.carbonEmissionReduction}</div>
-          <div class="details"><strong>Waste Diverted Weight:</strong> ${data.wasteDivertedWeight}</div>
-          <div class="details"><strong>Sustainability Score:</strong> ${data.sustainabilityScore}</div>
-          <div class="details"><strong>Recycling Events:</strong> ${JSON.stringify(data.recyclingEvents)}</div>
-          <div class="details"><strong>Reward Points:</strong> ${data.rewardPoints}</div>
-          <div class="details"><strong>Total Rewards:</strong> ${data.totalRewards}</div>
-          <div class="details"><strong>Potential Reuse:</strong> ${data.potentialReuse}</div>
-          <div class="details"><strong>Eco Tip:</strong> ${data.ecoTip}</div>
-        `;
-      } else {
-        document.getElementById('recyclingDetails').innerHTML = 'No data found.';
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-      document.getElementById('recyclingDetails').innerHTML = 'Error fetching data.';
+    <div class="section-title">Rewards</div>
+    <div class="details">
+      <strong>Reward Points:</strong>
+      <span id="rewardPoints">Loading...</span>
+    </div>
+    <div class="details">
+      <strong>Total Rewards:</strong>
+      <span id="totalRewards">Loading...</span>
+    </div>
+
+    <div class="section-title">Recycling Events</div>
+    <div id="recyclingEvents">
+      <div class="details">
+        <strong>Events:</strong>
+        <span id="recyclingEventsList">Loading...</span>
+      </div>
+    </div>
+
+    <div class="section-title">Potential Reuse</div>
+    <div class="details">
+      <strong>Potential Reuse:</strong>
+      <span id="potentialReuse">Loading...</span>
+    </div>
+
+    <div class="section-title">Eco Tips</div>
+    <div class="details">
+      <strong>Eco Tip:</strong>
+      <span id="ecoTip">Loading...</span>
+    </div>
+
+    <div class="section-title">Tracking Info</div>
+    <div class="details">
+      <strong>Unique Tracking ID:</strong>
+      <span id="uniqueTrackingID">Loading...</span>
+    </div>
+
+    <button class="btn" onclick="window.location.href='https://www.greenloop.site'">Go Back</button>
+  </div>
+  <div class="container">
+    <h1>Generate QR Code</h1>
+    <p>Scan to track the product details</p>
+    <div id="qrcode"></div>
+    <button id="download-btn" class="download-btn">Download QR Code</button>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemId = urlParams.get('id');
+
+    // Fetch the details of the item based on the ID
+    fetch(`https://greenloop-67y2.onrender.com/api/recycling-items/${itemId}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('itemName').textContent = data.itemName;
+        document.getElementById('materialDetails').textContent = data.materialDetails;
+        document.getElementById('manufacturingLocation').textContent = data.manufacturingLocation || 'Not Available';
+        document.getElementById('recyclingFrequency').textContent = data.recyclingFrequency || 'N/A';
+        document.getElementById('energySavedAmount').textContent = data.energySavedAmount || 'N/A';
+        document.getElementById('waterSavedAmount').textContent = data.waterSavedAmount || 'N/A';
+        document.getElementById('carbonEmissionReduction').textContent = data.carbonEmissionReduction || 'N/A';
+        document.getElementById('wasteDivertedWeight').textContent = data.wasteDivertedWeight || 'N/A';
+        document.getElementById('recyclingState').textContent = data.recyclingState || 'N/A';
+        document.getElementById('processingCenter').textContent = data.processingCenter || 'N/A';
+        document.getElementById('rewardPoints').textContent = data.rewardPoints || '0';
+        document.getElementById('totalRewards').textContent = data.totalRewards || '0';
+        document.getElementById('recyclingEventsList').textContent = data.recyclingEvents ? data.recyclingEvents.map(event => `${event.date}: ${event.description}`).join(', ') : 'No events recorded';
+        document.getElementById('potentialReuse').textContent = data.potentialReuse || 'N/A';
+        document.getElementById('ecoTip').textContent = data.ecoTip || 'No tip available';
+        document.getElementById('uniqueTrackingID').textContent = data.uniqueTrackingID || 'N/A';
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        alert('Failed to load recycling details');
+      });
+      // Get the product ID from the URL query parameter
+    
+    const productId = urlParams.get('id');
+
+    // Generate the tracking URL based on the product ID
+    const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${productId}`;
+
+    // Generate the QR code
+    QRCode.toCanvas(document.getElementById('qrcode'), trackingURL, function (error) {
+      if (error) console.error(error);
     });
-</script>
 
+    // Download QR Code
+    document.getElementById('download-btn').addEventListener('click', function() {
+      const canvas = document.querySelector('#qrcode canvas');
+      if (canvas) {
+        const qrImage = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = qrImage;
+        link.download = `greenloop_qr_${productId}.png`;
+        link.click();
+      }
+    });
+  </script>
 </body>
 </html>
