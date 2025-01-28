@@ -1,117 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Track Recycling Item</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #4CAF50;
-            text-align: center;
-        }
-
-        .item-details {
-            margin: 20px 0;
-        }
-
-        .item-details p {
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        .item-details span {
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track of Details</title>
+  <style>
+    /* Your CSS styling here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .details {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Recycling Item Details</h1>
+<h1>Recycling Item Details</h1>
 
-        <div id="itemDetails" class="item-details">
-            <!-- Data will be dynamically inserted here -->
-        </div>
-    </div>
+<div id="recyclingDetails">
+  <!-- Data will be dynamically injected here -->
+</div>
 
-    <script>
-        // Get the tracking ID from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const trackingID = urlParams.get('id');
+<script>
+  // Get the 'id' parameter from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const itemId = urlParams.get('id');
 
-        if (!trackingID) {
-            alert("Tracking ID is required!");
-            window.location.href = '/';
-        } else {
-            fetchRecyclingItem(trackingID);
-        }
-
-        function fetchRecyclingItem(trackingID) {
-            // Make an API request to get the recycling item details based on tracking ID
-            fetch(`https://greenloop-67y2.onrender.com/api/recycling-items/${trackingID}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        // Display the item details
-                        displayItemDetails(data);
-                    } else {
-                        document.getElementById('itemDetails').innerHTML = '<p>No data found for this tracking ID.</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    document.getElementById('itemDetails').innerHTML = '<p>Error retrieving data.</p>';
-                });
-        }
-
-        function displayItemDetails(data) {
-            const itemDetailsElement = document.getElementById('itemDetails');
-
-            // Construct HTML content for item details
-            itemDetailsElement.innerHTML = `
-                <p><span>Item Name:</span> ${data.itemName}</p>
-                <p><span>Material Details:</span> ${data.materialDetails}</p>
-                <p><span>Manufacturing Location:</span> ${data.manufacturingLocation || 'N/A'}</p>
-                <p><span>Recycling Frequency:</span> ${data.recyclingFrequency}</p>
-                <p><span>Prior Forms:</span> ${data.priorForms || 'N/A'}</p>
-                <p><span>Recycling State:</span> ${data.recyclingState}</p>
-                <p><span>Processing Center:</span> ${data.processingCenter}</p>
-                <p><span>Energy Saved:</span> ${data.energySavedAmount || 'N/A'}</p>
-                <p><span>Water Saved:</span> ${data.waterSavedAmount || 'N/A'}</p>
-                <p><span>Recycled Output:</span> ${data.recycledOutput || 'N/A'}</p>
-                <p><span>Carbon Emission Reduction:</span> ${data.carbonEmissionReduction || 'N/A'}</p>
-                <p><span>Waste Diverted Weight:</span> ${data.wasteDivertedWeight || 'N/A'}</p>
-                <p><span>Sustainability Score:</span> ${data.sustainabilityScore || 'N/A'}</p>
-                <p><span>Reward Points:</span> ${data.rewardPoints}</p>
-                <p><span>Total Rewards:</span> ${data.totalRewards}</p>
-                <p><span>Potential Reuse:</span> ${data.potentialReuse || 'N/A'}</p>
-                <p><span>Eco Tip:</span> ${data.ecoTip || 'N/A'}</p>
-                <h3>Recycling Events:</h3>
-                <ul>
-                    ${data.recyclingEvents.map(event => `
-                        <li><strong>Date:</strong> ${event.date}, <strong>Description:</strong> ${event.description}</li>
-                    `).join('')}
-                </ul>
-            `;
-        }
-    </script>
+  // Fetch the recycling item data by id
+  fetch(`https://greenloop-67y2.onrender.com/api/recycling-items/${itemId}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        const detailsDiv = document.getElementById('recyclingDetails');
+        detailsDiv.innerHTML = `
+          <div class="details"><strong>Item Name:</strong> ${data.itemName}</div>
+          <div class="details"><strong>Material Details:</strong> ${data.materialDetails}</div>
+          <div class="details"><strong>Manufacturing Location:</strong> ${data.manufacturingLocation}</div>
+          <div class="details"><strong>Unique Tracking ID:</strong> ${data.uniqueTrackingID}</div>
+          <div class="details"><strong>Recycling Frequency:</strong> ${data.recyclingFrequency}</div>
+          <div class="details"><strong>Recycling State:</strong> ${data.recyclingState}</div>
+          <div class="details"><strong>Processing Center:</strong> ${data.processingCenter}</div>
+          <div class="details"><strong>Energy Saved:</strong> ${data.energySavedAmount}</div>
+          <div class="details"><strong>Water Saved:</strong> ${data.waterSavedAmount}</div>
+          <div class="details"><strong>Recycled Output:</strong> ${data.recycledOutput}</div>
+          <div class="details"><strong>Carbon Emission Reduction:</strong> ${data.carbonEmissionReduction}</div>
+          <div class="details"><strong>Waste Diverted Weight:</strong> ${data.wasteDivertedWeight}</div>
+          <div class="details"><strong>Sustainability Score:</strong> ${data.sustainabilityScore}</div>
+          <div class="details"><strong>Recycling Events:</strong> ${JSON.stringify(data.recyclingEvents)}</div>
+          <div class="details"><strong>Reward Points:</strong> ${data.rewardPoints}</div>
+          <div class="details"><strong>Total Rewards:</strong> ${data.totalRewards}</div>
+          <div class="details"><strong>Potential Reuse:</strong> ${data.potentialReuse}</div>
+          <div class="details"><strong>Eco Tip:</strong> ${data.ecoTip}</div>
+        `;
+      } else {
+        document.getElementById('recyclingDetails').innerHTML = 'No data found.';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      document.getElementById('recyclingDetails').innerHTML = 'Error fetching data.';
+    });
+</script>
 
 </body>
 </html>
