@@ -216,6 +216,7 @@
 
     <button class="btn" onclick="window.location.href='https://www.greenloop.site'">Go Back</button>
   </div>
+
   <div class="container">
     <h1>Generate QR Code</h1>
     <p>Scan to track the product details</p>
@@ -252,12 +253,9 @@
         console.error('Error fetching data:', error);
         alert('Failed to load recycling details');
       });
-      // Get the product ID from the URL query parameter
-    
-    const productId = urlParams.get('id');
 
     // Generate the tracking URL based on the product ID
-    const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${productId}`;
+    const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${itemId}`;
 
     // Generate the QR code
     QRCode.toCanvas(document.getElementById('qrcode'), trackingURL, function (error) {
@@ -271,7 +269,7 @@
         const qrImage = canvas.toDataURL('image/png');
         const link = document.createElement('a');
         link.href = qrImage;
-        link.download = `greenloop_qr_${productId}.png`;
+        link.download = `greenloop_qr_${itemId}.png`;
         link.click();
       }
     });
