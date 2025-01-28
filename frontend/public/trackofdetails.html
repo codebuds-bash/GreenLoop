@@ -223,10 +223,11 @@
     <div id="qrcode"></div>
     <button id="download-btn" class="download-btn">Download QR Code</button>
   </div>
+
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const itemId = urlParams.get('id');
-  
+
     // Fetch the details of the item based on the ID
     fetch(`https://greenloop-67y2.onrender.com/api/recycling-items/${itemId}`)
       .then(response => response.json())
@@ -252,37 +253,33 @@
         console.error('Error fetching data:', error);
         alert('Failed to load recycling details');
       });
-  
-      const productId = urlParams.get('id');
-const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${productId}`;
 
-// URL encode the tracking URL to ensure it works with QR code generation
-const encodedTrackingURL = encodeURIComponent(trackingURL);
-console.log('Encoded Tracking URL:', encodedTrackingURL);  // Check the encoded URL in the console
+    const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${itemId}`;
+    const encodedTrackingURL = encodeURIComponent(trackingURL);
 
-// Generate the QR code
-const qrcodeContainer = document.getElementById('qrcode');
-QRCode.toCanvas(qrcodeContainer, encodedTrackingURL, function (error) {
-  if (error) {
-    console.error(error);
-    alert('Failed to generate QR code');
-  } else {
-    console.log('QR code generated successfully');
-  }
-});
-  
+    // Generate QR code as an image
+    QRCode.toDataURL(encodedTrackingURL, function (error, url) {
+      if (error) {
+        console.error(error);
+        alert('Failed to generate QR code');
+      } else {
+        const img = document.createElement('img');
+        img.src = url;
+        document.getElementById('qrcode').appendChild(img);  // Append the image to the container
+      }
+    });
+
     // Download QR Code
     document.getElementById('download-btn').addEventListener('click', function() {
-      const canvas = document.querySelector('#qrcode canvas');
-      if (canvas) {
-        const qrImage = canvas.toDataURL('image/png');
+      const img = document.querySelector('#qrcode img');
+      if (img) {
+        const qrImage = img.src;
         const link = document.createElement('a');
         link.href = qrImage;
-        link.download = `greenloop_qr_${productId}.png`;
+        link.download = `greenloop_qr_${itemId}.png`;
         link.click();
       }
     });
   </script>
-  
 </body>
 </html>
