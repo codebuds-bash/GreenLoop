@@ -255,7 +255,7 @@
       });
 
     const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${itemId}`;
-    const encodedTrackingURL = encodeURIComponent(trackingURL);
+    
 
     // Generate QR code as an image
     QRCode.toDataURL(encodedTrackingURL, function (error, url) {
