@@ -253,23 +253,23 @@
         alert('Failed to load recycling details');
       });
   
-    // Get the product ID from the URL query parameter
-    const productId = urlParams.get('id');
-  
-    // Generate the tracking URL based on the product ID
-    const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${productId}`;
-    console.log('Tracking URL:', trackingURL);  // Check the URL in the console
-  
-    // Generate the QR code
-    const qrcodeContainer = document.getElementById('qrcode');
-    QRCode.toCanvas(qrcodeContainer, trackingURL, function (error) {
-      if (error) {
-        console.error(error);
-        alert('Failed to generate QR code');
-      } else {
-        console.log('QR code generated successfully');
-      }
-    });
+      const productId = urlParams.get('id');
+const trackingURL = `https://www.greenloop.site/trackofdetails.html?id=${productId}`;
+
+// URL encode the tracking URL to ensure it works with QR code generation
+const encodedTrackingURL = encodeURIComponent(trackingURL);
+console.log('Encoded Tracking URL:', encodedTrackingURL);  // Check the encoded URL in the console
+
+// Generate the QR code
+const qrcodeContainer = document.getElementById('qrcode');
+QRCode.toCanvas(qrcodeContainer, encodedTrackingURL, function (error) {
+  if (error) {
+    console.error(error);
+    alert('Failed to generate QR code');
+  } else {
+    console.log('QR code generated successfully');
+  }
+});
   
     // Download QR Code
     document.getElementById('download-btn').addEventListener('click', function() {
