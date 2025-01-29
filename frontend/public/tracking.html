@@ -221,6 +221,8 @@
             (qrCodeMessage) => {
                 // Successfully scanned a QR code
                 document.getElementById("result").innerHTML = `<strong>Scanned URL:</strong> ${qrCodeMessage}`;
+
+                qrReader.stop();
                 openScannedURL(qrCodeMessage); // Handle the scanned data
             },
             (errorMessage) => {
