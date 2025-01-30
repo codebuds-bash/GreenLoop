@@ -438,6 +438,7 @@ body {
 }
 
 .creators-text p {
+    text-align: justify;
     font-size: 1.2rem;
     color: #555;
     line-height: 1.6;
