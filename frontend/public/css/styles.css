@@ -250,12 +250,13 @@ body {
 }
 
 .about p {
+    text-align: justify;
     font-family: 'Urbanist', sans-serif;
     font-size: 1.1rem;
     color: #555555;
     line-height: 1.8;
     margin-bottom: 20px;
-    max-width: 800px;
+    max-width: 2000px;
 }
 
 .about p:last-of-type {
