@@ -44,14 +44,17 @@
                 </li>
             </ul>
 
-            <button class="hamburger" onclick="toggleSidebar()">
-                <i class="fa-solid fa-bars"></i> <!-- Hamburger icon -->
+            <button class="menu" onclick="toggleSidebar(); this.classList.toggle('opened');" aria-label="Main Menu">
+                <svg width="50" height="50" viewBox="0 0 100 100">
+                    <path class="line line1" d="M 20,29 H 80 C 80,29 94,28 94,67 94,78 90,82 85,82 79,82 75,75 75,75 L 25,25" />
+                    <path class="line line2" d="M 20,50 H 80" />
+                    <path class="line line3" d="M 20,71 H 80 C 80,71 94,72 94,33 94,22 90,18 85,18 79,18 75,25 75,25 L 25,75" />
+                </svg>
             </button>
+            
 
             <ul class="sidebar">
-                <button class="close-btn" onclick="toggleSidebar()">
-                    <i class="fa-solid fa-xmark"></i> <!-- Close icon -->
-                </button>
+                
                 <li><a href="/index.html" class="home"><i class="fa-solid fa-house"></i> Home</a></li>
                 <li><a href="/products.html"><i class="fa-solid fa-box"></i> Products</a></li>
                 <li><a href="/tracking.html"><i class="fa-solid fa-map"></i> Tracking</a></li>

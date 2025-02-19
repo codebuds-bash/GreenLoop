@@ -72,6 +72,7 @@ body {
 
 
 .sidebar li {
+    margin-top:30px;
     width: 100%;
     list-style: none;
 }
@@ -89,9 +90,16 @@ body {
     background: #00b60c;
     color: white;
 }
-.sidebar.open + .hamburger {
-    display: none;
+/* Show Sidebar */
+.sidebar.open {
+    right: 0;
 }
+
+/* Hide Hamburger when Sidebar is Open */
+.sidebar.open ~ .menu {
+    display: none; /* Hides the hamburger when sidebar opens */
+}
+
 /* Close Button */
 .close-btn {
     background: none;
@@ -140,7 +148,7 @@ body {
 }
 
 /* Mobile Nav (Sidebar) */
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1200px) {
     .nav-links {
         display: flex;
         flex-direction: column;
@@ -161,35 +169,65 @@ body {
         right: 0;
     }
 
-    .hamburger {
+    .menu {
+        display: flex;
+    }
+}
+/* Default: Hide hamburger icon */
+.menu {
+    display: none; /* Hidden by default */
+    background: none;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 1100;
+}
+
+/* Show hamburger icon only when width < 900px */
+@media screen and (max-width: 1200px) {
+    .menu {
         display: flex;
     }
 }
 
-/* Hamburger Menu */
-.hamburger {
-    display: block; /* Ensure it appears */
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    z-index: 1000; /* Make sure it appears above other elements */
+/* SVG Animation */
+.line {
+    fill: none;
+    stroke: black;
+    stroke-width: 6;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hamburger Lines */
-.hamburger span {
-    width: 30px;
-    height: 3px;
-    background: black;
-    margin: 10px 0;
-    transition: all 0.3s ease-in-out;
+.line1 { stroke-dasharray: 60 207; }
+.line2 { stroke-dasharray: 60 60; }
+.line3 { stroke-dasharray: 60 207; }
+
+.opened .line1 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
 }
+
+.opened .line2 {
+    stroke-dasharray: 1 60;
+    stroke-dashoffset: -30;
+}
+
+.opened .line3 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+}
+
+  
 /* Responsive Design */
 @media (max-width: 768px) {
-    .hamburger {
+    .menu {
         display: block;
     }
 
