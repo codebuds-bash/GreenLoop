@@ -148,7 +148,7 @@ body {
 }
 
 /* Mobile Nav (Sidebar) */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 820px) {
     .nav-links {
         display: flex;
         flex-direction: column;
@@ -190,7 +190,7 @@ body {
 }
 
 /* Show hamburger icon only when width < 900px */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 820px) {
     .menu {
         display: flex;
     }
