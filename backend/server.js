@@ -22,17 +22,24 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
+const cors = require('cors');
+
 const allowedOrigins = [
-  'www.greenloop.site', // Production frontend URL
-  'http://127.0.0.1:5500', // Local development frontend URL
+  'https://www.greenloop.site', // Production frontend
+  'http://127.0.0.1:5500', // Local development
 ];
 
 app.use(cors({
-  origin: 'https://www.greenloop.site', // Frontend URL
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow request
+    } else {
+      callback(new Error('Not allowed by CORS')); // Block request
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow cookies or authorization headers
 }));
-app.use(express.json());
 
 
 
