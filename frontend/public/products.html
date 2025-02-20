@@ -110,6 +110,14 @@
 .btn-view:hover {
     background-color: #ddd;
 }
+.loader {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    padding: 20px;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -281,41 +289,57 @@
             }
         
             async function loadProducts() {
-            try {
-                const response = await fetch('https://greenloop-67y2.onrender.com/api/products');
-                const products = await response.json();
-                const productList = document.getElementById('product-list');
-                productList.innerHTML = '';
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = `<div class="loader">Loading products...</div>`; // Show loader
 
-                products.forEach(product => {
-                    const productCard = document.createElement('div');
-                    productCard.classList.add('product-card');
-                    productCard.onclick = () => {
-                        window.location.href = `view.html?id=${product._id}`;
-                    };
-                    productCard.innerHTML = `
-                        <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
-                        <div class="product-details">
-                            <h3 class="product-name">${product.name}</h3>
-                            <p class="product-description">${product.description}</p>
-                            <span class="product-price">₹${product.price}</span>
-                            <div class="product-buttons">
-                                <a href="buy.html?id=${product._id}" class="btn-buy-now" onclick="event.stopPropagation();">Buy Now</a>
-                                <a href="cart.html?id=${product._id}" class="btn-view" onclick="event.stopPropagation();">Add to Cart</a>
-                            </div>
-                        </div>
-                    `;
-                    productList.appendChild(productCard);
-                });
-            } catch (error) {
-                alert('Products are getting fetched, please wait');
-            }
-        }
+    try {
+        const response = await fetch('https://greenloop-67y2.onrender.com/api/products');
+        if (!response.ok) throw new Error("Failed to fetch products");
+
+        const products = await response.json();
+        productList.innerHTML = ''; // Clear loader after fetching
+
+        const fragment = document.createDocumentFragment(); // Reduce reflow
+
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.classList.add('product-card');
+            productCard.onclick = () => {
+                window.location.href = `view.html?id=${product._id}`;
+            };
+
+            productCard.innerHTML = `
+                <img src="${product.imageUrl}" alt="${product.name}" class="product-image" loading="lazy">
+                <div class="product-details">
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <span class="product-price">₹${product.price}</span>
+                    <div class="product-buttons">
+                        <a href="buy.html?id=${product._id}" class="btn-buy-now" onclick="event.stopPropagation();">Buy Now</a>
+                        <a href="cart.html?id=${product._id}" class="btn-view" onclick="event.stopPropagation();">Add to Cart</a>
+                    </div>
+                </div>
+            `;
+
+            fragment.appendChild(productCard);
+        });
+
+        productList.appendChild(fragment); // Append all at once (reduces reflow)
+
+    } catch (error) {
+        productList.innerHTML = `<p class="error-message">⚠️ Could not load products. Please try again later.</p>`;
+        console.error("Error fetching products:", error);
+    }
+}
+
+// Load products on page load
+window.addEventListener('DOMContentLoaded', loadProducts);
+
         
         
             // Call the function to load products when the page loads
             window.onload = function () {
-                loadProducts();
+                
                 checkLoginStatus(); 
             }; 
         </script>
