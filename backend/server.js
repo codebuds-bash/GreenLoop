@@ -22,7 +22,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
-const cors = require('cors');
 
 const allowedOrigins = [
   'https://www.greenloop.site', // Production frontend
