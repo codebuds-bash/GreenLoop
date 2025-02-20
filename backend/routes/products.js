@@ -14,6 +14,7 @@ router.put('/:productId', async (req, res) => {
       { name, description, price, imageUrl },
       { new: true, runValidators: true } // Options: return updated document and validate schema
     );
+    
 
     if (!updatedProduct) {
       return res.status(404).json({ message: 'Product not found' });
@@ -26,6 +27,16 @@ router.put('/:productId', async (req, res) => {
   } catch (error) {
     console.error('Error updating product:', error);
     res.status(500).json({ message: 'Failed to update product', error });
+  }
+});
+
+router.get('/products', async (req, res) => {
+  try {
+      const products = await Product.find(); // ✅ Fetch all products
+      res.json(products);
+  } catch (error) {
+      console.error("Error fetching products:", error);
+      res.status(500).json({ error: "Server error" });
   }
 });
 
