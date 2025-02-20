@@ -15,6 +15,10 @@
 <body>
     <style>
 /* Product List Styles */
+#products h2{
+    text-align: center;
+    margin-top: 100px;
+}
 #product-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -39,7 +43,7 @@
 
 /* Product Image */
 .product-image {
-    width: 100%;
+    width: 60%;
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
@@ -171,7 +175,7 @@
     </header>
 
     <!-- Main Content -->
-    <main>
+    <main>  
         <section id="products">
             <h2>Our Products</h2>
             <div id="product-list"></div>
