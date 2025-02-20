@@ -7,12 +7,92 @@
     <title>GreenLoop - Blockchain-Based Plastic Reduction System</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/nav.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+  <style>
+    /* Main Content Styles */
+    .about-section {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: auto;
+        text-align: center;
+    }
+    
+    .services-container {
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 10px;
+        
+    }
+    
+    .services-heading {
+        font-size: 2.5em;
+        font-weight: 700;
+        color: #004d40;
+        margin-bottom: 20px;
+    }
+    
+    .services-intro {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 40px;
+    }
+    
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    
+    .services-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .services-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .services-icon img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    
+    .services-title {
+        font-size: 1em;
+        font-weight: 600;
+        color: #00796b;
+        margin-bottom: 10px;
+    }
+    
+    .services-description {
+        font-size: 1em;
+        color: #555;
+    }
+    .services-description p {
+        margin-bottom: 20px;
+        font-size: 10px;
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+    
+    
     <!-- Header -->
     <header class="navbar">
       <div class="container">
@@ -77,67 +157,67 @@
             </p>
             <div class="services-grid">
               <!-- Service 1 -->
-              <div class="service-card">
-                <div class="service-icon">
+              <div class="services-card">
+                <div class="services-icon">
                   <img src="/images/tracking.png" alt="Tracking Icon" />
                 </div>
-                <h2 class="service-title">Smart Package Tracking</h2>
-                <p class="service-description">
+                <h2 class="services-title">Smart Package Tracking</h2>
+                <p class="services-description">
                   Enable end-to-end traceability for products, ensuring transparency in the supply chain with blockchain-backed QR codes.
                 </p>
               </div>
           
               <!-- Service 2 -->
-              <div class="service-card">
-                <div class="service-icon">
+              <div class="services-card">
+                <div class="services-icon">
                   <img src="images/blockchain.png" alt="Authenticity Icon" />
                 </div>
-                <h2 class="service-title">Authenticity Verification</h2>
-                <p class="service-description">
+                <h2 class="services-title">Authenticity Verification</h2>
+                <p class="services-description">
                   Verify product authenticity and combat counterfeiting through immutable blockchain records linked to smart packaging.
                 </p>
               </div>
           
               <!-- Service 3 -->
-              <div class="service-card">
-                <div class="service-icon">
+              <div class="services-card">
+                <div class="services-icon">
                   <img src="images/coffee-bag.png" alt="Sustainability Icon" />
                 </div>
-                <h2 class="service-title">Sustainable Packaging</h2>
-                <p class="service-description">
+                <h2 class="services-title">Sustainable Packaging</h2>
+                <p class="services-description">
                   Promote eco-friendly practices with innovative packaging solutions and reward systems for sustainable initiatives.
                 </p>
               </div>
           
               <!-- Service 4 -->
-              <div class="service-card">
-                <div class="service-icon">
+              <div class="services-card">
+                <div class="services-icon">
                   <img src="images/data-science.png" alt="Analytics Icon" />
                 </div>
-                <h2 class="service-title">Data & Analytics</h2>
-                <p class="service-description">
+                <h2 class="services-title">Data & Analytics</h2>
+                <p class="services-description">
                   Provide real-time insights on product lifecycle, packaging performance, and customer interaction using blockchain data.
                 </p>
               </div>
           
               <!-- Service 5 -->
-              <div class="service-card">
-                <div class="service-icon">
+              <div class="services-card">
+                <div class="services-icon">
                   <img src="images/camping.png" alt="Consumer Engagement Icon" />
                 </div>
-                <h2 class="service-title">Consumer Engagement</h2>
-                <p class="service-description">
+                <h2 class="services-title">Consumer Engagement</h2>
+                <p class="services-description">
                   Enable direct interaction with consumers through QR codes, providing detailed product information and promoting brand transparency.
                 </p>
               </div>
           
               <!-- Service 6 -->
-              <div class="service-card">
-                <div class="service-icon">
+              <div class="services-card">
+                <div class="services-icon">
                   <img src="images/cryptocurrency-mining.png" alt="Blockchain Rewards Icon" />
                 </div>
-                <h2 class="service-title">Blockchain Rewards</h2>
-                <p class="service-description">
+                <h2 class="services-title">Blockchain Rewards</h2>
+                <p class="services-description">
                   Incentivize sustainable practices by offering blockchain-based rewards to consumers and partners for eco-friendly choices.
                 </p>
               </div>

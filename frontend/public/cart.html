@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenloop - Cart</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f1f3f6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: flex;
+            gap: 20px;
+        }
+        .cart-section {
+            flex: 2;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .cart-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .cart-item {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        .item-details {
+            flex: 1;
+        }
+        .item-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .item-price {
+            color: green;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .item-old-price {
+            color: gray;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+        .item-options {
+            color: blue;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        .item-options span {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        .price-details {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+        .price-details h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .total-amount {
+            font-size: 16px;
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            background: #ff9f00;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        .checkout-btn:hover {
+            background: #ff751a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Cart Section -->
+    <div class="cart-section">
+        <div class="cart-header">Deliver to: <b>Dhruv Suthar, 140413</b> <span style="color: blue; cursor: pointer;">Change</span></div>
+
+        <div id="cart-items">
+            <p>Loading cart items...</p>
+        </div>
+    </div>
+
+    <!-- Price Details Section -->
+    <div class="price-details">
+        <h3>PRICE DETAILS</h3>
+        <div class="price-item"><span>Price</span> <span id="total-price">₹0</span></div>
+        <div class="price-item"><span>Discount</span> <span id="discount" style="color: green;">-₹0</span></div>
+        <div class="price-item"><span>Delivery Charges</span> <span style="color: green;">Free</span></div>
+        <div class="price-item total-amount"><span>Total Amount</span> <span id="final-price">₹0</span></div>
+
+        <button class="checkout-btn">PLACE ORDER</button>
+    </div>
+</div>
+
+<script>
+    async function loadCart() {
+        const cartContainer = document.getElementById("cart-items");
+        const totalPriceElement = document.getElementById("total-price");
+        const discountElement = document.getElementById("discount");
+        const finalPriceElement = document.getElementById("final-price");
+
+        try {
+            const response = await fetch('http://localhost:5000/api/cart'); // Backend API call
+            const cartData = await response.json();
+            cartContainer.innerHTML = "";
+            
+            let totalPrice = 0;
+            let totalDiscount = 0;
+
+            cartData.forEach(item => {
+                totalPrice += item.price;
+                totalDiscount += 50; // Example discount
+
+                const cartItem = document.createElement("div");
+                cartItem.className = "cart-item";
+                cartItem.innerHTML = `
+                    <img src="${item.imageUrl}" alt="${item.name}">
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div>
+                            <span class="item-price">₹${item.price}</span>
+                            <span class="item-old-price">₹${item.price + 50}</span>
+                        </div>
+                        <div class="item-options">
+                            <span onclick="saveForLater('${item._id}')">Save for Later</span>
+                            <span onclick="removeItem('${item._id}')">Remove</span>
+                        </div>
+                    </div>
+                `;
+                cartContainer.appendChild(cartItem);
+            });
+
+            // Update price details
+            totalPriceElement.innerText = `₹${totalPrice}`;
+            discountElement.innerText = `-₹${totalDiscount}`;
+            finalPriceElement.innerText = `₹${totalPrice - totalDiscount}`;
+            
+        } catch (error) {
+            cartContainer.innerHTML = "<p>Error loading cart.</p>";
+            console.error("Error fetching cart:", error);
+        }
+    }
+
+    function saveForLater(id) {
+        alert(`Item ${id} saved for later.`);
+    }
+
+    function removeItem(id) {
+        alert(`Item ${id} removed from cart.`);
+    }
+
+    loadCart();
+</script>
+
+</body>
+</html>
