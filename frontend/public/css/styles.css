@@ -234,6 +234,22 @@ body {
     .nav-links {
         display: none; /* Hide full navbar */
     }
+    .hero-video{
+        width: 100%;
+        height: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: -10px;
+    }
+    .hero-content h2{
+        margin-top: 400px;
+    }
+    .creators-image video{
+        margin-left: -20px;
+        display: flex;
+        align-items: center;
+    }
 }
 
 /* Hero Section */
