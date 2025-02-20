@@ -39,7 +39,7 @@
                 <li id="login-link"><a href="/login.html">Login</a></li>
                 <li id="register-link"><a href="/register.html">Register</a></li>
                 <li id="profile-link" style="display: none;"><a href="/profile.html">Profile</a></li>
-                <li><a href="buy.html"><i class="fa-solid fa-cart-shopping" href = ></i></a></li>
+                <li id = "cart-icon"><a href="buy.html"><i class="fa-solid fa-cart-shopping" href = ></i></a></li>
                 
                 <li id="logout-link" style="display: none;">
                     <button onclick="logout()">Logout</button>
@@ -82,6 +82,7 @@
             const registerLink = document.getElementById('register-link');
             const profileLink = document.getElementById('profile-link');
             const logoutLink = document.getElementById('logout-link');
+            const carticon = document.getElementById('cart-icon');
     
             if (token) {
                 // User is authenticated
@@ -89,12 +90,14 @@
                 registerLink.style.display = 'none';
                 profileLink.style.display = 'block';
                 logoutLink.style.display = 'block';
+                carticon.style.display = 'block'; 
             } else {
                 // User is not authenticated
                 loginLink.style.display = 'block';
                 registerLink.style.display = 'block';
                 profileLink.style.display = 'none';
                 logoutLink.style.display = 'none';
+                carticon.style.display = 'none'; 
             }
         }
     
