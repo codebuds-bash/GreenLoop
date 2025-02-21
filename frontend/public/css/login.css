@@ -98,37 +98,6 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-#notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 20px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    display: none;
-    z-index: 1000;
-}
-
-.success {
-    background-color: green;
-}
-
-.error {
-    background-color: red;
-}
-
-.show {
-    display: block;
-    animation: fadeOut 3s ease-in-out forwards;
-}
-
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; display: none; }
-}
-
 
 #register-form button:hover {
     background-color: #218838;
