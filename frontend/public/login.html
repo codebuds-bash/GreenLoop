@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
+    <div id="notification" class="hidden"></div>
 
     <div class="login-wrapper">
+        
+
         
         <!-- Right Side Card for Login -->
         <div class="outercontainer">
@@ -89,30 +92,43 @@
     
         // Handle Consumer Login
         document.getElementById('consumerLoginForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
-    
-            try {
-                const response = await fetch(`${backendURL}/api/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-    
-                const result = await response.json();
-                if (response.ok) {
-                    alert('Consumer Login Successful');
-                    localStorage.setItem('token', result.token);
-                    window.location.href = '/index.html';
-                } else {
-                    alert(`Error: ${result.message}`);
-                }
-            } catch (error) {
-                console.error('Login Error:', error);
-                alert('Something went wrong! Please try again later.');
-            }
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch(`${backendURL}/api/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
         });
+
+        const result = await response.json();
+        if (response.ok) {
+            showNotification('Consumer Login Successful', 'success');
+            localStorage.setItem('token', result.token);
+            setTimeout(() => {
+                window.location.href = '/index.html';
+            }, 2000);
+        } else {
+            showNotification(`Error: ${result.message}`, 'error');
+        }
+    } catch (error) {
+        console.error('Login Error:', error);
+        showNotification('Something went wrong! Please try again later.', 'error');
+    }
+});
+
+function showNotification(message, type) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = `show ${type}`;
+
+    setTimeout(() => {
+        notification.className = 'hidden';
+    }, 3000);
+}
+
     
         // Handle Retailer Login
         document.getElementById('retailerLoginForm').addEventListener('submit', async (event) => {
