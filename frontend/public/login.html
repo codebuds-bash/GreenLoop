@@ -73,37 +73,41 @@
         }
 
         /* Notification Styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-            display: none;
-            z-index: 1000;
-            font-family: 'Manrope', sans-serif;
-        }
+        /* Updated Notification Styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Manrope', sans-serif;
+    opacity: 0; /* Initially hidden */
+    transform: translateX(100%); /* Start position off-screen */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+    z-index: 1000;
+}
 
-        .success {
-            background-color: #4CAF50; /* Green for success */
-        }
+.success {
+    background-color: #4CAF50; /* Green for success */
+}
 
-        .error {
-            background-color: #F44336; /* Red for error */
-        }
+.error {
+    background-color: #F44336; /* Red for error */
+}
 
-        .show {
-            display: block;
-            animation: fadeOut 3s ease-in-out forwards;
-        }
+.show {
+    opacity: 1;
+    transform: translateX(0); /* Slide into view */
+}
 
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { opacity: 0; display: none; }
-        }
+.hide {
+    opacity: 0;
+    transform: translateX(100%); /* Slide out */
+    transition: opacity 1s ease, transform 1s ease; /* Smooth fade-out */
+}
+
     </style>
 
     <script>
@@ -122,14 +126,19 @@
 
         // Function to show notification
         function showNotification(message, type) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification show ${type}`;
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = `notification show ${type}`; // Add show class
 
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
+    // Hide notification after 3 seconds with fade-out effect
+    setTimeout(() => {
+        notification.classList.add('hide'); // Start fade-out transition
+        setTimeout(() => {
+            notification.classList.remove('show', 'hide', 'success', 'error'); // Remove from DOM
+        }, 1000); // Matches fade-out duration
+    }, 3000);
+}
+
 
         // Handle Consumer Login
         document.getElementById('consumerLoginForm').addEventListener('submit', async (event) => {
