@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/nav.css">
     <title>GreenLoop - Blockchain-Based Plastic Reduction System</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -18,26 +20,57 @@
 <body>
     <header class="navbar">
         <div class="container">
-            <a href="#home" class="logo">
+            <!-- Logo -->
+            <a href="/index.html" class="logo">
                 <img src="/images/logo1.png" alt="GreenLoop Logo" class="logo-image">
             </a>
-            <nav>
-                <ul>
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/products.html">Products</a></li>
-                    <li><a href="/tracking.html">Tracking</a></li>
-                    <li><a href="/about.html">About</a></li>
-                    <li><a href="/services.html">Services</a></li>
-                    <li><a href="/contact.html">Contact</a></li>
-                    <li id="login-link"><a href="/login.html">Login</a></li>
-                    <li id="register-link"><a href="/register.html">Register</a></li>
-                    <li id="profile-link" style="display: none;"><a href="profile.html">Profile</a></li>
-                    <li id="logout-link" style="display: none;"><button onclick="logout()">Logout</button></li>
-                </ul>
-            </nav>
-            <div class="search-bar" id="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
+    
+            <!-- Hamburger Menu for Mobile -->
+            
+    
+    
+            <!-- Desktop Navbar Links -->
+            <ul class="nav-links">
+                <li><a href="/index.html" class="home">Home</a></li>
+                <li><a href="/products.html">Products</a></li>
+                <li><a href="/tracking.html">Tracking</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/services.html">Services</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li id="login-link"><a href="/login.html">Login</a></li>
+                <li id="register-link"><a href="/register.html">Register</a></li>
+                <li id="profile-link" style="display: none;"><a href="/profile.html">Profile</a></li>
+                <li id = "cart-icon"><a href="buy.html"><i class="fa-solid fa-cart-shopping" href = ></i></a></li>
+                
+                <li id="logout-link" style="display: none;">
+                    <button onclick="logout()">Logout</button>
+                </li>
+            </ul>
+
+            <button class="menu" onclick="toggleSidebar(); this.classList.toggle('opened');" aria-label="Main Menu">
+                <svg width="50" height="50" viewBox="0 0 100 100">
+                    <path class="line line1" d="M 20,29 H 80 C 80,29 94,28 94,67 94,78 90,82 85,82 79,82 75,75 75,75 L 25,25" />
+                    <path class="line line2" d="M 20,50 H 80" />
+                    <path class="line line3" d="M 20,71 H 80 C 80,71 94,72 94,33 94,22 90,18 85,18 79,18 75,25 75,25 L 25,75" />
+                </svg>
+            </button>
+            
+
+            <ul class="sidebar">
+                
+                <li><a href="/index.html" class="home"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="/products.html"><i class="fa-solid fa-box"></i> Products</a></li>
+                <li><a href="/tracking.html"><i class="fa-solid fa-map"></i> Tracking</a></li>
+                <li><a href="/about.html"><i class="fa-solid fa-user"></i> About</a></li>
+                <li><a href="/services.html"><i class="fa-solid fa-cogs"></i> Services</a></li>
+                <li><a href="/contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li id="login-link"><a href="/login.html"><i class="fa-solid fa-sign-in-alt"></i> Login</a></li>
+                <li id="register-link"><a href="/register.html"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+                <li id="profile-link" style="display: none;"><a href="/profile.html"><i class="fa-solid fa-user-circle"></i> Profile</a></li>
+                <li id="logout-link" style="display: none;">
+                    <button onclick="logout()"><i class="fa-solid fa-sign-out-alt"></i> Logout</button>
+                </li>
+            </ul>
         </div>
     </header>
 
