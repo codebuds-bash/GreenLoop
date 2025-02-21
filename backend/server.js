@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 const allowedOrigins = [
   'https://www.greenloop.site', // Production frontend
-  'http://127.0.0.1:5500', // Local development
+  
 ];
 
 app.use(cors({
