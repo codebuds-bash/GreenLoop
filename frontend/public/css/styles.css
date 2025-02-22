@@ -857,3 +857,142 @@ body {
     background-color: #3e8e41; /* Even darker green on click */
     transform: translateY(2px); /* Simulate a button press */
 }
+
+
+
+@media screen and (max-width: 412px) {
+
+    .contact-image img {
+        height: 100%;
+        max-width: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+        
+    
+    }
+    
+        .product-item {
+            width: 100%; /* 1 item per row for smaller screens */
+        }
+    
+    .container{
+        align-items: center;
+    }
+    .creators-image{
+        margin-left: 30px;
+        margin-right:-40px ;
+
+    }
+    .creators-content {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+        text-align: center;
+    }
+    .creators-image video{
+        margin:0px 60px ;
+        width: 110%;
+        height: 100%;
+
+    }
+    .about-creators h2 { 
+        margin-left: -21px;
+        margin-top: 20px;
+        margin-bottom: 27px;
+        text-align: center;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+       
+    }
+    .creators-text h3 {
+      
+        font-size: 1rem;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    .creators-text img{
+        margin-top: 10px;
+        
+        height: auto;
+    }
+        .content {
+            flex-direction: column; /* Stack items vertically */
+            text-align: center; /* Center align text */
+        }
+    
+        .image {
+            width: 100%; /* Make image full width */
+        }
+    
+    .hero-video video{
+        width: 100%;
+        height: 0%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: -10px;
+    }.developers-container {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center; /* Center align */
+    }
+
+    .developer-card {
+        flex: 0 1 100%; /* Full width */
+        flex-direction: column; /* Stack image & content */
+        text-align: center; /* Center text */
+        align-items: center; /* Align content in center */
+        min-height: auto; /* Allow dynamic height */
+        padding: 30px;
+    }
+
+    .developer-image {
+        width: 100%; /* Make image responsive */
+        height: auto; /* Maintain aspect ratio */
+        max-width: 200px; /* Set a max width */
+        margin-bottom: 15px;
+    }
+
+    .developer-content {
+        text-align: center; /* Center text below image */
+    }
+
+    .developer-card a {
+        position: static; /* Remove offset positioning */
+        display: block; /* Ensure proper alignment */
+        margin-top: 10px;
+    }
+
+    .developer-content img {
+        position: static; /* Remove offset */
+        display: block;
+        margin: 10px auto;
+    }
+    
+}
+  
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu {
+        display: block;
+    }
+
+    .nav-links {
+        display: none; /* Hide full navbar */
+    }
+    .hero-video video{
+        
+        width: 100%;
+        height: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: -10px;
+    }
+    .hero-content h2{
+        margin-top: 400px;
+    }
+    .creators-image video{
+        margin-left: -20px;
+        display: flex;
+        align-items: center;
+    }
+}
