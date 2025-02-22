@@ -159,27 +159,6 @@
         </div>
     </footer>
     <script>
-        function checkLoginStatus() {
-                const token = localStorage.getItem('token');
-                const loginLink = document.getElementById('login-link');
-                const registerLink = document.getElementById('register-link');
-                const profileLink = document.getElementById('profile-link');
-                const logoutLink = document.getElementById('logout-link');
-        
-                if (token) {
-                    // User is authenticated
-                    loginLink.style.display = 'none';
-                    registerLink.style.display = 'none';
-                    profileLink.style.display = 'block';
-                    logoutLink.style.display = 'block';
-                } else {
-                    // User is not authenticated
-                    loginLink.style.display = 'block';
-                    registerLink.style.display = 'block';
-                    profileLink.style.display = 'none';
-                    logoutLink.style.display = 'none';
-                }
-            }
         
             function logout() {
                 localStorage.removeItem('token'); // Remove the token
