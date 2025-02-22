@@ -5,10 +5,12 @@
     box-sizing: border-box;
 }
 html{
+    zoom: 1;
     scroll-behavior: smooth;
 }
 
 body {
+    zoom: 1;
     font-family: "Urbanist", sans-serif;
     background-color: #FFFFFF;
     color: #333;
