@@ -45,7 +45,7 @@ body {
     height: auto;
     align-items: start;
     width: 190px;
-    margin-left: 10px;
+    margin-left: 20px;
     margin-top: 10px;
 }
 
@@ -258,19 +258,41 @@ body {
         left: 50%;
         transform: translate(-50%, -50%);
         margin-top: -10px;
+    }.developers-container {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center; /* Center align */
     }
+
     .developer-card {
         flex: 0 1 100%; /* Full width */
-        min-height: 400px; /* Increased vertical size */
-        flex-direction: column; /* Stack items vertically */
-        justify-content: center; /* Center content */
-        text-align: center; /* Align text center */
-        padding: 30px; /* Add padding to maintain spacing */
+        flex-direction: column; /* Stack image & content */
+        text-align: center; /* Center text */
+        align-items: center; /* Align content in center */
+        min-height: auto; /* Allow dynamic height */
+        padding: 30px;
     }
-    .developer-card img{
-        margin-top: -40px;
-        width: 60%;
-        height: auto;
+
+    .developer-image {
+        width: 100%; /* Make image responsive */
+        height: auto; /* Maintain aspect ratio */
+        max-width: 200px; /* Set a max width */
+        margin-bottom: 15px;
+    }
+
+    .developer-content {
+        text-align: center; /* Center text below image */
+    }
+
+    .developer-card a {
+        position: static; /* Remove offset positioning */
+        display: block; /* Ensure proper alignment */
+        margin-top: 10px;
+    }
+
+    .developer-content img {
+        position: static; /* Remove offset */
+        display: block;
+        margin: 10px auto;
     }
     
 }
