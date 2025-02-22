@@ -384,14 +384,7 @@ body {
     justify-content: space-between;
 }
 
-.contact-image img {
-    width: auto;
-    height: 450px;
-    border-radius: 8px;
-    object-fit: cover;
-    
 
-}
 
 .contact-details {
     max-width: 600px;
