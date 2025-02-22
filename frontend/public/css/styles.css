@@ -6,6 +6,7 @@
     box-sizing: border-box;
 }
 html{
+    overflow-x: hidden;
     zoom: 1;
     scroll-behavior: smooth;
 }
