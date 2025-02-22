@@ -223,7 +223,34 @@ body {
     stroke-dasharray: 90 207;
     stroke-dashoffset: -134;
 }
-@media (max-width: 412px){
+
+@media screen and (max-width: 412px) {
+    .about-creators h2 { 
+        text-align: center;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+       
+    }
+    .creators-text h3 {
+      
+        font-size: 1rem;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    .creators-text img{
+        margin-top: 10px;
+        
+        height: auto;
+    }
+        .content {
+            flex-direction: column; /* Stack items vertically */
+            text-align: center; /* Center align text */
+        }
+    
+        .image {
+            width: 100%; /* Make image full width */
+        }
+    
     .hero-video video{
         width: 100%;
         height: 0%;
@@ -232,7 +259,20 @@ body {
         transform: translate(-50%, -50%);
         margin-top: -10px;
     }
-
+    .developer-card {
+        flex: 0 1 100%; /* Full width */
+        min-height: 400px; /* Increased vertical size */
+        flex-direction: column; /* Stack items vertically */
+        justify-content: center; /* Center content */
+        text-align: center; /* Align text center */
+        padding: 30px; /* Add padding to maintain spacing */
+    }
+    .developer-card img{
+        margin-top: -40px;
+        width: 60%;
+        height: auto;
+    }
+    
 }
   
 /* Responsive Design */

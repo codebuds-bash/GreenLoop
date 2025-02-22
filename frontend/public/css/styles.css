@@ -320,13 +320,12 @@ body {
 .about-creators {
     background-color: #fff;
     padding: 50px 20px;
-    text-align:left;
     border-radius: 8px;
-    
     margin-top: 50px; /* Adds space between services and this section */
 }
 
 .about-creators h2 {
+    text-align:center;
     font-size: 2.5rem;
     margin-left: 21px;
     margin-top: 20px;
