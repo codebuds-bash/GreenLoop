@@ -225,6 +225,22 @@ body {
 }
 
 @media screen and (max-width: 412px) {
+    .creators-image{
+        margin-left: 30px;
+        margin-right:-40px ;
+
+    }
+    .creators-content {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+        text-align: center;
+    }
+    .creators-image video{
+        margin:0px 60px ;
+        width: 110%;
+        height: 100%;
+
+    }
     .about-creators h2 { 
         text-align: center;
         white-space: nowrap;
