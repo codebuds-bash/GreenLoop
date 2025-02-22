@@ -890,6 +890,9 @@ body {
         margin-right:-40px ;
 
     }
+    .creators-content img{
+        width: 100%;
+    }
     .creators-content {
         flex-direction: column; /* Stack items vertically */
         align-items: center;
@@ -902,7 +905,7 @@ body {
 
     }
     .about-creators h2 { 
-        margin-left: -21px;
+        margin-left: px;
         margin-top: 20px;
         margin-bottom: 27px;
         text-align: center;
@@ -912,9 +915,10 @@ body {
     }
     .creators-text h3 {
       
-        font-size: 1rem;
+        font-size: 1.5rem;
         margin-bottom: 15px;
         color: #333;
+        margin-bottom: 10px;
     }
     .creators-text img{
         margin-top: 10px;
