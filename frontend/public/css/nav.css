@@ -225,6 +225,14 @@ body {
 }
 
 @media screen and (max-width: 412px) {
+    
+        .product-item {
+            width: 100%; /* 1 item per row for smaller screens */
+        }
+    
+    .container{
+        align-items: center;
+    }
     .creators-image{
         margin-left: 30px;
         margin-right:-40px ;
@@ -242,6 +250,9 @@ body {
 
     }
     .about-creators h2 { 
+        margin-left: -21px;
+        margin-top: 20px;
+        margin-bottom: 27px;
         text-align: center;
         white-space: nowrap;
         text-overflow: ellipsis;
