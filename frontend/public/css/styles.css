@@ -861,6 +861,13 @@ body {
 
 
 @media screen and (max-width: 412px) {
+    .input-wrapper input{
+        background-color:white ;
+        width: 100%;
+    }
+    .input-wrapper button{
+        width: 100%;
+    }
 
     .contact-image img {
         height: 100%;
