@@ -116,7 +116,7 @@
         </section>
 
         <script>
-// Function to check if the user is logged in
+
 function checkLoginStatus() {
     const token = localStorage.getItem('token');
 
@@ -133,7 +133,7 @@ function checkLoginStatus() {
     const sidebarProfileLink = document.querySelector('.sidebar #profile-link');
     const sidebarLogoutLink = document.querySelector('.sidebar #logout-link');
 
-    
+
     if (token) {
         // User is authenticated
         loginLink.style.display = 'none';
