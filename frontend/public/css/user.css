@@ -1,4 +1,6 @@
-
+html,body{
+    overflow-x: hidden;
+}
 /* Hero Section */
 .hero {
     position: relative;
