@@ -62,7 +62,7 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 20px;
-    transition: right 0.3s ease-in-out;  /* Animate from right */
+    transition: right 3s ease-in-out;  /* Animate from right */
 }
 
 /* Sidebar Open (Slides in from Right) */
@@ -82,7 +82,9 @@ body {
     text-decoration: none;
     color: #343f52;
     font-size: 18px;
+    margin-left: 20px;
     padding: 15px;
+    margin-top: 15px;
     display: block;
 }
 
