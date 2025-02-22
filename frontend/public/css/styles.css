@@ -411,14 +411,13 @@ body {
     min-height: 0px;
 }
 .developer-card a{
+    margin-top: 50px;
     text-decoration: none;
     font-family:'Urbanist', sans-serif;
     font-weight: 400;
     font-size: 1.2rem;
     color:#007BFF;
-    position: relative;
-    top: 28px;
-    left: 10px;
+    
 }
 
 .developer-image {
