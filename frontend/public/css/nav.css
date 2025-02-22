@@ -114,6 +114,9 @@ body {
     top: 10px;
     cursor: pointer;
 }
+#logout-link{
+    margin-left: 10px;
+}
 
 /* Add transition effect */
 .sidebar {
