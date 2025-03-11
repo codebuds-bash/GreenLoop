@@ -19,6 +19,7 @@
     overflow: hidden;
 }
 .banner-img{
+    margin-top: 50px ;
     min-width: 1600px;
     height: 200px;        /* Stretch the image to fill the container */
     object-fit: cover;
@@ -30,7 +31,7 @@
     margin-top: -40px;
     background-color: #fff;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 50px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -91,6 +92,9 @@
     width: 200px; /* Adjusted width */
     margin-top: 10px;
     overflow: hidden;
+}
+.progress-container{
+    margin-left: 50px;
 }
 
 .progress-bar {
