@@ -360,14 +360,29 @@
         
             async function loadProducts() {
     const productList = document.getElementById('product-list');
-    productList.innerHTML = `<div class="loader">Loading products...</div>`; // Show loader
+    const skeletonLoader = document.getElementById("skeleton-loader");
+    const nothingToShow = document.getElementById("nothing-to-show");
+
+    // Show skeleton loader and hide other elements initially
+    skeletonLoader.style.display = "grid";
+    productList.style.display = "none";
+    nothingToShow.style.display = "none";
 
     try {
         const response = await fetch('https://greenloop-67y2.onrender.com/api/products');
         if (!response.ok) throw new Error("Failed to fetch products");
 
         const products = await response.json();
+
+        // Hide skeleton loader
+        skeletonLoader.style.display = "none";
+        productList.style.display = "grid";
         productList.innerHTML = ''; // Clear loader after fetching
+
+        if (products.length === 0) {
+            nothingToShow.style.display = "block"; // Show "Nothing to Show" if no products
+            return;
+        }
 
         const fragment = document.createDocumentFragment(); // Reduce reflow
 
@@ -397,13 +412,15 @@
         productList.appendChild(fragment); // Append all at once (reduces reflow)
 
     } catch (error) {
+        skeletonLoader.style.display = "none";
+        nothingToShow.style.display = "block"; // Show error message
         productList.innerHTML = `<p class="error-message">⚠️ Could not load products. Please try again later.</p>`;
         console.error("Error fetching products:", error);
     }
 }
 
-// Load products on page load
-window.addEventListener('DOMContentLoaded', loadProducts);
+// Ensure skeleton loader hides correctly after fetching products
+document.addEventListener("DOMContentLoaded", loadProducts);
 
         
         
@@ -412,18 +429,7 @@ window.addEventListener('DOMContentLoaded', loadProducts);
                 
                 checkLoginStatus(); 
             }; 
-            document.addEventListener("DOMContentLoaded", function () {
-    const skeletonLoader = document.getElementById("skeleton-loader");
-    const nothingToShow = document.getElementById("nothing-to-show");
-
-    setTimeout(() => {
-        skeletonLoader.style.display = "none"; // Hide skeleton
-        if (document.querySelectorAll(".product-card").length === 0) {
-            nothingToShow.style.display = "block"; // Show "Nothing to show" if no products
-        }
-    }, 2000);
-});
-
+            
 
         </script>
         
