@@ -413,24 +413,17 @@ window.addEventListener('DOMContentLoaded', loadProducts);
                 checkLoginStatus(); 
             }; 
             document.addEventListener("DOMContentLoaded", function () {
-    const productList = document.getElementById("product-list");
     const skeletonLoader = document.getElementById("skeleton-loader");
     const nothingToShow = document.getElementById("nothing-to-show");
 
-    // Simulating API call with setTimeout
     setTimeout(() => {
-        let products = ["Product 1", "Product 2"]; // Replace with actual fetched data
-
-        if (products.length > 0) {
-            skeletonLoader.style.display = "none"; // Hide skeleton
-            productList.style.display = "flex"; // Show products
-            productList.innerHTML = products.map(product => `<div class="product">${product}</div>`).join("");
-        } else {
-            skeletonLoader.style.display = "none"; // Hide skeleton
-            nothingToShow.style.display = "block"; // Show "Nothing to show"
+        skeletonLoader.style.display = "none"; // Hide skeleton
+        if (document.querySelectorAll(".product-card").length === 0) {
+            nothingToShow.style.display = "block"; // Show "Nothing to show" if no products
         }
-    }, 2000); // Simulating a delay (2 seconds)
+    }, 2000);
 });
+
 
         </script>
         
