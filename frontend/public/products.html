@@ -20,6 +20,40 @@
     text-align: center;
     margin-top: 100px;
 }
+#skeleton-loader {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    }
+
+    /* Skeleton Card Styling */
+    .skeleton-card {
+        background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        border-radius: 8px;
+    }
+
+    /* Animation for shimmer effect */
+    @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    /* Responsive: 1 per row on small screens */
+    @media (max-width: 768px) {
+        .skeleton-card {
+            width: 100%; /* Full width for mobile */
+        }
+    }
 #product-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -189,7 +223,16 @@
     <main>  
         <section id="products">
             <h2>Our Products</h2>
-            <div id="product-list"></div>
+            <div id="skeleton-loader">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+            <div id="product-list" style="display: none";></div>
+
             <!-- Add this inside your products section where the products are loaded -->
 <div id="nothing-to-show" style="display: none; text-align: center;">
     <img src="/images/Nothingtoshow.gif" alt="Nothing to show" style="width: 150px; margin-bottom: 10px;">
@@ -369,7 +412,27 @@ window.addEventListener('DOMContentLoaded', loadProducts);
                 
                 checkLoginStatus(); 
             }; 
+            document.addEventListener("DOMContentLoaded", function () {
+    const productList = document.getElementById("product-list");
+    const skeletonLoader = document.getElementById("skeleton-loader");
+    const nothingToShow = document.getElementById("nothing-to-show");
+
+    // Simulating API call with setTimeout
+    setTimeout(() => {
+        let products = ["Product 1", "Product 2"]; // Replace with actual fetched data
+
+        if (products.length > 0) {
+            skeletonLoader.style.display = "none"; // Hide skeleton
+            productList.style.display = "flex"; // Show products
+            productList.innerHTML = products.map(product => `<div class="product">${product}</div>`).join("");
+        } else {
+            skeletonLoader.style.display = "none"; // Hide skeleton
+            nothingToShow.style.display = "block"; // Show "Nothing to show"
+        }
+    }, 2000); // Simulating a delay (2 seconds)
+});
+
         </script>
-        <script src="/js/scripts.js"></script>
+        
 </body>
 </html>   
