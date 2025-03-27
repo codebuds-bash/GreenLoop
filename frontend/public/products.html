@@ -453,7 +453,33 @@
 }
 
 // Ensure skeleton loader hides correctly after fetching products
-document.addEventListener("DOMContentLoaded", loadProducts);
+document.addEventListener("DOMContentLoaded", function () {
+    const skeletonLoader = document.getElementById("skeleton-loader");
+    const productList = document.getElementById("product-list");
+    const nothingToShow = document.getElementById("nothing-to-show");
+
+    // Generate multiple skeleton cards
+    skeletonLoader.innerHTML = "";
+    for (let i = 0; i < 6; i++) {
+        const skeleton = document.createElement("div");
+        skeleton.classList.add("skeleton-card");
+        skeleton.innerHTML = `
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text"></div>
+            <div class="skeleton-text"></div>
+            <div class="skeleton-button"></div>
+        `;
+        skeletonLoader.appendChild(skeleton);
+    }
+
+    setTimeout(() => {
+        skeletonLoader.style.display = "none"; // Hide skeleton
+        if (document.querySelectorAll(".product-card").length === 0) {
+            nothingToShow.style.display = "block"; // Show "Nothing to show" if no products
+        }
+    }, 2000);
+});
+
 
         
         
