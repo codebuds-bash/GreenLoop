@@ -671,8 +671,9 @@ body {
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb{
-    background-color: #1db522;
+    background-color: #2faa2f;
     border-radius: 10px;
+    width: 10px;
 }
 
 /* Responsive Design */
