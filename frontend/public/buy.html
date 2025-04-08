@@ -153,6 +153,55 @@
             margin-right: 10px;
             color: #4CAF50;
         }
+        #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      width: 90%; max-width: 400px;
+      text-align: center;
+    }
+
+    #popup button.close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    input, .submit-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .submit-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
 
         footer {
             text-align: center;
@@ -254,18 +303,19 @@
             </div>
             <!-- Popup Div -->
 <!-- Blurred Overlay Background -->
-<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; backdrop-filter:blur(5px); background-color:rgba(0,0,0,0.3); z-index:999;" onclick="closePopup()"></div>
+<button onclick="showPopup()">Buy Now</button>
+
+<!-- Overlay -->
+<div id="overlay" onclick="closePopup()"></div>
 
 <!-- Popup -->
-<div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:30px; border-radius:15px; box-shadow:0 0 20px rgba(0,0,0,0.4); z-index:1000; width:90%; max-width:400px; text-align:center;">
-
-    <!-- Close Button -->
-    <button onclick="closePopup()" style="position:absolute; top:10px; right:15px; background:none; border:none; font-size:20px; cursor:pointer;">&times;</button>
-
-    <h3 style="margin-top:10px; font-size:22px;">Enter Your Email</h3>
-    <input type="email" id="emailInput" placeholder="example@domain.com" style="width:100%; padding:12px 15px; border:1px solid #ccc; border-radius:8px; margin-top:15px; font-size:16px;">
-    <button onclick="submitEmail()" style="margin-top:20px; padding:10px 20px; background:#4CAF50; color:#fff; border:none; border-radius:8px; font-size:16px; cursor:pointer;">Submit</button>
+<div id="popup">
+  <button class="close-btn" onclick="closePopup()">&times;</button>
+  <h3>Enter Your Email</h3>
+  <input type="email" id="emailInput" placeholder="example@domain.com" />
+  <button class="submit-btn" onclick="submitEmail()">Submit</button>
 </div>
+
         </section>
     </main>
 
@@ -343,28 +393,24 @@
 
 // Handle the submit button in the popup
 function showPopup() {
-        document.getElementById("popup").style.display = "block";
-        document.getElementById("overlay").style.display = "block";
-    }
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+  }
 
-    function closePopup() {
-        document.getElementById("popup").style.display = "none";
-        document.getElementById("overlay").style.display = "none";
-    }
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+  }
 
-    function submitEmail() {
-        const email = document.getElementById("emailInput").value;
-        if (email.trim() === "") {
-            alert("Please enter your email.");
-        } else {
-            // Do something with the email
-            alert(`Thank you! Email submitted: ${email}`);
-            closePopup();
-        }
+  function submitEmail() {
+    const email = document.getElementById("emailInput").value;
+    if (!email.trim()) {
+      alert("Please enter your email.");
+      return;
     }
-
-    // Example: Call this on Buy Now click
-    document.getElementById("buy-now-button").addEventListener("click", showPopup);
+    alert("Email submitted: " + email);
+    closePopup();
+  }
         });
     </script>
 </body>
