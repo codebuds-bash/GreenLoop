@@ -386,133 +386,78 @@
                     document.getElementById("product-image").alt = product.name;
                     document.getElementById("product-description").textContent = product.description;
                     document.getElementById("product-price").textContent = `Price: ₹${product.price}`;
+
+                    // Attach event listener to "Buy Now" button
+                    document.getElementById("buy-now-button").addEventListener("click", () => {
+                        document.getElementById("popup").style.display = "block";
+                        document.getElementById("overlay").style.display = "block";
+                    });
+
+                    // Close popup logic
+                    document.querySelector('#popup .close-btn').addEventListener('click', () => {
+                        document.getElementById('popup').style.display = 'none';
+                        document.getElementById('overlay').style.display = 'none';
+                    });
+
+                    // Optional: Clicking outside popup also closes it
+                    document.getElementById('overlay').addEventListener('click', () => {
+                        document.getElementById('popup').style.display = 'none';
+                        document.getElementById('overlay').style.display = 'none';
+                    });
+
+                    // Attach the function to the form submission
+                    document.querySelector("#popup form").addEventListener("submit", (event) => {
+                        event.preventDefault(); // Prevent form from reloading the page
+                        sendEmail(product);
+                    });
                 })
                 .catch(error => {
                     document.getElementById("product-details").innerHTML = `<p>Error loading product: ${error.message}</p>`;
                 });
-
-                document.getElementById("buy-now-button").addEventListener("click", () => {
-    document.getElementById("popup").style.display = "block"; // Show the popup
-});
-
-// Handle the submit button in the popup
-document.getElementById('buy-now-button').addEventListener('click', () => {
-    document.getElementById('popup').style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
-  });
-
-  // Close popup logic
-  document.querySelector('#popup .close-btn').addEventListener('click', () => {
-    document.getElementById('popup').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-  });
-
-  // Optional: Clicking outside popup also closes it
-  document.getElementById('overlay').addEventListener('click', () => {
-    document.getElementById('popup').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-  });
         });
 
-        async function sendEmail() {
-    const orderId = "GL" + Math.floor(Math.random() * 1000000); // Generate Order ID
-    const quantity = 1;
-    const total = product.price; // Ensure `product` is defined
-    const email = document.getElementById("email").value; // Get email from popup form
-    const name = document.getElementById("name").value; // Get name from popup form
-    const imageUrl = product.imageUrl; // Ensure `product.imageUrl` is defined
+        async function sendEmail(product) {
+            const orderId = "GL" + Math.floor(Math.random() * 1000000); // Generate Order ID
+            const quantity = 1;
+            const total = product.price; // Ensure `product` is defined
+            const email = document.getElementById("email").value; // Get email from popup form
+            const name = document.getElementById("name").value; // Get name from popup form
+            const imageUrl = product.imageUrl; // Ensure `product.imageUrl` is defined
 
-    try {
-        const mailRes = await fetch('https://greenloop-67y2.onrender.com/api/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                orderId,
-                product: product.name,
-                quantity,
-                total,
-                imageUrl
-            })
-        });
+            try {
+                const mailRes = await fetch('https://greenloop-67y2.onrender.com/api/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        orderId,
+                        product: product.name,
+                        quantity,
+                        total,
+                        imageUrl
+                    })
+                });
 
-        if (!mailRes.ok) {
-            const errorData = await mailRes.json();
-            console.error("Failed to send email:", errorData.message);
-            alert("Failed to send email. Please try again.");
-        } else {
-            console.log("Email sent successfully!");
-            alert("Order confirmation email sent!");
+                if (!mailRes.ok) {
+                    const errorData = await mailRes.json();
+                    console.error("Failed to send email:", errorData.message);
+                    alert("Failed to send email. Please try again.");
+                } else {
+                    console.log("Email sent successfully!");
+                    alert("Order confirmation email sent!");
 
-            // Close the popup after successful email
-            document.getElementById("popup").style.display = "none";
-            document.getElementById("overlay").style.display = "none";
+                    // Close the popup after successful email
+                    document.getElementById("popup").style.display = "none";
+                    document.getElementById("overlay").style.display = "none";
+                }
+            } catch (error) {
+                console.error("Error sending email:", error);
+                alert("An error occurred while sending the email.");
+            }
         }
-    } catch (error) {
-        console.error("Error sending email:", error);
-        alert("An error occurred while sending the email.");
-    }
-}
-
-// Attach the function to the form submission
-document.querySelector("#popup form").addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent form from reloading the page
-    sendEmail();
-});
-    </script>
-    <script >
-        const orderId = "GL" + Math.floor(Math.random() * 1000000); // Order ID
-const quantity = 1;
-const total = product.price;
-
-const mailRes = await fetch('https://greenloop-67y2.onrender.com/api/send-email', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        name: "Greenloop Customer", // Replace if actual user name is available
-        email,
-        orderId,
-        product: product.name,
-        quantity,
-        total,
-        imageUrl: product.imageUrl
-    })
-});
-
-try {
-    const mailRes = await fetch('https://greenloop-67y2.onrender.com/api/send-email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            name: "Greenloop Customer", // Replace if actual user name is available
-            email,
-            orderId,
-            product: product.name,
-            quantity,
-            total,
-            imageUrl: product.imageUrl
-        })
-    });
-
-    if (!mailRes.ok) {
-        const errorData = await mailRes.json();
-        console.error("Failed to send email:", errorData.message);
-        alert("Failed to send email. Please try again.");
-    } else {
-        console.log("Email sent successfully!");
-        alert("Order confirmation email sent!");
-    }
-} catch (error) {
-    console.error("Error sending email:", error);
-    alert("An error occurred while sending the email.");
-}
     </script>
 </body>
 </html>
