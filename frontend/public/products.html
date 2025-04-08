@@ -387,14 +387,19 @@
                 }
         
                 productList.style.display = "grid";
-                productList.innerHTML = ""; // Clear existing
+                productList.innerHTML = ""; 
         
                 data.forEach(product => {
                     const productCard = document.createElement("div");
                     productCard.classList.add("product-card");
+
+                    // Update the image URL if it's relative
+                    const imageUrl = product.image.startsWith("http") 
+                        ? product.image 
+                        : `https://greenloop-67y2.onrender.com${product.image}`;
         
                     productCard.innerHTML = `
-                        <img src="${product.image}" class="product-image" alt="${product.name}">
+                        <img src="${imageUrl}" class="product-image" alt="${product.name}">
                         <div class="product-details">
                             <h3 class="product-name">${product.name}</h3>
                             <p class="product-description">${product.description}</p>
@@ -425,4 +430,4 @@
         
         
 </body>
-</html>   
+</html>
