@@ -301,19 +301,12 @@
                 <p>"This product is amazing! It has helped me reduce my plastic consumption and is so easy to use!"</p>
                 <p>"Great quality and design. I highly recommend it!"</p>
             </div>
-            <!-- Popup Div -->
-<!-- Blurred Overlay Background -->
-<button onclick="showPopup()">Buy Now</button>
-
-<!-- Overlay -->
-<div id="overlay" onclick="closePopup()"></div>
-
-<!-- Popup -->
+            <div id="overlay"></div>
 <div id="popup">
-  <button class="close-btn" onclick="closePopup()">&times;</button>
-  <h3>Enter Your Email</h3>
-  <input type="email" id="emailInput" placeholder="example@domain.com" />
-  <button class="submit-btn" onclick="submitEmail()">Submit</button>
+  <button class="close-btn">&times;</button>
+  <h3>Confirm Purchase</h3>
+  <p>Are you sure you want to proceed?</p>
+  <button class="submit-btn">Yes, Confirm</button>
 </div>
 
         </section>
@@ -392,25 +385,22 @@
 });
 
 // Handle the submit button in the popup
-function showPopup() {
-    document.getElementById("popup").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-  }
+document.getElementById('buy-now-button').addEventListener('click', () => {
+    document.getElementById('popup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+  });
 
-  function closePopup() {
-    document.getElementById("popup").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-  }
+  // Close popup logic
+  document.querySelector('#popup .close-btn').addEventListener('click', () => {
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  });
 
-  function submitEmail() {
-    const email = document.getElementById("emailInput").value;
-    if (!email.trim()) {
-      alert("Please enter your email.");
-      return;
-    }
-    alert("Email submitted: " + email);
-    closePopup();
-  }
+  // Optional: Clicking outside popup also closes it
+  document.getElementById('overlay').addEventListener('click', () => {
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  });
         });
     </script>
 </body>
