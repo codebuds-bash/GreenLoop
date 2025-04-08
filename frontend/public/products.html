@@ -396,7 +396,7 @@
                     // Update the image URL if it's relative
                     const imageUrl = product.image.startsWith("http") 
                         ? product.image 
-                        : `https://greenloop-67y2.onrender.com${product.image}`;
+                        : `https://greenloop-67y2.onrender.com/api/${product.image}`;
         
                     productCard.innerHTML = `
                         <img src="${imageUrl}" class="product-image" alt="${product.name}">
