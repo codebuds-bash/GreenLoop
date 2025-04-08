@@ -15,6 +15,7 @@ const recyclingItemRoutes = require('./routes/recyclingItemRoutes');
 const cartRoutes = require("./routes/cartRoutes");
 const User = require('./models/User');  
 const app = express();
+const orderRoutes = require('./routes/orderRoute');
 const PORT = process.env.PORT || 3000;
 
 
@@ -102,6 +103,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/recycling-items', recyclingItemRoutes);
 
 app.use("/cart", cartRoutes);
+app.use('/api', orderRoutes);
 
 // Cloudinary Configuration
 cloudinary.config({

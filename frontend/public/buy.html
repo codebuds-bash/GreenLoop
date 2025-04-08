@@ -14,6 +14,8 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
+
+<body>
     <style>
         body {
             font-family: 'Urbanist', sans-serif;
@@ -165,42 +167,6 @@
             text-decoration: none;
         }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const queryParams = new URLSearchParams(window.location.search);
-            const productId = queryParams.get("id");
-
-            if (!productId) {
-                document.getElementById("product-details").innerHTML = "<p>Product not found.</p>";
-                return;
-            }
-
-            fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Failed to fetch product details.");
-                    }
-                    return response.json();
-                })
-                .then(product => {
-                    document.getElementById("product-name").textContent = product.name;
-                    document.getElementById("product-image").src = product.imageUrl;
-                    document.getElementById("product-image").alt = product.name;
-                    document.getElementById("product-description").textContent = product.description;
-                    document.getElementById("product-price").textContent = `Price: ₹${product.price}`;
-                })
-                .catch(error => {
-                    document.getElementById("product-details").innerHTML = `<p>Error loading product: ${error.message}</p>`;
-                });
-
-            document.getElementById("buy-now-button").addEventListener("click", () => {
-                alert("Thank you for your purchase!");
-                // Add your payment integration logic here.
-            });
-        });
-    </script>
-</head>
-<body>
     <header class="navbar">
         <div class="container">
             <!-- Logo -->
@@ -286,6 +252,14 @@
                 <p>"This product is amazing! It has helped me reduce my plastic consumption and is so easy to use!"</p>
                 <p>"Great quality and design. I highly recommend it!"</p>
             </div>
+            <!-- Popup Div -->
+<div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.3); z-index:1000;">
+    <h3>Enter Your Email</h3>
+    <input type="email" id="emailInput" placeholder="example@mail.com" />
+    <br><br>
+    <button id="submit-btn">Submit</button>
+    <p id="message"></p>
+  </div>
         </section>
     </main>
 
@@ -329,5 +303,50 @@
             </div>            
         </div>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const queryParams = new URLSearchParams(window.location.search);
+            const productId = queryParams.get("id");
+
+            if (!productId) {
+                document.getElementById("product-details").innerHTML = "<p>Product not found.</p>";
+                return;
+            }
+
+            fetch(`https://greenloop-67y2.onrender.com/api/products/${productId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch product details.");
+                    }
+                    return response.json();
+                })
+                .then(product => {
+                    document.getElementById("product-name").textContent = product.name;
+                    document.getElementById("product-image").src = product.imageUrl;
+                    document.getElementById("product-image").alt = product.name;
+                    document.getElementById("product-description").textContent = product.description;
+                    document.getElementById("product-price").textContent = `Price: ₹${product.price}`;
+                })
+                .catch(error => {
+                    document.getElementById("product-details").innerHTML = `<p>Error loading product: ${error.message}</p>`;
+                });
+
+                document.getElementById("buy-now-button").addEventListener("click", () => {
+    document.getElementById("popup").style.display = "block"; // Show the popup
+});
+
+// Handle the submit button in the popup
+document.getElementById("submit-btn").addEventListener("click", () => {
+    const email = document.getElementById("emailInput").value;
+    if (email) {
+        document.getElementById("message").textContent = "Thank you! We will send you the details.";
+        document.getElementById("emailInput").value = ""; // Clear the input
+        document.getElementById("popup").style.display = "none"; // Hide the popup
+    } else {
+        document.getElementById("message").textContent = "Please enter a valid email.";
+    }
+});
+        });
+    </script>
 </body>
 </html>
