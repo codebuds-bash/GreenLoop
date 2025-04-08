@@ -310,14 +310,15 @@
 
 <!-- Popup -->
 <div id="popup">
-    <button class="close-btn">&times;</button>
-    <h3>Confirm Purchase</h3>
-    <p>Are you sure you want to proceed?</p>
-  <h3>Enter Your Email</h3>
-
-  <input type="email" id="emailInput" placeholder="example@domain.com" />
-  <button class="submit-btn">Yes, Confirm</button>
-</div>
+    <button class="close-btn" onclick="closePopup()">×</button>
+    <h2>Enter Your Details</h2>
+    <form onsubmit="submitForm(event)">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="address" placeholder="Your Address" required />
+      <button type="submit" class="submit-btn">Place Order</button>
+    </form>
+  </div>
 
         </section>
     </main>
@@ -413,5 +414,6 @@ document.getElementById('buy-now-button').addEventListener('click', () => {
   });
         });
     </script>
+    <script src="/js/buy.js"></script>
 </body>
 </html>
