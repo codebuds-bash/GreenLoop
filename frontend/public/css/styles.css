@@ -610,7 +610,7 @@ body {
 }
 
 .contact-image img {
-    width: auto;
+    width: 700px;
     height: 450px;
     border-radius: 8px;
     object-fit: cover;
@@ -1019,3 +1019,5 @@ body {
         align-items: center;
     }
 }
+
+
